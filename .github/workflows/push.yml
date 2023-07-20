@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: facundoinza/${{ github.repository }}:${{ github.sha }}
+          tags: facundoinza/deliverit-front:${{ github.sha }}
