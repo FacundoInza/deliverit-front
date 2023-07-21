@@ -49,8 +49,8 @@
                 "plugin:prettier/recommended" // Agrega esta línea para utilizar las reglas de Prettier en TypeScript
             ],
             "rules": {
-                "indent": ["off", "tab"],
-                "@typescript-eslint/indent": ["warn", "tab"],
+                "indent": ["warn", 4],
+                "@typescript-eslint/indent": ["error", 4],
                 "@typescript-eslint/quotes": ["error", "single"],
                 "@typescript-eslint/no-unused-vars": "error",
                 "@typescript-eslint/no-explicit-any": "off",
