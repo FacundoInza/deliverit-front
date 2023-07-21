@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from 'react';
 
-const page = () => {
-  return <div>DELIVERIT</div>;
+const page: FC = () => {
+    return <div>DELIVERIT PAGES</div>;
 };
 
 export default page;
