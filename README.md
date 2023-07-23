@@ -107,3 +107,67 @@ git tag [tag name]
 git push –tags -u origin [branch name]
 
 If needed, git branches named “release” can be used in the development process.
+
+-----------------------------------------------------------------------------------------------------------------
+
+# Project Creation Process
+
+## Front-End
+
+The front-end part of the project named  **deliverit-front** uses NextJs as the framework, along with selected languages, libraries, and frameworks such as Typescript, React, and Tailwind. Configuration files necessary for the application to work with Docker have also been added.
+
+Typescript, React, Tailwind.
+
+
+To create the front-end project, follow these steps:
+
+
+1. On your local computer, create a project folder called "deliverit-front" 
+
+2. Install the NextJs framework using the following command:
+
+	$ npx create-next-app@latest
+
+3. As a result of the previous command, the following folder structure is automatically created for the Front-End:
+
+![Alt text](public/images/image-18.png)
+
+
+4. Manually create the "Components" and "utils" folders in the root, and within each folder, add an "index.tsx" file.
+
+5. Manually create the "styles" folder in the root and add a "globals.css" file within it:
+
+![Alt text](public/images/image-19.png)
+
+
+6. Complete the content of the "tsconfig.json" file.
+
+7. Create the "services," "hooks," "redux," "adapters," and "interceptors" folders in the root (the last one for 
+   intercepting axios requests), and within each folder, create an "index.ts" file.
+
+8. For the configuration of the ".eslintrc.json" file, adopt the recommended settings from the project's 
+   instructions, available at the following link:
+
+     https://github.com/Faridmurzone/linters-and-config  
+
+
+9. Manually create the "Dockerfile" and define its content as follows:
+
+![Alt text](public/images/image-20.png)
+
+
+10. Manually create the "docker-compose.yml" file and define its content as follows:
+
+![Alt text](public/images/image-21.png)
+
+
+11. Upload the project to the empty repository previously created on Github using the following command:
+
+	$ git remote add origin https://github.com/FacundoInza/deliverit-front.git
+
+    The result should look like this:
+
+![Alt text](public/images/image-22.png)
+
+
+Our team performed various tests to ensure that the "deliverit-front" repository is functioning and ready to start developing functionalities for the next sprint.
