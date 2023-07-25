@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 const InitWorkDay: FC = () => {
-    return <div>INIT WORK DAY</div>;
+    return <div>Register</div>;
 };
 
 export default InitWorkDay;
