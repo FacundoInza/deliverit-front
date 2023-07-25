@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-const page: FC = () => {
-    return <div>DELIVERIT PAGES</div>;
+const InitWorkDay: FC = () => {
+    return <div>INIT WORK DAY</div>;
 };
 
-export default page;
+export default InitWorkDay;
