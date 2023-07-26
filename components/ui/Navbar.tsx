@@ -1,4 +1,6 @@
 import React, { FC } from 'react';
+import LogoSvg from '../commons/LogoSvg';
+import LogOutSvg from '../commons/LogOutSvg';
 
 interface Props {
     isAuthenticated: boolean;
@@ -12,25 +14,19 @@ const Navbar: FC<Props> = ({ isAuthenticated }) => {
                 style={{ boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
             >
                 <a href='/' className='text-2xl font-bold'>
-                    <img
-                        src='https://i.imgur.com/Q3x7uc9.jpg'
-                        alt='Logo'
-                        className='h-8'
-                    />
+                    <LogoSvg />
                 </a>
                 {isAuthenticated && (
                     <div
-                        className='h-8 w-25'
                         style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
                             borderRadius: 5,
                             boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
                         }}
                     >
-                        <img
-                            src='https://i.imgur.com/CtZI162.png'
-                            alt='Logo'
-                            className='h-8'
-                        />
+                        <LogOutSvg />
                     </div>
                 )}
             </div>
