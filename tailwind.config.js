@@ -12,15 +12,16 @@ module.exports = {
             lg: '976px',
             xl: '1440px',
         },
-        colors: {
-            primary: '#3D1DF3', //Purple Color
-            secondary: '#00EA77', //Green Color
-            info: '#C7FFB1', //Ligth Yellow color
-        },
+
         fontFamily: {
             poppins: ['Poppins', 'sans-serif'],
         },
         extend: {
+            colors: {
+                primary: '#3D1DF3', //Purple Color
+                secondary: '#00EA77', //Green Color
+                info: '#C7FFB1', //Ligth Yellow color
+            },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic':
