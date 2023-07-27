@@ -22,7 +22,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
     status,
 }) => {
     return (
-        <div className='border shadow-md border-black rounded-2xl p-6 flex items-center space-x-4'>
+        <div className='bg-white border border-primary rounded-2xl p-6 flex items-center space-x-4 text-primary'>
             <div className='flex-none w-1/8 '>
                 <span className={colorMap[status]}>
                     <MdOutlineDeliveryDining size={100} />
