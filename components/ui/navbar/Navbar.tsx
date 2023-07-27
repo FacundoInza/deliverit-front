@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import LogoSvg from '../commons/LogoSvg';
-import LogOutSvg from '../commons/LogOutSvg';
+import { LogoSvg } from '../../commons/SVG/LogoSvg';
+import { LogOutSvg } from '../../commons/SVG/LogOutSvg';
 
 interface Props {
     isAuthenticated: boolean;
 }
 
-const Navbar: FC<Props> = ({ isAuthenticated }) => {
+export const Navbar: FC<Props> = ({ isAuthenticated }) => {
     return (
         <>
             <div
@@ -33,5 +33,3 @@ const Navbar: FC<Props> = ({ isAuthenticated }) => {
         </>
     );
 };
-
-export default Navbar;
