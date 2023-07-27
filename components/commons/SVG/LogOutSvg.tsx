@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LogOutSvg = () => {
+export const LogOutSvg = () => {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -23,5 +23,3 @@ const LogOutSvg = () => {
         </svg>
     );
 };
-
-export default LogOutSvg;
