@@ -1,12 +1,20 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-export const GeneralCard = () => {
+interface GeneralCardProps {
+    title: string;
+    children: ReactNode;
+}
+
+export const GeneralCard: React.FC<GeneralCardProps> = ({
+    title,
+    children,
+}) => {
     return (
         <>
-            <div className='mt-4 max-w-sm mx-auto bg-white rounded-xl sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 relative'>
+            <div className='mt-4 lg:ml-80 lg:mr-80 ml-4 mr-4 mx-auto bg-white rounded-xl sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 relative'>
                 <div className='bg-secondary py-4 px-4 text-white text-lg font-semibold rounded-t-xl absolute top-0 w-full'>
                     <button className='py-0 px-3 flex-shrink-0 absolute'>
                         <svg
@@ -21,16 +29,11 @@ export const GeneralCard = () => {
                     </button>
 
                     <p className='text-lg font-semibold text-primary flex-grow text-center'>
-                        Card Header
+                        {title}{' '}
                     </p>
                 </div>
 
-                <div className='px-4 py-6 pt-16'>
-                    <p className='text-gray-800 text-base'>TEST</p>
-                    <p className='text-gray-800 text-base'>TEST</p>
-                    <p className='text-gray-800 text-base'>TEST</p>
-                    <p className='text-gray-800 text-base'>TEST</p>
-                </div>
+                <div className='px-4 py-6 pt-16'>{children}</div>
             </div>
         </>
     );
