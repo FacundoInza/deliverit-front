@@ -15,7 +15,7 @@ export const GeneralCard: React.FC<GeneralCardProps> = ({
     return (
         <>
             <div className='mt-6 ml-4 mr-4 lg:ml-80 lg:mr-80 bg-white rounded-xl relative'>
-                <div className='bg-secondary py-4 px-4 rounded-t-xl h-20 flex items-center'>
+                <div className='bg-info py-4 px-4 rounded-t-xl h-20 flex items-center'>
                     <button className='absolute'>
                         <svg
                             className='h-14 w-12 mr-2'
