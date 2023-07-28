@@ -38,7 +38,7 @@ export const LoginForm = () => {
                                     type='email'
                                     autoComplete='email'
                                     required
-                                    className='block w-full rounded-lg border-2 px-12 py-3.5 text-white shadow-sm ring-2 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 bg-transparent'
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-white shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
                                     <RiUserLine size={25} />
@@ -55,7 +55,7 @@ export const LoginForm = () => {
                                     placeholder='YourUltraSecretPassword'
                                     autoComplete='current-password'
                                     required
-                                    className='block w-full rounded-lg border-2 px-12 py-3.5 text-white shadow-sm ring-2 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 bg-transparent'
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-white shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
                                     <RiLockFill size={25} />
@@ -77,7 +77,7 @@ export const LoginForm = () => {
                                 <div className='text-base'>
                                     <a
                                         href='#'
-                                        className='font-semibold text-white hover:text-indigo-500'
+                                        className='font-semibold text-white hover:text-gray-300'
                                     >
                                         Forgot password?
                                     </a>
@@ -88,13 +88,13 @@ export const LoginForm = () => {
                         <div>
                             <button
                                 type='submit'
-                                className='flex w-full justify-center rounded-full bg-secondary px-3 py-1.5 text-lg font-bold leading-6 text-primary shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                                className='flex w-full justify-center rounded-full bg-secondary px-3 py-1.5 text-lg font-bold leading-6 text-primary shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-300'
                             >
                                 Sign in
                             </button>
                         </div>
                         <div>
-                            <button className='flex w-full justify-center border border-secondary rounded-full bg-primary px-3 py-1.5 text-lg font-bold leading-6 text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+                            <button className='flex w-full justify-center border border-secondary rounded-full bg-primary px-3 py-1.5 text-lg font-bold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'>
                                 Create Account
                             </button>
                         </div>

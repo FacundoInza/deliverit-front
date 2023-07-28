@@ -18,9 +18,9 @@ module.exports = {
         },
         extend: {
             colors: {
-                primary: '#3D1DF3', //Purple Color
-                secondary: '#00EA77', //Green Color
-                info: '#C7FFB1', //Ligth Yellow color
+                primary: '#22577A', //Purple Color
+                secondary: '#80ED99', //Green Color
+                info: '#C7F9CC', //Ligth Yellow color
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
