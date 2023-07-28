@@ -1,37 +1,35 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface DropdownCardProps {
     title: string;
     subtitle: string;
     children: ReactNode;
+    expanded: boolean;
+    onExpand: () => void;
 }
 
 export const DropdownCard: React.FC<DropdownCardProps> = ({
     title,
     subtitle,
     children,
+    expanded,
+    onExpand,
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleIsOpen = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
         <>
-            <div className='mt-4 ml-4 mr-4 lg:ml-80 lg:mr-80 py-4 px-4 bg-white rounded-xl border-2'>
-                <div className='text-center space-y-2 sm:text-left flex justify-between'>
-                    <p className='text-2xl font-semibold text-primary'>
+            <div className='mt-2 ml-4 mr-4 lg:ml-80 lg:mr-80 py-2 px-2 bg-white rounded-xl border-2'>
+                <div className='text-center space-y-1 sm:text-left flex justify-between'>
+                    <p className='text-xl font-semibold text-primary'>
                         {title}{' '}
                     </p>
 
-                    <button onClick={toggleIsOpen} className='py-0 px-3'>
+                    <button onClick={onExpand} className='py-0 px-3'>
                         <svg
                             className={`h-6 w-6 ${
-                                isOpen ? 'transform rotate-180' : ''
+                                expanded ? 'transform rotate-180' : ''
                             }`}
                             fill='none'
                             viewBox='0 0 24 24'
@@ -47,13 +45,13 @@ export const DropdownCard: React.FC<DropdownCardProps> = ({
                     </button>
                 </div>
                 <div>
-                    <p className='pt-4 text-xl font-medium flex text-primary'>
+                    <p className='pt-1 text-md font-medium flex text-primary'>
                         {subtitle}{' '}
                     </p>
                 </div>
 
-                {isOpen && (
-                    <div className='pt-4'>
+                {expanded && (
+                    <div className='pt-1'>
                         <ul>{children}</ul>
                     </div>
                 )}
