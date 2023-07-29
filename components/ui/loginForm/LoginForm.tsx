@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import React, { useState } from 'react';
-import logo from '../../assets/deliverit-full.png';
+import logo from '../../../assets/deliverit-full.png';
+import MainButton from '../../commons/buttons/MainButton';
 import {
     RiUserLine,
     RiLockFill,
@@ -61,7 +62,7 @@ export const LoginForm = () => {
                                     <RiLockFill size={25} />
                                 </span>
                                 <span
-                                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer'
+                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer'
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
@@ -84,19 +85,20 @@ export const LoginForm = () => {
                                 </div>
                             </div>
                         </div>
-
                         <div>
-                            <button
+                            <MainButton text='Sign In' btnGreen />
+                            {/* <button
                                 type='submit'
                                 className='flex w-full justify-center rounded-full bg-secondary px-3 py-1.5 text-lg font-bold leading-6 text-primary shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-300'
                             >
                                 Sign in
-                            </button>
+                            </button> */}
                         </div>
                         <div>
-                            <button className='flex w-full justify-center border border-secondary rounded-full bg-primary px-3 py-1.5 text-lg font-bold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'>
+                            <MainButton text='Create Account' btnBlue />
+                            {/* <button className='flex w-full justify-center border border-secondary rounded-full bg-primary px-3 py-1.5 text-lg font-bold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'>
                                 Create Account
-                            </button>
+                            </button> */}
                         </div>
                     </form>
                 </div>
