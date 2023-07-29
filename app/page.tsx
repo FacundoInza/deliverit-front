@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { LoginForm } from '../components/loginForm/LoginForm';
+import { LoginForm } from '../components/ui/loginForm/LoginForm';
 
 const InitWorkDay: FC = () => {
     return (
