@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import logo from '../../../assets/deliverit-full.png';
 import MainButton from '../../commons/buttons/MainButton';
+import Link from 'next/link';
 import {
     RiUserLine,
     RiLockFill,
@@ -74,7 +75,7 @@ export const LoginForm = () => {
                                     )}
                                 </span>
                             </div>
-                            <div className='flex items-center justify-end'>
+                            <div className='flex items-center justify-end mt-2'>
                                 <div className='text-base'>
                                     <a
                                         href='#'
@@ -85,20 +86,15 @@ export const LoginForm = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <MainButton text='Sign In' btnGreen />
-                            {/* <button
-                                type='submit'
-                                className='flex w-full justify-center rounded-full bg-secondary px-3 py-1.5 text-lg font-bold leading-6 text-primary shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-300'
-                            >
-                                Sign in
-                            </button> */}
-                        </div>
-                        <div>
-                            <MainButton text='Create Account' btnBlue />
-                            {/* <button className='flex w-full justify-center border border-secondary rounded-full bg-primary px-3 py-1.5 text-lg font-bold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'>
-                                Create Account
-                            </button> */}
+                        <div className='space-y-6'>
+                            <div className='mt-20'>
+                                <MainButton text='Sign In' btnGreen />
+                            </div>
+                            <div>
+                                <Link href='/signup'>
+                                    <MainButton text='Create Account' btnBlue />
+                                </Link>
+                            </div>
                         </div>
                     </form>
                 </div>
