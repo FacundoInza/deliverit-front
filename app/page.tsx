@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
+import { LoginForm } from '../components/ui/loginForm/LoginForm';
 
 const InitWorkDay: FC = () => {
-    return <div>INIT WORK DAY</div>;
+    return (
+        <div>
+            <LoginForm />
+        </div>
+    );
 };
 
 export default InitWorkDay;

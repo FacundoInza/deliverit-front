@@ -7,6 +7,7 @@ interface CardProps {
     deliveryID: string;
     deliveryAddress: string;
     status: 'delivered' | 'in progress' | 'pending' | 'inactive';
+    showCancel: boolean;
 }
 
 const colorMap = {
@@ -16,37 +17,49 @@ const colorMap = {
     inactive: 'text-purple-500',
 };
 
+const handleClick = () => {
+    //delete
+};
+
 export const DeliveryCard: React.FC<CardProps> = ({
     deliveryID,
     deliveryAddress,
     status,
+    showCancel,
 }) => {
     return (
-        <div className='bg-white border border-primary rounded-2xl p-6 flex items-center space-x-4 text-primary'>
-            <div className='flex-none w-1/8 '>
+        <div
+            className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2
+         text-primary relative h-[90px] mb-2'
+        >
+            <div className='ml-1 w-1/8'>
                 <span className={colorMap[status]}>
-                    <MdOutlineDeliveryDining size={100} />
+                    <MdOutlineDeliveryDining size={40} />
                 </span>
             </div>
-            <div className='self-stretch border-l border-dashed border-gray-400 mx-4' />
-            <div className='flex-grow flex flex-col space-y-2 pl-4'>
-                <div className='flex justify-between items-center'>
-                    <h2 className='text-lg font-semibold'>{deliveryID}</h2>
-                    <StatusBadge status={status} />
+            <div className='flex-grow flex-col just space-y-1 border-l border-dashed border-gray-400 mx-1 px-2'>
+                <h3 className='text-lg font-semibold'>{deliveryID}</h3>
+                <div className='mr-[40px]'>
+                    <p>{deliveryAddress}</p>
                 </div>
-                <div className='flex justify-between items-center'>
-                    <div>
-                        <h3 className='text-lg font-semibold'>
-                            Delivery Address
-                        </h3>
-                        <p>{deliveryAddress}</p>
+            </div>
+            <div className='flex flex-col align-bottom absolute top-4 right-1'>
+                <StatusBadge status={status} />
+                {showCancel ? (
+                    <div className='mt-2 flex flex-col justify-end'>
+                        <button
+                            onClick={handleClick}
+                            className='flex justify-end text-red-500 hover:text-red-700'
+                        >
+                            <TiDeleteOutline color='red' size={30} />
+                        </button>
+                        {/* <span className='flex justify-end space-x-1 text-red-500 hover:text-red-700'>
+                        Cancel
+                    </span> */}
                     </div>
-                    <button className='flex items-center space-x-1 text-red-500 hover:text-red-700'>
-                        <span>Cancel</span>
-
-                        <TiDeleteOutline color='red' size={30} />
-                    </button>
-                </div>
+                ) : (
+                    ''
+                )}
             </div>
         </div>
     );
