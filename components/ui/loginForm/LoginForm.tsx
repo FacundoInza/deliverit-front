@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import logo from '../../../assets/deliverit-full.png';
 import MainButton from '../../commons/buttons/MainButton';
 import Link from 'next/link';
+import { useForm } from '../../../hooks/useForm';
 import {
     RiUserLine,
     RiLockFill,
@@ -14,9 +15,25 @@ import {
 
 export const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const { values, handleChange } = useForm({
+        email: '',
+        password: '',
+    });
+
+    const handleSubmit = async (event: FormEvent) => {
+        const { email, password } = values;
+        event.preventDefault();
+        console.log(values);
+        console.log(email);
+        console.log(password);
+        setIsAuthenticated(true);
+    };
 
     return (
         <>
+            {isAuthenticated && <div>User Authenticated</div>}
             <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
                 <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
                     <Image
@@ -30,7 +47,12 @@ export const LoginForm = () => {
                 </div>
 
                 <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <form className='space-y-6' action='#' method='POST'>
+                    <form
+                        className='space-y-6'
+                        action='#'
+                        method='POST'
+                        onSubmit={handleSubmit}
+                    >
                         <div>
                             <div className='relative mt-2'>
                                 <input
@@ -40,6 +62,7 @@ export const LoginForm = () => {
                                     type='email'
                                     autoComplete='email'
                                     required
+                                    onChange={handleChange}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-white shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
@@ -57,6 +80,7 @@ export const LoginForm = () => {
                                     placeholder='YourUltraSecretPassword'
                                     autoComplete='current-password'
                                     required
+                                    onChange={handleChange}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-white shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
@@ -90,13 +114,12 @@ export const LoginForm = () => {
                             <div className='mt-20'>
                                 <MainButton text='Sign In' btnGreen />
                             </div>
-                            <div>
-                                <Link href='/signup'>
-                                    <MainButton text='Create Account' btnBlue />
-                                </Link>
-                            </div>
+                            <div></div>
                         </div>
                     </form>
+                    <Link href='/signup'>
+                        <MainButton text='Create Account' btnBlue />
+                    </Link>
                 </div>
             </div>
         </>
