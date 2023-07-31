@@ -1,4 +1,5 @@
-export interface IPackcage {
+export interface IPackage {
+    id: string;
     address: string;
     city: string;
     quantity: number;

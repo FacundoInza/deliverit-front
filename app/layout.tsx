@@ -1,8 +1,13 @@
 import React from 'react';
+
 import type { Metadata } from 'next';
+
+import { Navbar } from '../components/ui/navbar';
+
 import 'tailwindcss/tailwind.css';
 import '../styles/globals.css';
-import { Navbar } from '../components/ui/navbar';
+
+import { ReduxProvider } from '../redux/Provider';
 
 export const metadata: Metadata = {
     title: 'Deliverit',
@@ -17,10 +22,14 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className='bg-primary'>
-                <nav className='bg-primary'>
-                    <Navbar isAuthenticated={true} />
-                </nav>
-                {children}
+                <ReduxProvider>
+                    <>
+                        <nav className='bg-primary'>
+                            <Navbar isAuthenticated={true} />
+                        </nav>
+                        {children}
+                    </>
+                </ReduxProvider>
             </body>
         </html>
     );

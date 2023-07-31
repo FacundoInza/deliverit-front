@@ -23,7 +23,7 @@
     left: 0;
     height: 18px;
     width: 18px;
-    border: 1px solid #3d1df3;
+    border: 1px solid #22577a;
     background: transparent;
     border-radius: 5px;
     box-shadow:
@@ -54,7 +54,7 @@
     top: 0em;
     width: 0.25em;
     height: 0.5em;
-    border: solid #3d1df3;
+    border: solid #22577a;
     border-width: 0 0.05em 0.05em 0;
     transform: rotate(45deg);
 }
