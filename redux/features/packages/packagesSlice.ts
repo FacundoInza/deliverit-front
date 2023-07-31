@@ -65,7 +65,7 @@ const packagesSlice = createSlice({
     initialState,
     reducers: {
         increaseQuantity: (state, action) => {
-            const { id } = action.payload.id;
+            const id = action.payload.id;
             const packageIndex = state.allPackages.findIndex(
                 (pkg) => pkg.id === id
             );
@@ -74,16 +74,16 @@ const packagesSlice = createSlice({
             }
         },
         decreaseQuantity: (state, action) => {
-            const { id } = action.payload.id;
+            const id = action.payload.id;
             const packageIndex = state.allPackages.findIndex(
                 (pkg) => pkg.id === id && pkg.quantity > 1
             );
             if (packageIndex !== -1) {
-                state.allPackages[packageIndex].quantity += 1;
+                state.allPackages[packageIndex].quantity -= 1;
             }
         },
     },
 });
 
-export const { increaseQuantity } = packagesSlice.actions;
+export const { increaseQuantity, decreaseQuantity } = packagesSlice.actions;
 export default packagesSlice.reducer;

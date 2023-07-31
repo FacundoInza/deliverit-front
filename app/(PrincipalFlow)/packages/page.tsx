@@ -27,6 +27,7 @@ const InitWorkDay: FC = () => {
                     <SelectPackages key={i} pack={pack} />
                 ))}
             </GeneralCard>
+
             <div
                 style={{
                     width: '380px',
