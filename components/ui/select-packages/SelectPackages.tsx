@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { ItemQuantity } from '../../commons/item-quantity';
 import { ItemCheckbox } from '../../commons/checkbox';
-import { IPackcage } from '../../../interfaces/IPackage';
+import { IPackage } from '../../../interfaces/IPackage';
+
 interface Props {
-    pack: IPackcage;
+    pack: IPackage;
 }
+
 export const SelectPackages: FC<Props> = ({ pack }) => {
     return (
         <div className='flex items-center border-0.5 border-primary rounded-custom-10 w-full h-14 p-3 mt-3'>
