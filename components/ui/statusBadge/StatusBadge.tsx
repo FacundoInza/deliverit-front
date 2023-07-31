@@ -1,10 +1,17 @@
 import React from 'react';
 
 interface BadgeProps {
-    status: 'delivered' | 'in progress' | 'pending' | 'inactive';
+    status: string;
 }
 
-const colorMap = {
+interface ColorMap {
+    [key: string]: {
+        bg: string;
+        text: string;
+        ring: string;
+    };
+}
+const colorMap: ColorMap = {
     delivered: {
         bg: 'bg-green-200',
         text: 'text-green-700',
