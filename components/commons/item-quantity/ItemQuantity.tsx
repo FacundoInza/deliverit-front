@@ -19,7 +19,9 @@ export const ItemQuantity: FC<Props> = ({
                 icon={<IconMinusSvg />}
                 handleClick={handleMinusQuantity}
             />
-            <span className='text-lg text-primary ml-1 mr-1'>{quantity}</span>
+            <span className='text-lg text-primary ml-1 mr-1 w-full'>
+                {quantity}
+            </span>
             <IconButton
                 icon={<IconPlusSvg />}
                 handleClick={handlePlusQuantity}
