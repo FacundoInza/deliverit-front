@@ -110,64 +110,76 @@ If needed, git branches named “release” can be used in the development proce
 
 -----------------------------------------------------------------------------------------------------------------
 
-# Project Creation Process
+# Project description
+
+## Project Repository about a Package Distribution Application
+
+This project is about an application for a package distribution company that manages delivery drivers responsible for distributing packages. Each driver will receive a certain number of packages during the day to be delivered to customers with different addresses.
+
+The application will have the presence of two main roles:
+
+- **Package Delivery Driver Role**: This role is responsible for receiving the package delivery requests for the day and has the freedom to choose the order of delivery.
+
+- **Administrator Role**: The administrator role is responsible for:
+  - Assigning/reassigning packages.
+  - Editing delivery addresses.
+  - Monitoring the delivery of packages by the drivers throughout the day.
+
+- **This front-end repository is only intended for the functionalities of the "Package Delivery Driver Role"**
+
 
 ## Front-End
 
-The front-end part of the project named  **deliverit-front** uses NextJs as the framework, along with selected languages, libraries, and frameworks such as Typescript, React, and Tailwind. Configuration files necessary for the application to work with Docker have also been added.
 
-Typescript, React, Tailwind.
-
-
-To create the front-end project, follow these steps:
-
-
-1. On your local computer, create a project folder called "deliverit-front" 
-
-2. Install the NextJs framework using the following command:
-
-	$ npx create-next-app@latest
-
-3. As a result of the previous command, the following folder structure is automatically created for the Front-End:
-
-![Alt text](public/images/image-18.png)
-
-
-4. Manually create the "Components" and "utils" folders in the root, and within each folder, add an "index.tsx" file.
-
-5. Manually create the "styles" folder in the root and add a "globals.css" file within it:
-
-![Alt text](public/images/image-19.png)
-
-
-6. Complete the content of the "tsconfig.json" file.
-
-7. Create the "services," "hooks," "redux," "adapters," and "interceptors" folders in the root (the last one for 
-   intercepting axios requests), and within each folder, create an "index.ts" file.
-
-8. For the configuration of the ".eslintrc.json" file, adopt the recommended settings from the project's 
-   instructions, available at the following link:
-
-     https://github.com/Faridmurzone/linters-and-config  
-
-
-9. Manually create the "Dockerfile" and define its content as follows:
-
-![Alt text](public/images/image-20.png)
-
-
-10. Manually create the "docker-compose.yml" file and define its content as follows:
-
-![Alt text](public/images/image-21.png)
-
-
-11. Upload the project to the empty repository previously created on Github using the following command:
-
-	$ git remote add origin https://github.com/FacundoInza/deliverit-front.git
-
-    The result should look like this:
-
-![Alt text](public/images/image-22.png)
-
+The project named  **deliverit-front** uses NextJs as the framework, along with selected languages, libraries, and frameworks such as Typescript, React, and Tailwind. Configuration files necessary for the application to work with Docker have also been added.
 
 Our team performed various tests to ensure that the "deliverit-front" repository is functioning and ready to start developing functionalities for the next sprint.
+
+
+
+## Front-end folder structure
+
+
+
+- .github/workflows   
+  - push.yml
+    - This folder contains GitHub Actions workflows and the file defines the actions to be performed when pushing changes to the repository. 
+- .husky/
+  - .gitignore.yml
+  - .husky.sh
+  - precommit
+    - This folder is for Git configuration in the project and it contain files that automate certain Git tasks.  
+- adapters/
+    - Contain adapters, which are modules responsible for interacting with external services or APIs. 
+- app/
+    - This folder represents the main application code. 
+  - (PrincipalFlow)/
+    - This subfolder represents the main flow of the application and contains the subfolders  home/, on course/, and packages/, which likely correspond to different pages or sections of the application.
+ 
+    - home/
+    - on course/
+    - packages/
+  - (User)/
+    - This subfolder represents the user-related functionality of the application.  
+    - login
+    - signup
+- components/
+    - This folder contains reusable components that can be used throughout the application.
+    - commons/
+    - ui/
+- hooks/
+    - This folder may contain custom React hooks.
+- interceptors/
+    - This folder may contain interceptors, which are modules responsible for intercepting and modifying requests or responses in an application. Interceptors are commonly used for tasks such as authentication, error handling, or data transformation. 
+- interfaces/
+    - This folder contains TypeScript interface definitions.
+- public/
+    - This folder contains static files that can be accessed by the user, such as images, fonts, or other assets. 
+- redux/
+    - This folder may contain files related to state management using Redux.  It may include actions, reducers, and selectors for managing and accessing global state.
+- services/
+    - This folder may contain service modules that handle communication with external APIs or perform other backend-related tasks. Services typically encapsulate API calls and provide an interface for interacting with external resources.
+- styles/
+    - It contains global styles for the application, for example the font-family for the body.
+- utils/
+    - contain utility functions or helper modules that provide common functionality used throughout the application.
