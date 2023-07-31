@@ -54,7 +54,7 @@ const Home: FC = () => {
                             key={delivery.deliveryID}
                             deliveryID={delivery.deliveryID}
                             deliveryAddress={delivery.deliveryAddress}
-                            status='pending'
+                            status={delivery.status}
                             showCancel={true}
                         />
                     ))}
@@ -74,11 +74,11 @@ const Home: FC = () => {
                             deliveryID={delivery.deliveryID}
                             deliveryAddress={delivery.deliveryAddress}
                             status='delivered'
-                            showCancel={true}
+                            showCancel={false}
                         />
                     ))}
             </DropdownCard>
-            <div className='flex justify-center mt-4'>
+            <div className='flex justify-center mt-4 w-72 m-auto'>
                 <MainButton text={'Get packages'} btnGreen={true} />
             </div>
         </>
