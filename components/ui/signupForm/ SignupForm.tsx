@@ -64,14 +64,16 @@ export const SignupForm: FC = () => {
                                     })}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
-                                <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
+                                <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiUserLine size={25} />
                                 </span>
-                                {errors.email && (
-                                    <p className='text-red-400 text-right pe-2'>
-                                        {errors.email.message}
-                                    </p>
-                                )}
+                                <div style={{ height: '20px' }}>
+                                    {errors.email && (
+                                        <p className='text-red-400 text-right pe-2'>
+                                            {errors.email.message}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </div>
 
@@ -93,11 +95,11 @@ export const SignupForm: FC = () => {
                                     })}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
-                                <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
+                                <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiLockFill size={25} />
                                 </span>
                                 <span
-                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer'
+                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
@@ -108,11 +110,13 @@ export const SignupForm: FC = () => {
                                         <RiEyeFill size={25} />
                                     )}
                                 </span>
-                                {errors.password && (
-                                    <p className='text-red-400 text-right pe-2'>
-                                        {errors.password.message}
-                                    </p>
-                                )}
+                                <div style={{ height: '20px' }}>
+                                    {errors.password && (
+                                        <p className='text-red-400 text-right pe-2'>
+                                            {errors.password.message}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -138,11 +142,11 @@ export const SignupForm: FC = () => {
                                     })}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
                                 />
-                                <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
+                                <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiLockFill size={25} />
                                 </span>
                                 <span
-                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer'
+                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
                                     onClick={() =>
                                         setShowRepeatPassword(
                                             !showRepeatPassword
@@ -155,11 +159,13 @@ export const SignupForm: FC = () => {
                                         <RiEyeFill size={25} />
                                     )}
                                 </span>
-                                {errors.repeatPassword && (
-                                    <p className='text-red-400 text-right pe-2'>
-                                        {errors.repeatPassword.message}
-                                    </p>
-                                )}
+                                <div style={{ height: '20px' }}>
+                                    {errors.repeatPassword && (
+                                        <p className='text-red-400 text-right pe-2'>
+                                            {errors.repeatPassword.message}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div className='space-y-6'>
