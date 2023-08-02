@@ -3,12 +3,17 @@ import React from 'react';
 import logo from '../assets/deliverit-full.png';
 import Image from 'next/image';
 import '../styles/globals.css';
+import { Navbar } from '../components/ui/navbar';
 
 export default function NotFound() {
     return (
         <>
             <div className='min-h-screen bg-primary'>
-                <div className='text-white text-4xl font-bold text-center pt-48'>
+                <nav>
+                    <Navbar isAuthenticated={true} />
+                </nav>
+
+                <div className='text-white text-4xl font-bold text-center mt-48'>
                     Page Not Found
                     <div className='text-2xl font-bold text-center mt-8 underline hover:text-secondary'>
                         <Link href='/'>Return to homepage</Link>
