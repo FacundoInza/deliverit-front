@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import {
     decreaseQuantity,
     increaseQuantity,
-} from 'redux/features/packages/packagesSlice';
+} from '../../../redux/features/packages/packagesSlice';
 
 //interfaces
 import { IPackage } from '../../../interfaces/IPackage';
