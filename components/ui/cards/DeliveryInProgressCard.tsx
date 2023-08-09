@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import imagen from './imagen.png';
+
 import MainButton from '../../commons/buttons/MainButton';
 
 const DeliveryInProgressCard: React.FC = () => {
@@ -10,7 +10,7 @@ const DeliveryInProgressCard: React.FC = () => {
                 <div className=' mt-0 sm:mx-auto sm:w-full sm:max-w-sm '>
                     <div className='border-primary border'>
                         <Image
-                            src={imagen}
+                            src={''}
                             alt='es la imagen del mapa'
                             width={385}
                             height={282}

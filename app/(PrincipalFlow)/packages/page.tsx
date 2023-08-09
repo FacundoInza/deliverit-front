@@ -1,9 +1,10 @@
 'use client';
 
 import React, { FC } from 'react';
-import { GeneralCard } from '../../../components/ui/generalCard';
+
 import { SelectPackages } from '../../../components/ui/select-packages';
 import { useAppSelector } from '../../../hooks/useAppSelector';
+import { GeneralCard } from '../../../components/ui/cards/GeneralCard';
 import MainButton from '@components/commons/buttons/MainButton';
 
 const InitWorkDay: FC = () => {
