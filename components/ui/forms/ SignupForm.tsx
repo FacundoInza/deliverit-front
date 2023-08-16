@@ -8,13 +8,27 @@ import {
     RiLockFill,
     RiEyeFill,
     RiEyeOffFill,
+    RiFolderUserLine,
 } from 'react-icons/ri';
 import Link from 'next/link';
+import { SignupFormDataToSend, SignupInputs } from '../../../interfaces';
+import { ProfilePhotoEditor } from './ProfilePhotoEditor';
 
-interface FormInputs {
-    email: string;
-    password: string;
-    repeatPassword: string;
+async function signUp(values: SignupFormDataToSend) {
+    const res = await fetch('http://localhost:5000/api/user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+    });
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data');
+    }
+
+    return res.json();
 }
 
 export const SignupForm: FC = () => {
@@ -23,14 +37,25 @@ export const SignupForm: FC = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<FormInputs>();
+    } = useForm<SignupInputs>({ mode: 'onBlur' });
+
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [profileImage, setProfileImage] = useState<string | null>(null);
 
-    const onSubmit = (data: FormInputs) => {
-        console.log(data);
-        setIsAuthenticated(true);
+    const onSubmit = async (data: SignupInputs) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { repeatPassword, ...rest } = data;
+        const dataToSend: SignupFormDataToSend = {
+            ...rest,
+            picture: profileImage,
+        };
+        const response = await signUp(dataToSend);
+
+        // const response = await POST({
+        //     body: dataToSend,
+        // });
+        console.log('Response------>', response.status);
     };
 
     const password = useRef({});
@@ -38,15 +63,73 @@ export const SignupForm: FC = () => {
 
     return (
         <>
-            {isAuthenticated && <div>User Authenticated</div>}
             <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-                <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+                <div className=' sm:mx-auto sm:w-full sm:max-w-sm'>
                     <form
-                        className='space-y-6'
+                        className='space-y-4'
                         action='#'
                         method='POST'
                         onSubmit={handleSubmit(onSubmit)}
                     >
+                        <div className='flex justify-center'>
+                            <ProfilePhotoEditor
+                                defaultImageSrc='https://cdn-icons-png.flaticon.com/512/5249/5249427.png'
+                                alt='profile-picture'
+                                diameter={120}
+                                onImageChange={setProfileImage}
+                            />
+                        </div>
+
+                        <div>
+                            <div className='relative mt-2'>
+                                <input
+                                    placeholder='Your name'
+                                    id='name'
+                                    type='text'
+                                    autoComplete='name'
+                                    {...register('name', {
+                                        required: 'Name is required',
+                                    })}
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-white focus:ring-inset focus:ring-gray-100 sm:text-sm sm:leading-6 bg-transparent'
+                                />
+                                <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
+                                    <RiFolderUserLine size={25} />
+                                </span>
+                                <div style={{ height: '20px' }}>
+                                    {errors.name && (
+                                        <p className='text-red-400 text-right pe-2 text-sm'>
+                                            {errors.name.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className='relative mt-2'>
+                                <input
+                                    placeholder='Your last name'
+                                    id='lastName'
+                                    type='text'
+                                    autoComplete='lastName'
+                                    {...register('lastName', {
+                                        required: 'Lastname is required',
+                                    })}
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-white focus:ring-inset focus:ring-gray-100 sm:text-sm sm:leading-6 bg-transparent'
+                                />
+                                <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
+                                    <RiFolderUserLine size={25} />
+                                </span>
+                                <div style={{ height: '20px' }}>
+                                    {errors.lastName && (
+                                        <p className='text-red-400 text-right pe-2 text-sm'>
+                                            {errors.lastName.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
                             <div className='relative mt-2'>
                                 <input
@@ -54,7 +137,6 @@ export const SignupForm: FC = () => {
                                     id='email'
                                     type='email'
                                     autoComplete='email'
-                                    required
                                     {...register('email', {
                                         required: 'Email is required',
                                         pattern: {
@@ -62,14 +144,14 @@ export const SignupForm: FC = () => {
                                             message: 'Invalid email address',
                                         },
                                     })}
-                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-white focus:ring-inset focus:ring-gray-100 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiUserLine size={25} />
                                 </span>
                                 <div style={{ height: '20px' }}>
                                     {errors.email && (
-                                        <p className='text-red-400 text-right pe-2'>
+                                        <p className='text-red-400 text-right pe-2 text-sm'>
                                             {errors.email.message}
                                         </p>
                                     )}
@@ -84,7 +166,6 @@ export const SignupForm: FC = () => {
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder='YourUltraSecretPassword'
                                     autoComplete='current-password'
-                                    required
                                     {...register('password', {
                                         required: 'Password is required',
                                         minLength: {
@@ -93,13 +174,13 @@ export const SignupForm: FC = () => {
                                                 'Password must be at least 8 characters',
                                         },
                                     })}
-                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-white focus:ring-inset focus:ring-gray-100 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiLockFill size={25} />
                                 </span>
                                 <span
-                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
+                                    className='absolute z-30 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
@@ -112,7 +193,7 @@ export const SignupForm: FC = () => {
                                 </span>
                                 <div style={{ height: '20px' }}>
                                     {errors.password && (
-                                        <p className='text-red-400 text-right pe-2'>
+                                        <p className='text-red-400 text-right pe-2 text-sm'>
                                             {errors.password.message}
                                         </p>
                                     )}
@@ -128,7 +209,6 @@ export const SignupForm: FC = () => {
                                     }
                                     placeholder='YourUltraSecretPassword'
                                     autoComplete='current-password'
-                                    required
                                     {...register('repeatPassword', {
                                         required: 'Please confirm password.',
                                         minLength: {
@@ -140,13 +220,13 @@ export const SignupForm: FC = () => {
                                             value === password.current ||
                                             'Passwords do not match',
                                     })}
-                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
+                                    className='block w-full rounded-lg border-1 px-12 py-3.5 text-primary shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 focus:ring-white focus:ring-inset focus:ring-gray-100 sm:text-sm sm:leading-6 bg-transparent'
                                 />
                                 <span className='absolute left-3 top-1/2 transform -translate-y-6 text-gray-400'>
                                     <RiLockFill size={25} />
                                 </span>
                                 <span
-                                    className='absolute z-50 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
+                                    className='absolute z-30 right-3 top-1/2 transform -translate-y-6 text-gray-400 cursor-pointer'
                                     onClick={() =>
                                         setShowRepeatPassword(
                                             !showRepeatPassword
@@ -161,7 +241,7 @@ export const SignupForm: FC = () => {
                                 </span>
                                 <div style={{ height: '20px' }}>
                                     {errors.repeatPassword && (
-                                        <p className='text-red-400 text-right pe-2'>
+                                        <p className='text-red-400 text-right pe-2 text-sm'>
                                             {errors.repeatPassword.message}
                                         </p>
                                     )}
