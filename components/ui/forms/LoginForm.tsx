@@ -139,7 +139,9 @@ export const LoginForm: FC = () => {
                         </div>
                         <div className='space-y-6'>
                             <div className='mt-20'>
-                                <MainButton text='Sign In' btnGreen />
+                                <Link href='/sworn-statement'>
+                                    <MainButton text='Sign In' btnGreen />
+                                </Link>
                             </div>
                             <div></div>
                         </div>
