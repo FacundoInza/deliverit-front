@@ -13,22 +13,30 @@ import {
 import Link from 'next/link';
 import { SignupFormDataToSend, SignupInputs } from '../../../interfaces';
 import { ProfilePhotoEditor } from './ProfilePhotoEditor';
+import dotenv from 'dotenv';
+import axios, { AxiosError } from 'axios';
+import Notification from '../modal/Notification';
+
+dotenv.config();
+
+interface ErrorResponse {
+    message: string;
+}
 
 async function signUp(values: SignupFormDataToSend) {
-    const res = await fetch('http://localhost:5000/api/user', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-    });
+    const apiURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`;
 
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data');
+    try {
+        const response = await axios.post(apiURL, values);
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<ErrorResponse>;
+        if (axiosError && axiosError.response) {
+            throw new Error(axiosError.response.data.message);
+        } else {
+            throw new Error('An error occurred while signing up');
+        }
     }
-
-    return res.json();
 }
 
 export const SignupForm: FC = () => {
@@ -42,20 +50,31 @@ export const SignupForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const [profileImage, setProfileImage] = useState<string | null>(null);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isModalSuccess, setIsModalSuccess] = useState(true);
 
     const onSubmit = async (data: SignupInputs) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { repeatPassword, ...rest } = data;
-        const dataToSend: SignupFormDataToSend = {
-            ...rest,
-            picture: profileImage,
-        };
-        const response = await signUp(dataToSend);
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { repeatPassword, ...rest } = data;
+            const dataToSend: SignupFormDataToSend = {
+                ...rest,
+                picture: profileImage,
+            };
+            const response = await signUp(dataToSend);
+            setModalMessage(response);
+            setIsModalSuccess(true);
+            setShowModal(true);
+        } catch (error) {
+            setModalMessage((error as Error).message);
+            setIsModalSuccess(false);
+            setShowModal(true);
+        }
+    };
 
-        // const response = await POST({
-        //     body: dataToSend,
-        // });
-        console.log('Response------>', response.status);
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     const password = useRef({});
@@ -268,6 +287,13 @@ export const SignupForm: FC = () => {
                     </Link>
                 </div>
             </div>
+            {showModal && (
+                <Notification
+                    isSuccess={isModalSuccess}
+                    message={modalMessage}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
