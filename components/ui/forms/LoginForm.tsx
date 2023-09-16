@@ -201,6 +201,8 @@ export const LoginForm: FC = () => {
                     isSuccess={isModalSuccess}
                     message={modalMessage}
                     onClose={handleCloseModal}
+                    buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
+                    redirectLink={isModalSuccess ? '/home' : '/'}
                 />
             )}
         </>

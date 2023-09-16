@@ -6,12 +6,16 @@ interface ModalProps {
     isSuccess: boolean;
     message: string;
     onClose: () => void;
+    buttonText: string;
+    redirectLink: string;
 }
 
 const Notification: React.FC<ModalProps> = ({
     isSuccess,
     message,
     onClose,
+    buttonText,
+    redirectLink,
 }) => {
     return (
         <div className='fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm'>
@@ -26,9 +30,9 @@ const Notification: React.FC<ModalProps> = ({
                                 {message}
                             </h3>
                         </div>
-                        <Link className='w-2/3' href='/'>
+                        <Link className='w-2/3' href={redirectLink}>
                             <button className='bg-green-400 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-full hover:bg-green-500'>
-                                Login
+                                {buttonText}
                             </button>
                         </Link>
                     </div>

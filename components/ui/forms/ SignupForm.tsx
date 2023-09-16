@@ -292,6 +292,8 @@ export const SignupForm: FC = () => {
                     isSuccess={isModalSuccess}
                     message={modalMessage}
                     onClose={handleCloseModal}
+                    buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
+                    redirectLink={isModalSuccess ? '/' : '/signup'}
                 />
             )}
         </>
