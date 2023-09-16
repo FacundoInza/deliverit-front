@@ -12,10 +12,34 @@ import {
     RiEyeFill,
     RiEyeOffFill,
 } from 'react-icons/ri';
+import { AxiosError } from 'axios';
+import { api } from '../../../api/axiosInstance';
+import { useRouter } from 'next/navigation';
+import Notification from '../modal/Notification';
 
 interface FormInputs {
     email: string;
     password: string;
+}
+
+interface ErrorResponse {
+    message: string;
+}
+
+async function loginUser(credentials: FormInputs) {
+    try {
+        const response = await api.post('/api/user/login', credentials);
+        const token = response.headers['authorization'];
+        localStorage.setItem('token', token);
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<ErrorResponse>;
+        if (axiosError && axiosError.response) {
+            throw new Error(axiosError.response.data.message);
+        } else {
+            throw new Error('Something went wrong on login');
+        }
+    }
 }
 
 export const LoginForm: FC = () => {
@@ -26,16 +50,35 @@ export const LoginForm: FC = () => {
     } = useForm<FormInputs>();
 
     const [showPassword, setShowPassword] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isModalSuccess, setIsModalSuccess] = useState(false);
+    const router = useRouter();
 
-    const onSubmit = (data: FormInputs) => {
-        console.log(data);
-        setIsAuthenticated(true);
+    const onSubmit = async (data: FormInputs) => {
+        try {
+            const response = await loginUser(data);
+            console.log('THIS IS RESPONSE ON LOGIN', response);
+            setModalMessage(`${response.message}...Setting up deliveries...`);
+            setIsModalSuccess(true);
+            setShowModal(true);
+
+            setTimeout(() => {
+                router.push('/home');
+            }, 2000);
+        } catch (error) {
+            setModalMessage((error as Error).message);
+            setIsModalSuccess(false);
+            setShowModal(true);
+        }
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     return (
         <>
-            {isAuthenticated && <div>User Authenticated</div>}
             <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
                 <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
                     <Image
@@ -139,9 +182,10 @@ export const LoginForm: FC = () => {
                         </div>
                         <div className='space-y-6'>
                             <div className='mt-20'>
-                                <Link href='/sworn-statement'>
-                                    <MainButton text='Sign In' btnGreen />
-                                </Link>
+                                {/* <Link href='/sworn-statement'> */}
+
+                                <MainButton text='Sign In' btnGreen />
+                                {/* </Link> */}
                             </div>
 
                             <div></div>
@@ -152,6 +196,13 @@ export const LoginForm: FC = () => {
                     </Link>
                 </div>
             </div>
+            {showModal && (
+                <Notification
+                    isSuccess={isModalSuccess}
+                    message={modalMessage}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
