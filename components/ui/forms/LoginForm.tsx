@@ -47,7 +47,7 @@ export const LoginForm: FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormInputs>();
+    } = useForm<FormInputs>({ mode: 'onBlur' });
 
     const [showPassword, setShowPassword] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -58,7 +58,6 @@ export const LoginForm: FC = () => {
     const onSubmit = async (data: FormInputs) => {
         try {
             const response = await loginUser(data);
-            console.log('THIS IS RESPONSE ON LOGIN', response);
             setModalMessage(`${response.message}...Setting up deliveries...`);
             setIsModalSuccess(true);
             setShowModal(true);
@@ -105,12 +104,11 @@ export const LoginForm: FC = () => {
                                     id='email'
                                     type='email'
                                     autoComplete='email'
-                                    // required
                                     {...register('email', {
                                         required: 'Email is required',
                                         pattern: {
                                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: 'invalid email address',
+                                            message: 'Invalid email address',
                                         },
                                     })}
                                     className='block w-full rounded-lg border-1 px-12 py-3.5 text-white shadow-sm ring-1 ring-inset ring-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6 bg-transparent'
@@ -171,21 +169,18 @@ export const LoginForm: FC = () => {
                             </div>
                             <div className='flex items-center justify-end mt-2'>
                                 <div className='text-base'>
-                                    <a
-                                        href='#'
+                                    <Link
+                                        href='/forgot-password'
                                         className='font-semibold text-white hover:text-gray-300'
                                     >
                                         Forgot password?
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className='space-y-6'>
                             <div className='mt-20'>
-                                {/* <Link href='/sworn-statement'> */}
-
                                 <MainButton text='Sign In' btnGreen />
-                                {/* </Link> */}
                             </div>
 
                             <div></div>
