@@ -17,18 +17,18 @@ export async function middleware(request: NextRequest) {
             request.nextUrl.pathname.startsWith('/auth') &&
             res.status === 200
         ) {
-            return NextResponse.rewrite(new URL('/dealer/home', request.url));
+            return NextResponse.redirect(new URL('/dealer/home', request.url));
         }
 
         if (
             request.nextUrl.pathname.startsWith('/dealer') &&
             res.status !== 200
         ) {
-            return NextResponse.rewrite(new URL('/auth', request.url));
+            return NextResponse.redirect(new URL('/auth', request.url));
         }
     } else {
         if (request.nextUrl.pathname.startsWith('/dealer')) {
-            return NextResponse.rewrite(new URL('/auth', request.url));
+            return NextResponse.redirect(new URL('/auth', request.url));
         }
     }
 
