@@ -2,12 +2,14 @@
 
 import React, { FC } from 'react';
 
-import { SelectPackages } from '../../../components/ui/select-packages';
-import { useAppSelector } from '../../../hooks/useAppSelector';
-import { GeneralCard } from '../../../components/ui/cards/GeneralCard';
-import MainButton from '@components/commons/buttons/MainButton';
+import { SelectPackages } from '@/components/ui/select-packages';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { GeneralCard } from '@/components/ui/cards/GeneralCard';
+import MainButton from '@/components/commons/buttons/MainButton';
+import { useRouter } from 'next/navigation';
 
 const InitWorkDay: FC = () => {
+    const router = useRouter();
     const { allPackages } = useAppSelector((state) => state.packages);
 
     return (
@@ -36,7 +38,11 @@ const InitWorkDay: FC = () => {
                     margin: 'auto',
                 }}
             >
-                <MainButton text='Start Day' btnGreen />
+                <MainButton
+                    text='Start Day'
+                    btnGreen
+                    onClick={() => router.push('/dealer/packages')}
+                />
             </div>
         </>
     );

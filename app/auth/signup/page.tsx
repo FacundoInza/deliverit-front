@@ -1,6 +1,7 @@
-import { GeneralCard } from '@components/ui/cards';
 import React, { FC } from 'react';
-import { SignupForm } from '../../../components/ui/forms/ SignupForm';
+
+import { GeneralCard } from '@/components/ui/cards';
+import { SignupForm } from '@/components/ui/forms';
 
 const InitWorkDay: FC = () => {
     return (
