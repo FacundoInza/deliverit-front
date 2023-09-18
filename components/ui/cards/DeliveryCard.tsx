@@ -28,7 +28,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
 }) => {
     return (
         <>
-            <Link href='/onCourse'>
+            <Link href='/dealer/onCourse'>
                 <div
                     className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2
          text-primary relative h-[90px] mb-2'

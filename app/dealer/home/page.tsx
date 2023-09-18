@@ -2,14 +2,14 @@
 
 import React, { FC, useState } from 'react';
 
-import MainButton from '@components/commons/buttons/MainButton';
-import { DeliveryCard, DropdownCard } from '@components/ui/cards';
-import { useAppSelector } from '../../../hooks/useAppSelector';
-import { Navbar } from '../../../components/ui/navbar/Navbar';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { DropdownCard } from '@/components/ui/cards/DropdownCard';
+import { DeliveryCard } from '@/components/ui/cards/DeliveryCard';
+import MainButton from '@/components/commons/buttons/MainButton';
 import {
     selectFinishedDeliveries,
     selectPendingDeliveries,
-} from '../../../redux/features/deliveries/deliveriesSelectors';
+} from '@/redux/features/deliveries/deliveriesSelectors';
 
 const Home: FC = () => {
     const [expandedCard, setExpandedCard] = useState<number | null>(null);
@@ -28,8 +28,6 @@ const Home: FC = () => {
     return (
         <>
             <nav className='bg-primary'>
-                <Navbar isAuthenticated={true} />
-
                 <div style={{ height: '75vh' }}>
                     <DropdownCard
                         title='Pending deliveries'

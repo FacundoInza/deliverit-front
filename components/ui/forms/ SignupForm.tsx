@@ -282,7 +282,7 @@ export const SignupForm: FC = () => {
                             </div>
                         </div>
                     </form>
-                    <Link href='/'>
+                    <Link href='/auth'>
                         <MainButton text='Sign In' btnBlue />
                     </Link>
                 </div>
@@ -293,7 +293,7 @@ export const SignupForm: FC = () => {
                     message={modalMessage}
                     onClose={handleCloseModal}
                     buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/' : '/signup'}
+                    redirectLink={isModalSuccess ? '/' : '/auth/signup'}
                 />
             )}
         </>

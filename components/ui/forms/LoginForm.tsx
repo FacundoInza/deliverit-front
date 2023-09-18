@@ -16,6 +16,7 @@ import { AxiosError } from 'axios';
 import { api } from '../../../api/axiosInstance';
 import { useRouter } from 'next/navigation';
 import Notification from '../modal/Notification';
+import { setCookie } from 'cookies-next';
 
 interface FormInputs {
     email: string;
@@ -30,6 +31,7 @@ async function loginUser(credentials: FormInputs) {
     try {
         const response = await api.post('/api/user/login', credentials);
         const token = response.headers['authorization'];
+        setCookie('token', token.slice(7));
         localStorage.setItem('token', token);
         return response.data;
     } catch (error) {
@@ -58,12 +60,13 @@ export const LoginForm: FC = () => {
     const onSubmit = async (data: FormInputs) => {
         try {
             const response = await loginUser(data);
+
             setModalMessage(`${response.message}...Setting up deliveries...`);
             setIsModalSuccess(true);
             setShowModal(true);
 
             setTimeout(() => {
-                router.push('/home');
+                router.push('/auth/home');
             }, 2000);
         } catch (error) {
             setModalMessage((error as Error).message);
@@ -170,7 +173,7 @@ export const LoginForm: FC = () => {
                             <div className='flex items-center justify-end mt-2'>
                                 <div className='text-base'>
                                     <Link
-                                        href='/forgot-password'
+                                        href='/auth/forgot-password'
                                         className='font-semibold text-white hover:text-gray-300'
                                     >
                                         Forgot password?
@@ -186,7 +189,7 @@ export const LoginForm: FC = () => {
                             <div></div>
                         </div>
                     </form>
-                    <Link href='/signup'>
+                    <Link href='/auth/signup'>
                         <MainButton text='Create Account' btnBlue />
                     </Link>
                 </div>
@@ -197,7 +200,7 @@ export const LoginForm: FC = () => {
                     message={modalMessage}
                     onClose={handleCloseModal}
                     buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/home' : '/'}
+                    redirectLink={isModalSuccess ? '/dealer/home' : '/auth'}
                 />
             )}
         </>
