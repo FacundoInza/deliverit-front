@@ -1,29 +1,18 @@
-'use client';
-
-import React, { FC, useState } from 'react';
-
-import { useAppSelector } from '@/hooks/useAppSelector';
+import React, { FC } from 'react';
 import { DropdownCard } from '@/components/ui/cards/DropdownCard';
-import { DeliveryCard } from '@/components/ui/cards/DeliveryCard';
 import MainButton from '@/components/commons/buttons/MainButton';
-import {
-    selectFinishedDeliveries,
-    selectPendingDeliveries,
-} from '@/redux/features/deliveries/deliveriesSelectors';
+import { DeliveryList } from '@/components/ui/lists';
+import { getDeliveries } from '@/adapters';
+import { ResponseDeliveries } from '@/interfaces';
 
-const Home: FC = () => {
-    const [expandedCard, setExpandedCard] = useState<number | null>(null);
+const Home: FC = async () => {
+    let res: ResponseDeliveries = await getDeliveries({ status: 'pending' });
+    const pendingDeliveries = res.data;
+    const pendingTotalItems = res.totalItems;
+    res = await getDeliveries({ status: 'delivered' });
 
-    const pendingDeliveries = useAppSelector(selectPendingDeliveries);
-    const finishedDeliveries = useAppSelector(selectFinishedDeliveries);
-
-    const handleExpand = (cardIndex: number) => {
-        if (cardIndex === expandedCard) {
-            setExpandedCard(null);
-        } else {
-            setExpandedCard(cardIndex);
-        }
-    };
+    const deliveredDeliveries = res.data;
+    const deliveredTotalItems = res.totalItems;
 
     return (
         <>
@@ -31,36 +20,16 @@ const Home: FC = () => {
                 <div style={{ height: '75vh' }}>
                     <DropdownCard
                         title='Pending deliveries'
-                        subtitle='3 pending'
-                        expanded={expandedCard === 1}
-                        onExpand={() => handleExpand(1)}
+                        subtitle={`${pendingTotalItems} pending`}
                     >
-                        {pendingDeliveries.map((delivery) => (
-                            <DeliveryCard
-                                key={delivery.deliveryId}
-                                deliveryID={delivery.deliveryId}
-                                deliveryAddress={delivery.deliveryAddress}
-                                status={delivery.status}
-                                showCancel={true}
-                            />
-                        ))}
+                        <DeliveryList deliveries={pendingDeliveries} />
                     </DropdownCard>
 
                     <DropdownCard
                         title='Delivery history'
-                        subtitle='1 delivered'
-                        expanded={expandedCard === 2}
-                        onExpand={() => handleExpand(2)}
+                        subtitle={`${deliveredTotalItems} delivered`}
                     >
-                        {finishedDeliveries.map((delivery) => (
-                            <DeliveryCard
-                                key={delivery.deliveryId}
-                                deliveryID={delivery.deliveryId}
-                                deliveryAddress={delivery.deliveryAddress}
-                                status={delivery.status}
-                                showCancel={false}
-                            />
-                        ))}
+                        <DeliveryList deliveries={deliveredDeliveries} />
                     </DropdownCard>
                 </div>
                 <div className='flex justify-center mt-4 w-72 m-auto'>

@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+import { cookies } from 'next/dist/client/components/headers';
 
 // Interceptor para agregar un token de autenticación a las solicitudes
 function addAuthTokenToRequest(config: any) {
-    const token = getCookie('token');
+    const token = cookies().get('token');
 
-    console.log('token', token);
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token.value}`;
     }
     return config;
 }
@@ -19,6 +18,12 @@ function handleNetworkErrors(error: Error) {
 }
 
 // Configuración de Axios con los interceptores
-export const axiosInstance = axios.create();
+export const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
 axiosInstance.interceptors.request.use(addAuthTokenToRequest);
 axiosInstance.interceptors.response.use(null, handleNetworkErrors);
