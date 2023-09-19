@@ -16,7 +16,7 @@ export default function NotFound() {
                 <div className='text-white text-4xl font-bold text-center mt-48'>
                     Page Not Found
                     <div className='text-2xl font-bold text-center mt-8 underline hover:text-secondary'>
-                        <Link href='/'>Return to homepage</Link>
+                        <Link href='/dealer/home'>Return to homepage</Link>
                     </div>
                     <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
                         <Image

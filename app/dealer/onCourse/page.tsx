@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { GeneralCard } from '../../../components/ui/cards/GeneralCard';
-import DeliveryInProgressCard from '../../../components/ui/cards/DeliveryInProgressCard';
-import MainButton from '../../../components/commons/buttons/MainButton';
+import { GeneralCard } from '@/components/ui/cards/GeneralCard';
+import DeliveryInProgressCard from '@/components/ui/cards/DeliveryInProgressCard';
+import MainButton from '@/components/commons/buttons/MainButton';
 
 const InitWorkDay: FC = () => {
     return (
@@ -16,5 +16,4 @@ const InitWorkDay: FC = () => {
         </div>
     );
 };
-
 export default InitWorkDay;

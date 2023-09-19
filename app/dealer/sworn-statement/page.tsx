@@ -2,9 +2,10 @@
 
 import React, { FC, useState } from 'react';
 
-import { GeneralCard, SwornStatementCard } from '@components/ui/cards';
-import MainButton from '@components/commons/buttons/MainButton';
 import Link from 'next/link';
+import { GeneralCard } from '@/components/ui/cards/GeneralCard';
+import { SwornStatementCard } from '@/components/ui/cards/SwornStatementCard';
+import MainButton from '@/components/commons/buttons/MainButton';
 
 const SwornStatement: FC = () => {
     const questions = [
@@ -40,7 +41,7 @@ const SwornStatement: FC = () => {
                             />
                         ))}
                     </div>
-                    <Link href='/home'>
+                    <Link href='/dealer/home'>
                         <div className='flex justify-center mt-4 w-72 m-auto'>
                             <MainButton text={'Continue'} btnGreen={true} />
                         </div>
