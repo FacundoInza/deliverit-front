@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import MainButton from '../../commons/buttons/MainButton';
 import { RiUserLine } from 'react-icons/ri';
 import { useForm } from 'react-hook-form';
-import { api } from 'api/axiosInstance';
+import { api } from '../../../api/axiosInstance';
 import { AxiosError } from 'axios';
 import Notification from '../modal/Notification';
 

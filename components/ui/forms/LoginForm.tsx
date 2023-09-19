@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import logo from '../../../assets/deliverit-full.png';
 import MainButton from '../../commons/buttons/MainButton';
 import Link from 'next/link';
@@ -54,6 +54,24 @@ export const LoginForm: FC = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [isModalSuccess, setIsModalSuccess] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await api.get('/api/user/me');
+                    if (response.status === 200) {
+                        //Set the user in context if neccesary
+                        router.push('/home');
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        };
+        checkToken();
+    }, [router]);
 
     const onSubmit = async (data: FormInputs) => {
         try {

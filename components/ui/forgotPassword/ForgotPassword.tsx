@@ -73,12 +73,14 @@ export const ForgotPassword: FC = () => {
                     />
                 </div>
                 {renderStepContent()}
-                <div className='mt-4'>
-                    <MainButton
-                        text='Back'
-                        btnBlue
-                        onClick={goToPreviousStep}
-                    />
+                <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+                    <div className='mt-4'>
+                        <MainButton
+                            text='Back'
+                            btnBlue
+                            onClick={goToPreviousStep}
+                        />
+                    </div>
                 </div>
             </div>
         </>
