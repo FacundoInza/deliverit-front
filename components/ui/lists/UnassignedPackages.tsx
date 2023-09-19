@@ -1,7 +1,5 @@
 import React from 'react';
 
-const UnassignedPackages = () => {
+export const UnassignedPackages = () => {
     return <div></div>;
 };
-
-export default UnassignedPackages;

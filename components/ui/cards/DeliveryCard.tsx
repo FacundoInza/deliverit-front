@@ -26,6 +26,10 @@ export const DeliveryCard: React.FC<CardProps> = ({
     status,
     showCancel,
 }) => {
+    const deliveryIdFriendly = `#${deliveryID
+        .slice(20, 24)
+        .toLocaleUpperCase()}`;
+
     return (
         <>
             <Link href='/dealer/onCourse'>
@@ -39,7 +43,9 @@ export const DeliveryCard: React.FC<CardProps> = ({
                         </span>
                     </div>
                     <div className='flex-grow flex-col just space-y-1 border-l border-dashed border-gray-400 mx-1 px-2'>
-                        <h3 className='text-lg font-semibold'>{deliveryID}</h3>
+                        <h3 className='text-lg font-semibold'>
+                            {deliveryIdFriendly}
+                        </h3>
                         <div className='mr-[40px]'>
                             <p>{deliveryAddress}</p>
                         </div>

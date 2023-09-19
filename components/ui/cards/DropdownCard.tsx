@@ -7,17 +7,19 @@ interface DropdownCardProps {
     title: string;
     subtitle: string;
     children: ReactNode;
-    expanded: boolean;
-    onExpand: () => void;
 }
 
 export const DropdownCard: React.FC<DropdownCardProps> = ({
     title,
     subtitle,
     children,
-    expanded,
-    onExpand,
 }) => {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const onExpand = () => {
+        setExpanded(!expanded);
+    };
+
     return (
         <>
             <div className='mt-2 ml-4 mr-4 lg:ml-80 lg:mr-80 py-2 px-2 bg-white rounded-xl border-2'>

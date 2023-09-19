@@ -4,8 +4,6 @@ import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
 
-    console.log(typeof token);
-
     if (token) {
         const res = await fetch('http://localhost:5000/api/user/me', {
             headers: {
