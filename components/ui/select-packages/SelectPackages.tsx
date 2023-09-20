@@ -1,48 +1,23 @@
 import React, { FC } from 'react';
 
-//commons
-import { ItemQuantity } from '../../commons/item-quantity';
-import { ItemCheckbox } from '../../commons/checkbox';
+import { ItemCheckbox } from '@/components/commons/checkbox';
 
-//Hooks
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
-
-//Actions
-import {
-    decreaseQuantity,
-    increaseQuantity,
-} from '../../../redux/features/packages/packagesSlice';
-
-//interfaces
-import { IPackage } from '../../../interfaces/IPackage';
+import { IOrder } from '@/interfaces';
+import ItemTotal from '@/components/commons/item-quantity/ItemTotal';
 
 interface Props {
-    pack: IPackage;
+    pack: IOrder;
 }
 
 export const SelectPackages: FC<Props> = ({ pack }) => {
-    const dispatch = useAppDispatch();
-
-    const handleMinusQuantity = () => {
-        dispatch(decreaseQuantity({ id: pack.id }));
-    };
-
-    const handlePlusQuantity = () => {
-        dispatch(increaseQuantity({ id: pack.id }));
-    };
-
     return (
         <div className='flex items-center border-0.5 border-primary rounded-custom-10 w-full h-14 p-3 mt-3'>
             <ItemCheckbox
                 address={pack.address}
-                city={pack.city}
-                available={pack.available}
+                city={'CABA'}
+                available={true}
             />
-            <ItemQuantity
-                quantity={pack.quantity}
-                handleMinusQuantity={handleMinusQuantity}
-                handlePlusQuantity={handlePlusQuantity}
-            />
+            <ItemTotal quantity={pack.packagesQuantity} />
         </div>
     );
 };

@@ -1,11 +1,12 @@
 import { axiosInstance } from '@/interceptors';
-import { FilterDelivery, IDelivery, ResponsePaginated } from '@/interfaces';
+import { FilterOrder, IOrder, ResponsePaginated } from '@/interfaces';
 
-export async function getDeliveries({
+export async function getOrders({
     status,
-}: FilterDelivery): Promise<ResponsePaginated<IDelivery>> {
+    page,
+}: FilterOrder): Promise<ResponsePaginated<IOrder>> {
     const response = await axiosInstance.get(
-        `/api/delivery/all?status=${status}`
+        `/api/order?status=${status}&page=${page}`
     );
 
     if (response.status !== 200) {

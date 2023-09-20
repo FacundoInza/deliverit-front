@@ -3,10 +3,12 @@ import { DropdownCard } from '@/components/ui/cards/DropdownCard';
 import MainButton from '@/components/commons/buttons/MainButton';
 import { DeliveryList } from '@/components/ui/lists';
 import { getDeliveries } from '@/adapters';
-import { ResponseDeliveries } from '@/interfaces';
+import { IDelivery, ResponsePaginated } from '@/interfaces';
 
 const Home: FC = async () => {
-    let res: ResponseDeliveries = await getDeliveries({ status: 'pending' });
+    let res: ResponsePaginated<IDelivery> = await getDeliveries({
+        status: 'pending',
+    });
     const pendingDeliveries = res.data;
     const pendingTotalItems = res.totalItems;
     res = await getDeliveries({ status: 'delivered' });
