@@ -19,7 +19,7 @@ function handleNetworkErrors(error: Error) {
 
 // Configuración de Axios con los interceptores
 export const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    baseURL: process.env.DELIVERIT_API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },

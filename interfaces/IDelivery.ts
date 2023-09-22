@@ -14,4 +14,5 @@ export interface OrderID {
 
 export interface FilterDelivery {
     status: string;
+    userId: string;
 }

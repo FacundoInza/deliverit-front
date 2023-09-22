@@ -1,27 +1,18 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { validateToken } from './utils';
 
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
 
     if (token) {
-        const res = await fetch('http://localhost:5000/api/user/me', {
-            headers: {
-                Authorization: `Bearer ${token?.value}`,
-            },
-        });
+        const payload = await validateToken(token.value);
 
-        if (
-            request.nextUrl.pathname.startsWith('/auth') &&
-            res.status === 200
-        ) {
+        if (request.nextUrl.pathname.startsWith('/auth') && payload) {
             return NextResponse.redirect(new URL('/dealer/home', request.url));
         }
 
-        if (
-            request.nextUrl.pathname.startsWith('/dealer') &&
-            res.status !== 200
-        ) {
+        if (request.nextUrl.pathname.startsWith('/dealer') && !payload) {
             return NextResponse.redirect(new URL('/auth', request.url));
         }
     } else {
