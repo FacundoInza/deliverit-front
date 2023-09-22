@@ -2,16 +2,19 @@ import React, { FC } from 'react';
 import { DropdownCard } from '@/components/ui/cards/DropdownCard';
 import MainButton from '@/components/commons/buttons/MainButton';
 import { DeliveryList } from '@/components/ui/lists';
-import { getDeliveries } from '@/adapters';
+import { getDeliveries, getUser } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
 
 const Home: FC = async () => {
+    const user = await getUser();
+
     let res: ResponsePaginated<IDelivery> = await getDeliveries({
         status: 'pending',
+        userId: user.id,
     });
     const pendingDeliveries = res.data;
     const pendingTotalItems = res.totalItems;
-    res = await getDeliveries({ status: 'delivered' });
+    res = await getDeliveries({ status: 'delivered', userId: user.id });
 
     const deliveredDeliveries = res.data;
     const deliveredTotalItems = res.totalItems;

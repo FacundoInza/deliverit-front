@@ -17,6 +17,8 @@ import { api } from '../../../api/axiosInstance';
 import { useRouter } from 'next/navigation';
 import Notification from '../modal/Notification';
 import { setCookie } from 'cookies-next';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/redux/features/user/userSlice';
 
 interface FormInputs {
     email: string;
@@ -50,7 +52,7 @@ export const LoginForm: FC = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<FormInputs>({ mode: 'onBlur' });
-
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -62,8 +64,11 @@ export const LoginForm: FC = () => {
             const response = await loginUser(data);
 
             setModalMessage(`${response.message}...Setting up deliveries...`);
+
             setIsModalSuccess(true);
             setShowModal(true);
+
+            dispatch(setUser(response.data));
 
             setTimeout(() => {
                 router.push('/auth/home');
