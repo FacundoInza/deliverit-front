@@ -4,8 +4,8 @@ import React from 'react';
 
 interface SwornStatementCardProps {
     question: string;
-    selectedAnswer: string | null;
-    onSelectAnswer: (answer: string) => void;
+    selectedAnswer: boolean | undefined;
+    onSelectAnswer: (answer: boolean) => void;
 }
 
 export const SwornStatementCard: React.FC<SwornStatementCardProps> = ({
@@ -18,18 +18,20 @@ export const SwornStatementCard: React.FC<SwornStatementCardProps> = ({
             <p className='text-center'>{question}</p>
             <div className='flex justify-around md:justify-center md:gap-4 mt-2'>
                 <button
+                    type='button'
                     className={`rounded-2xl py-1 px-4 border-2 border-secondary ${
-                        selectedAnswer === 'yes' ? 'bg-gray-300' : ''
+                        selectedAnswer ? 'bg-gray-300' : ''
                     }`}
-                    onClick={() => onSelectAnswer('yes')}
+                    onClick={() => onSelectAnswer(true)}
                 >
                     Yes
                 </button>
                 <button
+                    type='button'
                     className={`rounded-2xl py-1 px-4 border-2 border-secondary ${
-                        selectedAnswer === 'no' ? 'bg-gray-300' : ''
+                        selectedAnswer === false ? 'bg-gray-300' : ''
                     }`}
-                    onClick={() => onSelectAnswer('no')}
+                    onClick={() => onSelectAnswer(false)}
                 >
                     No
                 </button>

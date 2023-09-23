@@ -52,10 +52,10 @@ export function ProfilePhotoEditor({
                     diameter={diameter}
                 />
                 <div className='absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-36'>
-                    <button onClick={openFilePicker}>
+                    <button type='button' onClick={openFilePicker}>
                         <MdOutlineDriveFolderUpload size={30} color='#22577A' />
                     </button>
-                    <button onClick={() => setIsModalOpen(true)}>
+                    <button type='button' onClick={() => setIsModalOpen(true)}>
                         <MdAddAPhoto size={30} color='#22577A' />
                     </button>
                     <input
