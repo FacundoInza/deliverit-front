@@ -4,6 +4,7 @@ import MainButton from '@/components/commons/buttons/MainButton';
 import { DeliveryList } from '@/components/ui/lists';
 import { getDeliveries, getUser } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
+import Link from 'next/link';
 
 const Home: FC = async () => {
     const user = await getUser();
@@ -38,7 +39,9 @@ const Home: FC = async () => {
                     </DropdownCard>
                 </div>
                 <div className='flex justify-center mt-4 w-72 m-auto'>
-                    <MainButton text={'Get packages'} btnGreen={true} />
+                    <Link href='/dealer/sworn-statement'>
+                        <MainButton text={'Get packages'} btnGreen={true} />
+                    </Link>
                 </div>
             </nav>
         </>

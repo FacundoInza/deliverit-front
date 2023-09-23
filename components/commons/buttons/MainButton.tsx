@@ -2,11 +2,12 @@
 import React from 'react';
 import classNames from 'classnames';
 
-interface ButtonProps {
+export interface ButtonProps {
     text: string;
     onClick?: () => void;
     btnGreen?: boolean;
     btnBlue?: boolean;
+    disabled?: boolean;
 }
 
 const MainButton: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const MainButton: React.FC<ButtonProps> = ({
     onClick,
     btnGreen,
     btnBlue,
+    disabled = false,
 }) => {
     const buttonClasses = classNames(
         'text-info',
@@ -33,12 +35,12 @@ const MainButton: React.FC<ButtonProps> = ({
         {
             'text-primary': btnGreen,
             'bg-secondary': btnGreen,
-            'hover:bg-primary': btnGreen,
-            'hover:text-info': btnGreen,
-            'hover:border': btnGreen,
-            'hover:border-solid': btnGreen,
-            'hover:border-secondary': btnGreen,
-            'hover:border-1': btnGreen,
+            'hover:bg-primary': btnGreen && !disabled,
+            'hover:text-info': btnGreen && !disabled,
+            'hover:border': btnGreen && !disabled,
+            'hover:border-solid': btnGreen && !disabled,
+            'hover:border-secondary': btnGreen && !disabled,
+            'hover:border-1': btnGreen && !disabled,
         },
         {
             'text-info': btnBlue,
@@ -47,8 +49,11 @@ const MainButton: React.FC<ButtonProps> = ({
             'border-solid': btnBlue,
             'border-secondary': btnBlue,
             'border-1': btnBlue,
-            'hover:bg-secondary': btnBlue,
-            'hover:text-primary': btnBlue,
+            'hover:bg-secondary': btnBlue && !disabled,
+            'hover:text-primary': btnBlue && !disabled,
+        },
+        {
+            'opacity-50 cursor-not-allowed': disabled,
         }
     );
 
@@ -59,7 +64,11 @@ const MainButton: React.FC<ButtonProps> = ({
     };
 
     return (
-        <button className={buttonClasses} onClick={handleClick}>
+        <button
+            disabled={disabled}
+            className={buttonClasses}
+            onClick={handleClick}
+        >
             {text}
         </button>
     );
