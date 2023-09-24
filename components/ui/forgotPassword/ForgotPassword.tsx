@@ -25,7 +25,7 @@ export const ForgotPassword: FC = () => {
 
     const goToPreviousStep = () => {
         if (step === 1) {
-            router.push('/');
+            router.push('/auth');
         }
         setStep((prevStep) => prevStep - 1);
     };
