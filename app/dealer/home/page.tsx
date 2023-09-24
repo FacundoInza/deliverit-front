@@ -1,22 +1,22 @@
 import React, { FC } from 'react';
 import { DropdownCard } from '@/components/ui/cards/DropdownCard';
 import MainButton from '@/components/commons/buttons/MainButton';
-import { DeliveryList } from '@/components/ui/lists';
-import { getDeliveries, getUser } from '@/adapters';
+import { getDeliveries, getUserFromServer } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
+import DeliveryPendingList from '@/components/ui/lists/DeliveryPendingList';
+import DeliveryCompleteList from '@/components/ui/lists/DeliveryCompleteList';
 
 const Home: FC = async () => {
-    const user = await getUser();
+    const user = await getUserFromServer();
 
     let res: ResponsePaginated<IDelivery> = await getDeliveries({
         status: 'pending',
         userId: user.id,
     });
-    const pendingDeliveries = res.data;
+
     const pendingTotalItems = res.totalItems;
     res = await getDeliveries({ status: 'delivered', userId: user.id });
 
-    const deliveredDeliveries = res.data;
     const deliveredTotalItems = res.totalItems;
 
     return (
@@ -27,14 +27,20 @@ const Home: FC = async () => {
                         title='Pending deliveries'
                         subtitle={`${pendingTotalItems} pending`}
                     >
-                        <DeliveryList deliveries={pendingDeliveries} />
+                        {user.enabled ? (
+                            <DeliveryPendingList />
+                        ) : (
+                            <div className='text-center text-white'>
+                                You are not enabled to receive packages
+                            </div>
+                        )}
                     </DropdownCard>
 
                     <DropdownCard
                         title='Delivery history'
                         subtitle={`${deliveredTotalItems} delivered`}
                     >
-                        <DeliveryList deliveries={deliveredDeliveries} />
+                        <DeliveryCompleteList />
                     </DropdownCard>
                 </div>
                 <div className='flex justify-center mt-4 w-72 m-auto'>

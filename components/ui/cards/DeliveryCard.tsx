@@ -26,6 +26,10 @@ export const DeliveryCard: React.FC<CardProps> = ({
     status,
     showCancel,
 }) => {
+    const handleDelete = () => {
+        console.log('delete');
+    };
+
     const deliveryIdFriendly = `#${deliveryID
         .slice(20, 24)
         .toLocaleUpperCase()}`;
@@ -54,7 +58,10 @@ export const DeliveryCard: React.FC<CardProps> = ({
                         <StatusBadge status={status} />
                         {showCancel ? (
                             <div className='mt-2 flex flex-col justify-end'>
-                                <button className='flex justify-end text-red-500 hover:text-red-700'>
+                                <button
+                                    className='flex justify-end text-red-500 hover:text-red-700'
+                                    onClick={() => handleDelete}
+                                >
                                     <TiDeleteOutline color='red' size={30} />
                                 </button>
                             </div>

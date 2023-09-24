@@ -15,3 +15,11 @@ export async function getDeliveries({
 
     return response.data;
 }
+
+export async function deleteDelivery(id: string): Promise<void> {
+    const response = await axiosInstance.delete(`/api/delivery/${id}`);
+
+    if (response.status !== 200) {
+        throw new Error('No se pudo eliminar la entrega');
+    }
+}
