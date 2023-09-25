@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { api } from '@/api/axiosInstance';
 import { AxiosError } from 'axios';
 import Notification from '../modal/Notification';
+import { useRouter } from 'next/navigation';
 
 interface ResetPasswordProps {
     email: string;
@@ -33,6 +34,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [isModalSuccess, setIsModalSuccess] = useState(false);
+    const router = useRouter();
 
     const onSubmit = async (data: newPasswordInput) => {
         try {
@@ -58,7 +60,11 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        if (isModalSuccess) {
+            router.push('/auth');
+        } else {
+            setShowModal(false);
+        }
     };
 
     const password = useRef({});
@@ -174,15 +180,13 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
                 </form>
             </div>
 
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={isModalSuccess ? 'Login' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/' : ''}
-                />
-            )}
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onClose={handleCloseModal}
+                buttonText={isModalSuccess ? 'Login' : 'Retry'}
+            />
         </>
     );
 };

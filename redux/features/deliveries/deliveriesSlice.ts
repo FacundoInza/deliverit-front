@@ -62,6 +62,7 @@ const deliveriesSlice = createSlice({
 
         builder.addCase(deleteDelivery.fulfilled, (state, action) => {
             state.loading = false;
+            window.location.reload();
             const { id } = action.payload;
             state.pendingsDeliveries = state.pendingsDeliveries.filter(
                 (delivery) => delivery._id !== id

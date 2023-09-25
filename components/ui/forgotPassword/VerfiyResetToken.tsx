@@ -123,11 +123,11 @@ export const VerifyResetToken: FC<VerifyResetTokenProps> = ({
             </div>
             {showModal && (
                 <Notification
+                    showModal={showModal}
                     isSuccess={isModalSuccess}
                     message={modalMessage}
                     onClose={handleCloseModal}
                     buttonText='Retry'
-                    redirectLink=''
                 />
             )}
         </>
