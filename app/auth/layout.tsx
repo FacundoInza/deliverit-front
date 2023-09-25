@@ -1,3 +1,4 @@
+import { Navbar } from '@/components/ui/navbar';
 import React from 'react';
 export default function AuthLayout({
     children,
@@ -6,9 +7,9 @@ export default function AuthLayout({
 }) {
     return (
         <div>
-            {/* <nav>
+            <nav>
                 <Navbar isAuthenticated={false} />
-            </nav> */}
+            </nav>
 
             <main>{children}</main>
         </div>

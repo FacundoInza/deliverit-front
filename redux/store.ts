@@ -5,6 +5,10 @@ import rootReducer from './rootReducers';
 export const store = configureStore({
     // Automatically calls `combineReducers`
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

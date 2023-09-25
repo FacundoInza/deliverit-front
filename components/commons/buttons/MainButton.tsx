@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import classNames from 'classnames';
+import { useRouter } from 'next/navigation';
 
 export interface ButtonProps {
     text: string;
@@ -8,15 +9,18 @@ export interface ButtonProps {
     btnGreen?: boolean;
     btnBlue?: boolean;
     disabled?: boolean;
+    redirect?: string;
 }
 
 const MainButton: React.FC<ButtonProps> = ({
     text,
-    onClick,
+    onClick = () => {},
     btnGreen,
     btnBlue,
     disabled = false,
+    redirect,
 }) => {
+    const router = useRouter();
     const buttonClasses = classNames(
         'text-info',
         'h-7.5',
@@ -57,9 +61,12 @@ const MainButton: React.FC<ButtonProps> = ({
         }
     );
 
-    const handleClick = () => {
+    const handleClickButton = () => {
         if (onClick) {
             onClick();
+        }
+        if (redirect) {
+            router.push(redirect);
         }
     };
 
@@ -67,7 +74,7 @@ const MainButton: React.FC<ButtonProps> = ({
         <button
             disabled={disabled}
             className={buttonClasses}
-            onClick={handleClick}
+            onClick={handleClickButton}
         >
             {text}
         </button>
