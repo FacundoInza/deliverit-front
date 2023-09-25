@@ -5,9 +5,10 @@ import { DeliveryList } from '@/components/ui/lists';
 import { getDeliveries, getUser } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
 import Link from 'next/link';
+import { IUser } from '@/interfaces/IUser';
 
 const Home: FC = async () => {
-    const user = await getUser();
+    const user = (await getUser()) as IUser;
 
     let res: ResponsePaginated<IDelivery> = await getDeliveries({
         status: 'pending',

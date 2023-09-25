@@ -139,7 +139,7 @@ export const LoginForm: FC = () => {
                                 <input
                                     id='password'
                                     type={showPassword ? 'text' : 'password'}
-                                    placeholder='YourUltraSecretPassword'
+                                    placeholder='Your Password'
                                     autoComplete='current-password'
                                     // required
                                     {...register('password', {

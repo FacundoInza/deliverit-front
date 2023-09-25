@@ -183,7 +183,7 @@ export const SignupForm: FC = () => {
                                 <input
                                     id='password'
                                     type={showPassword ? 'text' : 'password'}
-                                    placeholder='YourUltraSecretPassword'
+                                    placeholder='Your Password'
                                     autoComplete='current-password'
                                     {...register('password', {
                                         required: 'Password is required',
@@ -226,7 +226,7 @@ export const SignupForm: FC = () => {
                                     type={
                                         showRepeatPassword ? 'text' : 'password'
                                     }
-                                    placeholder='YourUltraSecretPassword'
+                                    placeholder='Your Password'
                                     autoComplete='current-password'
                                     {...register('repeatPassword', {
                                         required: 'Please confirm password.',
