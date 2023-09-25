@@ -77,7 +77,7 @@ export const RequestPasswordReset: FC<RequestPasswordResetProps> = ({
                             <input
                                 id='email'
                                 type='email'
-                                placeholder='rafaellaLostPassword@example.com'
+                                placeholder='Your email here'
                                 autoComplete='email'
                                 {...register('email', {
                                     required: 'Email is required',
