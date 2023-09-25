@@ -109,15 +109,13 @@ export const RequestPasswordReset: FC<RequestPasswordResetProps> = ({
                 </form>
             </div>
 
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={'Retry'}
-                    redirectLink={'/forgot-password'}
-                />
-            )}
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onClose={handleCloseModal}
+                buttonText={'Retry'}
+            />
         </>
     );
 };

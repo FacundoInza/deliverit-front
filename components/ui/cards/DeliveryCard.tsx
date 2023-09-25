@@ -1,9 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { TiDeleteOutline } from 'react-icons/ti';
+import { useAppDispatch } from '@/hooks';
+import { deleteDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+import Notification from '../modal/Notification';
 
 interface CardProps {
     deliveryID: string;
@@ -23,8 +26,11 @@ export const DeliveryCard: React.FC<CardProps> = ({
     deliveryAddress,
     status,
 }) => {
+    const [showModal, setShowModal] = useState(false);
+    const dispatch = useAppDispatch();
+
     const handleDelete = () => {
-        console.log('delete');
+        dispatch(deleteDelivery(deliveryID));
     };
 
     const deliveryIdFriendly = `#${deliveryID
@@ -52,21 +58,27 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 </div>
                 <div className='flex flex-col align-bottom absolute top-4 right-1'>
                     <StatusBadge status={status} />
-                    {status !== 'delivered' ? (
+                    {status !== 'delivered' && (
                         <div className='mt-2 flex flex-col justify-end'>
                             <button
                                 className='flex items-center justify-end text-red-500 hover:text-red-700'
-                                onClick={handleDelete}
+                                onClick={() => setShowModal(true)}
                             >
                                 Cancel
                                 <TiDeleteOutline color='red' size={30} />
                             </button>
                         </div>
-                    ) : (
-                        ''
                     )}
                 </div>
             </div>
+
+            <Notification
+                showModal={showModal}
+                buttonText='Cancel Delivery'
+                message='Are you sure you want to cancel the delivery?'
+                isSuccess={false}
+                onClose={handleDelete}
+            />
         </>
     );
 };

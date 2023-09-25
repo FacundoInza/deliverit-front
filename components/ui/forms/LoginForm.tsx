@@ -69,10 +69,6 @@ export const LoginForm: FC = () => {
             setShowModal(true);
 
             dispatch(setUser(response.data));
-
-            setTimeout(() => {
-                router.push('/auth/home');
-            }, 2000);
         } catch (error) {
             setModalMessage((error as Error).message);
             setIsModalSuccess(false);
@@ -81,7 +77,11 @@ export const LoginForm: FC = () => {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        if (isModalSuccess) {
+            router.push('/auth/home');
+        } else {
+            router.push('/auth');
+        }
     };
 
     return (
@@ -199,15 +199,14 @@ export const LoginForm: FC = () => {
                     </Link>
                 </div>
             </div>
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/dealer/home' : '/auth'}
-                />
-            )}
+
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onClose={handleCloseModal}
+                buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
+            />
         </>
     );
 };

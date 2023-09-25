@@ -16,6 +16,7 @@ import { ProfilePhotoEditor } from './ProfilePhotoEditor';
 import dotenv from 'dotenv';
 import axios, { AxiosError } from 'axios';
 import Notification from '../modal/Notification';
+import { useRouter } from 'next/navigation';
 
 dotenv.config();
 
@@ -54,6 +55,8 @@ export const SignupForm: FC = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [isModalSuccess, setIsModalSuccess] = useState(true);
 
+    const router = useRouter();
+
     const onSubmit = async (data: SignupInputs) => {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -74,7 +77,11 @@ export const SignupForm: FC = () => {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        if (isModalSuccess) {
+            router.push('/auth');
+        } else {
+            router.push('/auth/signup');
+        }
     };
 
     const password = useRef({});
@@ -289,11 +296,11 @@ export const SignupForm: FC = () => {
             </div>
             {showModal && (
                 <Notification
+                    showModal={showModal}
                     isSuccess={isModalSuccess}
                     message={modalMessage}
                     onClose={handleCloseModal}
                     buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/auth' : '/auth/signup'}
                 />
             )}
         </>

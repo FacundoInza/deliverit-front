@@ -31,9 +31,6 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
             setModalMessage('You have been logged out');
             setIsModalSuccess(true);
             setShowModal(true);
-            setTimeout(() => {
-                router.push('/auth');
-            }, 1000);
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
             if (axiosError && axiosError.response) {
@@ -45,7 +42,11 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        if (isModalSuccess) {
+            router.push('/auth');
+        } else {
+            setShowModal(false);
+        }
     };
 
     return (
@@ -67,21 +68,23 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
                             boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
                         }}
                     >
-                        <button onClick={logout}>
+                        <button
+                            onClick={logout}
+                            className='transition duration-300 ease-in-out transform hover:bg-blue-500 hover:text-white active:scale-95'
+                        >
                             <LogOutSvg />
                         </button>
                     </div>
                 )}
             </div>
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={isModalSuccess ? 'Go to home' : 'Retry'}
-                    redirectLink={isModalSuccess ? '/auth' : '/home'}
-                />
-            )}
+
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onClose={handleCloseModal}
+                buttonText={isModalSuccess ? 'Go to home' : 'Retry'}
+            />
         </>
     );
 };
