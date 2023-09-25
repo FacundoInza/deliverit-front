@@ -23,7 +23,15 @@ const DeliveryCompleteList = () => {
                     <Loader />
                 </div>
             ) : (
-                <DeliveryList deliveries={finishedDeliveries} />
+                <>
+                    {finishedDeliveries ? (
+                        <div className='text-center text-red-500'>
+                            You have no complete deliveries
+                        </div>
+                    ) : (
+                        <DeliveryList deliveries={finishedDeliveries} />
+                    )}
+                </>
             )}
         </>
     );
