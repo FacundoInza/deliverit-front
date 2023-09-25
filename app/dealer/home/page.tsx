@@ -5,7 +5,6 @@ import { getDeliveries, getUserFromServer } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
 import DeliveryPendingList from '@/components/ui/lists/DeliveryPendingList';
 import DeliveryCompleteList from '@/components/ui/lists/DeliveryCompleteList';
-import Link from 'next/link';
 
 const Home: FC = async () => {
     const user = await getUserFromServer();
@@ -45,9 +44,11 @@ const Home: FC = async () => {
                     </DropdownCard>
                 </div>
                 <div className='flex justify-center mt-4 w-72 m-auto'>
-                    <Link href='/dealer/sworn-statement'>
-                        <MainButton text={'Get packages'} btnGreen={true} />
-                    </Link>
+                    <MainButton
+                        text={'Get packages'}
+                        btnGreen={true}
+                        redirect='/dealer/packages/1'
+                    />
                 </div>
             </nav>
         </>

@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+'use client';
 
+import React, { FC } from 'react';
 import { ItemCheckbox } from '@/components/commons/checkbox';
 
 import { IOrder } from '@/interfaces';
@@ -13,9 +14,10 @@ export const SelectPackages: FC<Props> = ({ pack }) => {
     return (
         <div className='flex items-center border-0.5 border-primary rounded-custom-10 w-full h-14 p-3 mt-3'>
             <ItemCheckbox
+                packagesQuantity={pack.packagesQuantity}
+                orderId={pack._id}
                 address={pack.address}
                 city={'CABA'}
-                available={true}
             />
             <ItemTotal quantity={pack.packagesQuantity} />
         </div>

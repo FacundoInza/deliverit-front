@@ -23,7 +23,15 @@ const DeliveryPendingList = () => {
                     <Loader />
                 </div>
             ) : (
-                <DeliveryList deliveries={pendingsDeliveries} />
+                <>
+                    {pendingsDeliveries ? (
+                        <div className='text-center text-red-500'>
+                            You have no pending deliveries
+                        </div>
+                    ) : (
+                        <DeliveryList deliveries={pendingsDeliveries} />
+                    )}
+                </>
             )}
         </>
     );

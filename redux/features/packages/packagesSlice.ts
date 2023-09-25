@@ -1,38 +1,45 @@
-import { IOrder } from '@/interfaces';
 import { createSlice } from '@reduxjs/toolkit';
 
+interface IOrderSelected {
+    orderId: string;
+}
+
 interface IPackages {
-    allPackages: IOrder[];
+    ordersSelected: IOrderSelected[];
+    totalPackages: number;
 }
 
 const initialState: IPackages = {
-    allPackages: [],
+    ordersSelected: [],
+    totalPackages: 0,
 };
 
 const packagesSlice = createSlice({
     name: 'packages',
     initialState,
     reducers: {
-        increaseQuantity: (state, action) => {
-            const id = action.payload.id;
-            const packageIndex = state.allPackages.findIndex(
-                (pkg) => pkg._id === id
-            );
-            if (packageIndex !== -1) {
-                state.allPackages[packageIndex].packagesQuantity += 1;
+        addOrderSelected: (state, action) => {
+            const { packagesQuantity } = action.payload;
+            const { orderSelected } = action.payload;
+
+            console.log(orderSelected);
+            if (state.totalPackages + packagesQuantity <= 10) {
+                state.ordersSelected.push(orderSelected);
+                state.totalPackages += packagesQuantity;
             }
         },
-        decreaseQuantity: (state, action) => {
-            const id = action.payload.id;
-            const packageIndex = state.allPackages.findIndex(
-                (pkg) => pkg._id === id && pkg.packagesQuantity > 1
+        removeOrderSelected: (state, action) => {
+            const { packagesQuantity } = action.payload;
+            const { orderSelected } = action.payload;
+
+            state.ordersSelected = state.ordersSelected.filter(
+                (order) => order.orderId !== orderSelected.orderId
             );
-            if (packageIndex !== -1) {
-                state.allPackages[packageIndex].packagesQuantity -= 1;
-            }
+
+            state.totalPackages -= packagesQuantity;
         },
     },
 });
 
-export const { increaseQuantity, decreaseQuantity } = packagesSlice.actions;
+export const { addOrderSelected, removeOrderSelected } = packagesSlice.actions;
 export default packagesSlice.reducer;
