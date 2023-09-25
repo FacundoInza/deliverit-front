@@ -1,6 +1,10 @@
 import { SerializedError, createSlice } from '@reduxjs/toolkit';
 import { IDelivery } from '../../../interfaces';
-import { getDeliveredCompleted, getPendingDeliveries } from './deliveriesThunk';
+import {
+    deleteDelivery,
+    getDeliveredCompleted,
+    getPendingDeliveries,
+} from './deliveriesThunk';
 
 interface IDeliveries {
     pendingsDeliveries: IDelivery[];
@@ -19,7 +23,14 @@ const initialState: IDeliveries = {
 const deliveriesSlice = createSlice({
     name: 'deliveries',
     initialState,
-    reducers: {},
+    reducers: {
+        deleteFinishedDelivery: (state, action) => {
+            const { id } = action.payload;
+            state.finishedDeliveries = state.finishedDeliveries.filter(
+                (delivery) => delivery._id !== id
+            );
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getPendingDeliveries.fulfilled, (state, action) => {
             state.loading = false;
@@ -46,6 +57,23 @@ const deliveriesSlice = createSlice({
         });
 
         builder.addCase(getDeliveredCompleted.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(deleteDelivery.fulfilled, (state, action) => {
+            state.loading = false;
+            const { id } = action.payload;
+            state.pendingsDeliveries = state.pendingsDeliveries.filter(
+                (delivery) => delivery._id !== id
+            );
+        });
+
+        builder.addCase(deleteDelivery.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error;
+        });
+
+        builder.addCase(deleteDelivery.pending, (state) => {
             state.loading = true;
         });
     },

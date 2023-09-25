@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { getPendingDeliveries } from '@/redux/features/deliveries/deliveriesThunk';
 import React, { useEffect } from 'react';
 import { DeliveryList } from '.';
+import { Loader } from '@/components/commons/loaders/Loader';
 
 const DeliveryPendingList = () => {
     const dispatch = useAppDispatch();
@@ -18,7 +19,9 @@ const DeliveryPendingList = () => {
     return (
         <>
             {loading ? (
-                <div className='text-center text-white'>Loading...</div>
+                <div className='flex justify-center'>
+                    <Loader />
+                </div>
             ) : (
                 <DeliveryList deliveries={pendingsDeliveries} />
             )}

@@ -2,7 +2,7 @@ import currentEnv from '@/config';
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: currentEnv.BASE_URL,
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL || currentEnv.BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },

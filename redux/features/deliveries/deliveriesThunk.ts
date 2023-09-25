@@ -35,3 +35,16 @@ export const getDeliveredCompleted = createAsyncThunk(
         return data;
     }
 );
+
+export const deleteDelivery = createAsyncThunk(
+    'deleteDelivery',
+    async (id: string) => {
+        const { data } = await api.delete(`/api/delivery/${id}`);
+
+        if (!data) {
+            throw new Error('No se pudo eliminar la entrega');
+        }
+
+        return { id: id, data: data };
+    }
+);

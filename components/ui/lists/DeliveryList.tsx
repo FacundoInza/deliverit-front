@@ -17,7 +17,6 @@ export const DeliveryList: FC<Props> = ({ deliveries }) => {
                     deliveryID={delivery._id}
                     deliveryAddress={delivery.orderId.address}
                     status={delivery.status}
-                    showCancel={true}
                 />
             ))}
         </>
