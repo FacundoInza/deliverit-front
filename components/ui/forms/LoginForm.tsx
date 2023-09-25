@@ -34,7 +34,7 @@ async function loginUser(credentials: FormInputs) {
         const response = await api.post('/api/user/login', credentials);
         const token = response.headers['authorization'];
         setCookie('token', token.slice(7));
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', token.slice(7));
         return response.data;
     } catch (error) {
         const axiosError = error as AxiosError<ErrorResponse>;

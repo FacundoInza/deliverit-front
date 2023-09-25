@@ -1,8 +1,8 @@
 import currentEnv from '@/config';
 
-import { JWTPayload, jwtVerify } from 'jose';
+import { jwtVerify } from 'jose';
 
-export const validateToken = async (token: string): Promise<JWTPayload> => {
+export const validateToken = async (token: string) => {
     try {
         const key = new TextEncoder().encode(currentEnv.ACCESS_TOKEN_SECRET);
 
