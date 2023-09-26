@@ -299,7 +299,8 @@ export const SignupForm: FC = () => {
                     showModal={showModal}
                     isSuccess={isModalSuccess}
                     message={modalMessage}
-                    onClose={handleCloseModal}
+                    onSuccess={handleCloseModal}
+                    onClose={() => setShowModal(false)}
                     buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
                 />
             )}

@@ -77,7 +77,8 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 buttonText='Cancel Delivery'
                 message='Are you sure you want to cancel the delivery?'
                 isSuccess={false}
-                onClose={handleDelete}
+                onSuccess={handleDelete}
+                onClose={() => setShowModal(false)}
             />
         </>
     );

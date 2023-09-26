@@ -69,6 +69,7 @@ export const ItemCheckbox: FC<Props> = ({
                 showModal={showModal}
                 isSuccess={false}
                 message='You can only select up to 10 packages'
+                onSuccess={() => setShowModal(false)}
                 onClose={() => setShowModal(false)}
                 buttonText='Ok'
             />

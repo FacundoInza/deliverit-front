@@ -7,7 +7,8 @@ interface ModalProps {
     showModal: boolean;
     isSuccess: boolean;
     message: string;
-    onClose: () => void;
+    onClose?: () => void;
+    onSuccess: () => void;
     buttonText: string;
 }
 
@@ -16,6 +17,7 @@ const Notification: React.FC<ModalProps> = ({
     isSuccess,
     message,
     onClose,
+    onSuccess,
     buttonText,
 }) => {
     const [modalEnabled, setModalEnabled] = useState(showModal);
@@ -42,13 +44,13 @@ const Notification: React.FC<ModalProps> = ({
                                 <div className='flex justify-center space-x-4 w-full'>
                                     <button
                                         className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                        onClick={() => setModalEnabled(false)}
+                                        onClick={onClose}
                                     >
                                         close
                                     </button>
                                     <button
                                         className='bg-green-400 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-full hover:bg-green-500'
-                                        onClick={onClose}
+                                        onClick={onSuccess}
                                     >
                                         {buttonText}
                                     </button>
@@ -67,12 +69,12 @@ const Notification: React.FC<ModalProps> = ({
                                 <div className='flex justify-center space-x-4 w-full'>
                                     <button
                                         className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                        onClick={() => setModalEnabled(false)}
+                                        onClick={onClose}
                                     >
                                         close
                                     </button>
                                     <button
-                                        onClick={onClose}
+                                        onClick={onSuccess}
                                         className='bg-red-400 text-white text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-2/3 hover:bg-red-500'
                                     >
                                         {buttonText}

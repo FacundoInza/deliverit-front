@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 
 import { GeneralCard } from '@/components/ui/cards/GeneralCard';
-import MainButton from '@/components/commons/buttons/MainButton';
+
 import { getOrders } from '@/adapters/orderAdapters';
 import { IOrder, ResponsePaginated } from '@/interfaces';
 import { SelectPackages } from '@/components/ui/select-packages';
 import Pagination from '@/components/commons/pagination/Pagination';
+
+import ButtonStartDay from '@/components/commons/buttons/ButtonStartDay';
 
 interface Props {
     params: {
@@ -47,15 +49,7 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                 )}
             </GeneralCard>
 
-            <div
-                style={{
-                    width: '380px',
-                    padding: '20px',
-                    margin: 'auto',
-                }}
-            >
-                <MainButton text='Start Day' btnGreen />
-            </div>
+            <ButtonStartDay />
         </>
     );
 };

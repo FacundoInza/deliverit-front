@@ -142,15 +142,15 @@ const SwornStatement: FC = () => {
                     </form>
                 </GeneralCard>
             </div>
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={isModalSuccess ? 'Continue' : 'Close'}
-                    redirectLink={isModalSuccess ? '/auth/home' : ''}
-                />
-            )}
+
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onSuccess={handleCloseModal}
+                onClose={() => setShowModal(false)}
+                buttonText={isModalSuccess ? 'Continue' : 'Close'}
+            />
         </>
     );
 };
