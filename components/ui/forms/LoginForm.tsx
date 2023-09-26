@@ -78,7 +78,7 @@ export const LoginForm: FC = () => {
 
     const handleCloseModal = () => {
         if (isModalSuccess) {
-            router.push('/auth/home');
+            router.push('/dealer/home');
         } else {
             router.push('/auth');
         }
@@ -206,6 +206,7 @@ export const LoginForm: FC = () => {
                 message={modalMessage}
                 onClose={handleCloseModal}
                 buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
+                singleButton={true}
             />
         </>
     );

@@ -84,6 +84,7 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
                 message={modalMessage}
                 onClose={handleCloseModal}
                 buttonText={isModalSuccess ? 'Go to home' : 'Retry'}
+                singleButton={true}
             />
         </>
     );

@@ -48,6 +48,7 @@ export async function getUserFromServer(): Promise<IUser> {
         role: payload.user.role,
         enabled: payload.user.enabled,
         lastSeenAt: payload.user.lastSeenAt,
+        blockUntil: payload.user.blockUntil,
         urlImage: payload.user.urlImage,
     };
 
@@ -76,6 +77,7 @@ export async function getUserFromClient() {
         enabled: payload.user.enabled,
         lastSeenAt: payload.user.lastSeenAt,
         urlImage: payload.user.urlImage,
+        blockUntil: payload.user.blockUntil,
     };
 
     return user;
