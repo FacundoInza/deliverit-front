@@ -5,6 +5,7 @@ export interface IUser {
     email: string;
     role: string;
     enabled: boolean;
-    lastSeenAt: string;
+    blockUntil: Date | null;
+    lastSeenAt: Date;
     urlImage: string;
 }

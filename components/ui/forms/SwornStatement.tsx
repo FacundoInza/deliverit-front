@@ -5,10 +5,12 @@ import { GeneralCard } from '@/components/ui/cards/GeneralCard';
 import { SwornStatementCard } from '@/components/ui/cards/SwornStatementCard';
 import { api } from '@/api/axiosInstance';
 import { GreenButton } from '@/components/commons/buttons/GreenFormButton';
-import Notification from '../modal/Notification';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/user/userSlice';
 import { AxiosError } from 'axios';
+import Notification from '@/components/ui/modal/Notification';
+import { useRouter } from 'next/navigation';
+import { setCookie } from 'cookies-next';
 
 type SelectedAnswers = {
     alcoholicBeverages?: boolean;
@@ -34,8 +36,7 @@ const SwornStatement: FC = () => {
     const [isModalSuccess, setIsModalSuccess] = useState(false);
 
     const dispatch = useDispatch();
-
-    console.log('THESE ARE THE ANSWERS', selectedAnswers);
+    const router = useRouter();
 
     const questionKeyMapping: Record<number, keyof SelectedAnswers> = {
         0: 'alcoholicBeverages',
@@ -71,9 +72,10 @@ const SwornStatement: FC = () => {
                 familyProblem,
             });
 
-            const userResponse = await api.get('/api/user/me');
-            const user = userResponse.data;
-            dispatch(setUser(user));
+            const token = response.headers['authorization'];
+            setCookie('token', token.slice(7));
+            localStorage.setItem('token', token.slice(7));
+            dispatch(setUser(response.data.user));
 
             if (response.data.success) {
                 setModalMessage(
@@ -84,14 +86,12 @@ const SwornStatement: FC = () => {
             } else {
                 setModalMessage(
                     `You are not allowed to start your journey until ${new Date(
-                        user.blockUntil
-                    ).toLocaleString()}. Please contact your supervisor.`
+                        response.data.user.blockUntil
+                    )}. Please contact your supervisor.`
                 );
                 setIsModalSuccess(false);
                 setShowModal(true);
             }
-
-            console.log('THIS IS THE RESPONSE', response);
         } catch (error) {
             console.log('THIS IS THE ERROR', error);
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -108,6 +108,11 @@ const SwornStatement: FC = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        if (isModalSuccess) {
+            router.push('/dealer/home');
+        } else {
+            router.push('/dealer/sworn-statement');
+        }
     };
 
     return (
@@ -142,15 +147,15 @@ const SwornStatement: FC = () => {
                     </form>
                 </GeneralCard>
             </div>
-            {showModal && (
-                <Notification
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onClose={handleCloseModal}
-                    buttonText={isModalSuccess ? 'Continue' : 'Close'}
-                    redirectLink={isModalSuccess ? '/auth/home' : ''}
-                />
-            )}
+
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onClose={handleCloseModal}
+                buttonText={isModalSuccess ? 'Continue' : 'Close'}
+                singleButton={true}
+            />
         </>
     );
 };

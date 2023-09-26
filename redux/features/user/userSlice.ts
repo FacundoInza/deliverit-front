@@ -8,7 +8,8 @@ const initialState: IUser = {
     email: '',
     role: '',
     enabled: false,
-    lastSeenAt: '',
+    lastSeenAt: new Date(),
+    blockUntil: new Date(),
     urlImage: '',
 };
 
