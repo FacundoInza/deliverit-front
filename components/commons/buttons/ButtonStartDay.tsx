@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import { useAppSelector } from '@/hooks';
 import Notification from '@/components/ui/modal/Notification';
+import MainButton from './MainButton';
+import { getUserFromClient, postDeliveries } from '@/adapters';
+import { useRouter } from 'next/navigation';
 
 const ButtonStartDay = () => {
     const [showModal, setShowModal] = useState(false);
@@ -10,7 +13,10 @@ const ButtonStartDay = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [buttonText, setButtonText] = useState('');
 
-    const { totalPackages } = useAppSelector((state) => state.packages);
+    const router = useRouter();
+    const { totalPackages, ordersSelected } = useAppSelector(
+        (state) => state.packages
+    );
 
     const handleModalOpen = () => {
         if (totalPackages === 0 || totalPackages > 10) {
@@ -27,6 +33,17 @@ const ButtonStartDay = () => {
 
     const handleStartDay = async () => {
         setShowModal(false);
+        const user = await getUserFromClient();
+        console.log(user);
+
+        try {
+            const res = await postDeliveries(ordersSelected);
+            console.log(res);
+        } catch (error) {
+            console.log('sadas', error);
+        }
+
+        router.push('/dealer/home');
     };
 
     return (
@@ -38,7 +55,11 @@ const ButtonStartDay = () => {
                     margin: 'auto',
                 }}
             >
-                <button onClick={handleModalOpen}>Start day</button>
+                <MainButton
+                    btnGreen
+                    text='Start day'
+                    onClick={handleModalOpen}
+                />
             </div>
 
             <Notification
