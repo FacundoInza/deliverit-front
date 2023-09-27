@@ -187,6 +187,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
                 onSuccess={handleCloseModal}
                 onClose={() => setShowModal(false)}
                 buttonText={isModalSuccess ? 'Login' : 'Retry'}
+                singleButton={true}
             />
         </>
     );

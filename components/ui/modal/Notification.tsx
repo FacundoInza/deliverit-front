@@ -10,6 +10,7 @@ interface ModalProps {
     onClose?: () => void;
     onSuccess: () => void;
     buttonText: string;
+    singleButton?: boolean;
 }
 
 const Notification: React.FC<ModalProps> = ({
@@ -19,6 +20,7 @@ const Notification: React.FC<ModalProps> = ({
     onClose,
     onSuccess,
     buttonText,
+    singleButton,
 }) => {
     const [modalEnabled, setModalEnabled] = useState(showModal);
 
@@ -42,12 +44,14 @@ const Notification: React.FC<ModalProps> = ({
                                     </h3>
                                 </div>
                                 <div className='flex justify-center space-x-4 w-full'>
-                                    <button
-                                        className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                        onClick={onClose}
-                                    >
-                                        close
-                                    </button>
+                                    {!singleButton && (
+                                        <button
+                                            className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
+                                            onClick={onClose}
+                                        >
+                                            Close
+                                        </button>
+                                    )}
                                     <button
                                         className='bg-green-400 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-full hover:bg-green-500'
                                         onClick={onSuccess}
@@ -67,12 +71,14 @@ const Notification: React.FC<ModalProps> = ({
                                     </h3>
                                 </div>
                                 <div className='flex justify-center space-x-4 w-full'>
-                                    <button
-                                        className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                        onClick={onClose}
-                                    >
-                                        close
-                                    </button>
+                                    {!singleButton && (
+                                        <button
+                                            className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
+                                            onClick={onClose}
+                                        >
+                                            close
+                                        </button>
+                                    )}
                                     <button
                                         onClick={onSuccess}
                                         className='bg-red-400 text-white text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-2/3 hover:bg-red-500'

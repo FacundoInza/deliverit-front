@@ -129,6 +129,7 @@ export const VerifyResetToken: FC<VerifyResetTokenProps> = ({
                     onSuccess={handleCloseModal}
                     onClose={() => setShowModal(false)}
                     buttonText='Retry'
+                    singleButton={true}
                 />
             )}
         </>

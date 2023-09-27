@@ -116,6 +116,7 @@ export const RequestPasswordReset: FC<RequestPasswordResetProps> = ({
                 onSuccess={handleCloseModal}
                 onClose={() => setShowModal(false)}
                 buttonText={'Retry'}
+                singleButton={true}
             />
         </>
     );
