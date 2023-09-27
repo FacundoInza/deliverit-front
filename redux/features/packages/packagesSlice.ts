@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface IOrderSelected {
+export interface IOrderSelected {
     orderId: string;
 }
 

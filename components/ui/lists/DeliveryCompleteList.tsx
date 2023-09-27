@@ -24,7 +24,7 @@ const DeliveryCompleteList = () => {
                 </div>
             ) : (
                 <>
-                    {finishedDeliveries ? (
+                    {!finishedDeliveries ? (
                         <div className='text-center text-red-500'>
                             You have no complete deliveries
                         </div>

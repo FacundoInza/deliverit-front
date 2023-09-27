@@ -1,5 +1,7 @@
+import { api } from '@/api/axiosInstance';
 import { axiosInstance } from '@/interceptors';
 import { FilterDelivery, IDelivery, ResponsePaginated } from '@/interfaces';
+import { IOrderSelected } from '@/redux/features/packages/packagesSlice';
 
 export async function getDeliveries({
     status,
@@ -8,10 +10,6 @@ export async function getDeliveries({
     const response = await axiosInstance.get(
         `/api/delivery/all?status=${status}&userId=${userId}`
     );
-
-    if (response.status !== 200) {
-        throw new Error('No se pudo obtener la información del usuario');
-    }
 
     return response.data;
 }
@@ -22,4 +20,12 @@ export async function deleteDelivery(id: string): Promise<void> {
     if (response.status !== 200) {
         throw new Error('No se pudo eliminar la entrega');
     }
+}
+
+export async function postDeliveries(
+    deliveries: IOrderSelected[]
+): Promise<void> {
+    const response = await api.post('/api/delivery', deliveries);
+    console.log(response);
+    return response.data;
 }

@@ -24,7 +24,7 @@ const DeliveryPendingList = () => {
                 </div>
             ) : (
                 <>
-                    {pendingsDeliveries ? (
+                    {!pendingsDeliveries ? (
                         <div className='text-center text-red-500'>
                             You have no pending deliveries
                         </div>
