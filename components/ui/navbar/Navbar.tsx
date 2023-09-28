@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 import Notification from '../modal/Notification';
 import { deleteCookie } from 'cookies-next';
+import Link from 'next/link';
 
 interface Props {
     isAuthenticated: boolean;
@@ -55,9 +56,9 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
                 className='flex justify-between py-4 px-6 md:px-40 '
                 style={{ boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
             >
-                <a href='/dealer/home' className='text-2xl font-bold'>
+                <Link href='/dealer/home' className='text-2xl font-bold'>
                     <LogoSvg />
-                </a>
+                </Link>
                 {isAuthenticated && (
                     <div
                         style={{

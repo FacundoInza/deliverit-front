@@ -5,8 +5,6 @@ import { getOrders } from '@/adapters/orderAdapters';
 import { IOrder, ResponsePaginated } from '@/interfaces';
 import { SelectPackages } from '@/components/ui/select-packages';
 import Pagination from '@/components/commons/pagination/Pagination';
-import { getUserFromServer } from '@/adapters';
-import Notification from '@/components/ui/modal/Notification';
 
 import ButtonStartDay from '@/components/commons/buttons/ButtonStartDay';
 
@@ -21,8 +19,6 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
         status: 'unassigned',
         page: Number(params.page),
     });
-
-    const user = await getUserFromServer();
 
     return (
         <>
