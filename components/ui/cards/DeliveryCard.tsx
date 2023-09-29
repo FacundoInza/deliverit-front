@@ -5,8 +5,9 @@ import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useAppDispatch } from '@/hooks';
-import { deleteDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+
 import Notification from '../modal/Notification';
+import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
 
 interface CardProps {
     deliveryID: string;
@@ -30,7 +31,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
     const dispatch = useAppDispatch();
 
     const handleDelete = () => {
-        dispatch(deleteDelivery(deliveryID));
+        dispatch(updateDelivery(deliveryID));
     };
 
     const deliveryIdFriendly = `#${deliveryID
@@ -77,8 +78,8 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 buttonText='Cancel Delivery'
                 message='Are you sure you want to cancel the delivery?'
                 isSuccess={false}
-                onSuccess={handleDelete}
-                onClose={() => setShowModal(false)}
+                onNotSuccess={handleDelete}
+                onCloseModal={() => setShowModal(false)}
             />
         </>
     );

@@ -7,9 +7,10 @@ interface ModalProps {
     showModal: boolean;
     isSuccess: boolean;
     message: string;
-    onClose?: () => void;
-    onSuccess: () => void;
     buttonText: string;
+    onCloseModal?: () => void;
+    onSuccess?: () => void;
+    onNotSuccess?: () => void;
     singleButton?: boolean;
 }
 
@@ -17,7 +18,8 @@ const Notification: React.FC<ModalProps> = ({
     showModal,
     isSuccess,
     message,
-    onClose,
+    onCloseModal,
+    onNotSuccess,
     onSuccess,
     buttonText,
     singleButton,
@@ -46,8 +48,8 @@ const Notification: React.FC<ModalProps> = ({
                                 <div className='flex justify-center space-x-4 w-full'>
                                     {!singleButton && (
                                         <button
-                                            className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                            onClick={onClose}
+                                            className='bg-red-400 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-full hover:bg-red-500'
+                                            onClick={onCloseModal}
                                         >
                                             Close
                                         </button>
@@ -73,14 +75,14 @@ const Notification: React.FC<ModalProps> = ({
                                 <div className='flex justify-center space-x-4 w-full'>
                                     {!singleButton && (
                                         <button
-                                            className='bg-red-300 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-24 hover:bg-green-500'
-                                            onClick={onClose}
+                                            className='bg-red-400 text-white font-bold text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-full hover:bg-red-500'
+                                            onClick={onCloseModal}
                                         >
                                             close
                                         </button>
                                     )}
                                     <button
-                                        onClick={onSuccess}
+                                        onClick={onNotSuccess}
                                         className='bg-red-400 text-white text-sm md:text-lg px-4 py-2 md:py-3 rounded-full w-2/3 hover:bg-red-500'
                                     >
                                         {buttonText}

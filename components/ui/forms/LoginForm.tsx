@@ -205,7 +205,6 @@ export const LoginForm: FC = () => {
                 isSuccess={isModalSuccess}
                 message={modalMessage}
                 onSuccess={handleCloseModal}
-                onClose={() => setShowModal(false)}
                 buttonText={isModalSuccess ? 'Come on!' : 'Retry'}
                 singleButton={true}
             />
