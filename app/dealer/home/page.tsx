@@ -28,10 +28,10 @@ const Home: FC = async () => {
                         title='Pending deliveries'
                         subtitle={`${pendingTotalItems} pending`}
                     >
-                        {user.enabled ? (
+                        {!user.enabled ? (
                             <DeliveryPendingList />
                         ) : (
-                            <div className='text-center text-white'>
+                            <div className='text-center text-black'>
                                 You are not enabled to receive packages
                             </div>
                         )}

@@ -36,13 +36,15 @@ export const getDeliveredCompleted = createAsyncThunk(
     }
 );
 
-export const deleteDelivery = createAsyncThunk(
-    'deleteDelivery',
+export const updateDelivery = createAsyncThunk(
+    'updateStatusDelivery',
     async (id: string) => {
-        const { data } = await api.delete(`/api/delivery/${id}`);
+        const { data } = await api.put(`/api/delivery/${id}`, {
+            status: 'cancelled',
+        });
 
         if (!data) {
-            throw new Error('No se pudo eliminar la entrega');
+            throw new Error('No se pudo cancelar la entrega');
         }
 
         return { id: id, data: data };

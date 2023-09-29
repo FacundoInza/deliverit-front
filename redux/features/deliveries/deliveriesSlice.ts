@@ -1,7 +1,7 @@
 import { SerializedError, createSlice } from '@reduxjs/toolkit';
 import { IDelivery } from '../../../interfaces';
 import {
-    deleteDelivery,
+    updateDelivery,
     getDeliveredCompleted,
     getPendingDeliveries,
 } from './deliveriesThunk';
@@ -60,7 +60,7 @@ const deliveriesSlice = createSlice({
             state.loading = true;
         });
 
-        builder.addCase(deleteDelivery.fulfilled, (state, action) => {
+        builder.addCase(updateDelivery.fulfilled, (state, action) => {
             state.loading = false;
             const { id } = action.payload;
             state.pendingsDeliveries = state.pendingsDeliveries.filter(
@@ -68,12 +68,12 @@ const deliveriesSlice = createSlice({
             );
         });
 
-        builder.addCase(deleteDelivery.rejected, (state, action) => {
+        builder.addCase(updateDelivery.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error;
         });
 
-        builder.addCase(deleteDelivery.pending, (state) => {
+        builder.addCase(updateDelivery.pending, (state) => {
             state.loading = true;
         });
     },
