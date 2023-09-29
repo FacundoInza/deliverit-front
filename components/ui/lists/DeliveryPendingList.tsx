@@ -16,7 +16,6 @@ const DeliveryPendingList = () => {
         dispatch(getPendingDeliveries());
     }, []);
 
-    console.log(pendingsDeliveries);
     return (
         <>
             {loading ? (

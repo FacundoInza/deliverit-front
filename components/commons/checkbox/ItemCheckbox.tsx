@@ -31,8 +31,8 @@ export const ItemCheckbox: FC<Props> = ({
             setIsSelected(false);
             dispatch(
                 removeOrderSelected({
-                    orderSelected: { orderId },
-                    packagesQuantity,
+                    orderId: orderId,
+                    packagesQuantity: packagesQuantity,
                 })
             );
         } else {
@@ -40,8 +40,8 @@ export const ItemCheckbox: FC<Props> = ({
                 setIsSelected(true);
                 dispatch(
                     addOrderSelected({
-                        orderSelected: { orderId },
-                        packagesQuantity,
+                        orderId: orderId,
+                        packagesQuantity: packagesQuantity,
                     })
                 );
             } else {
@@ -69,8 +69,9 @@ export const ItemCheckbox: FC<Props> = ({
                 showModal={showModal}
                 isSuccess={false}
                 message='You can only select up to 10 packages'
-                onSuccess={() => setShowModal(false)}
-                onClose={() => setShowModal(false)}
+                onNotSuccess={() => setShowModal(false)}
+                onCloseModal={() => setShowModal(false)}
+                singleButton={true}
                 buttonText='Ok'
             />
         </>

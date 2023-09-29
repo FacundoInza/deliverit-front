@@ -12,7 +12,6 @@ const fetchOrder = async (id: string) => {
 
 const DeliveryInProgressCard: FC<{ id: string }> = async ({ id }) => {
     const order = await fetchOrder(id);
-    console.log('THIS IS ORDER---->', order);
 
     return (
         <>

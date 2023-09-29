@@ -76,14 +76,6 @@ export const SignupForm: FC = () => {
         }
     };
 
-    const handleCloseModal = () => {
-        if (isModalSuccess) {
-            router.push('/auth');
-        } else {
-            router.push('/auth/signup');
-        }
-    };
-
     const password = useRef({});
     password.current = watch('password', '');
 
@@ -294,17 +286,16 @@ export const SignupForm: FC = () => {
                     </Link>
                 </div>
             </div>
-            {showModal && (
-                <Notification
-                    showModal={showModal}
-                    isSuccess={isModalSuccess}
-                    message={modalMessage}
-                    onSuccess={handleCloseModal}
-                    onClose={() => setShowModal(false)}
-                    buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
-                    singleButton={true}
-                />
-            )}
+
+            <Notification
+                showModal={showModal}
+                isSuccess={isModalSuccess}
+                message={modalMessage}
+                onSuccess={() => router.push('/auth')}
+                onNotSuccess={() => router.push('/auth/signup')}
+                buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
+                singleButton={true}
+            />
         </>
     );
 };

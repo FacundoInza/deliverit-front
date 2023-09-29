@@ -78,8 +78,8 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 buttonText='Cancel Delivery'
                 message='Are you sure you want to cancel the delivery?'
                 isSuccess={false}
-                onSuccess={handleDelete}
-                onClose={() => setShowModal(false)}
+                onNotSuccess={handleDelete}
+                onCloseModal={() => setShowModal(false)}
             />
         </>
     );
