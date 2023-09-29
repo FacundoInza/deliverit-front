@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface IOrderSelected {
     orderId: string;
+    packagesQuantity: number;
 }
 
 interface IPackages {
@@ -19,24 +20,21 @@ const packagesSlice = createSlice({
     initialState,
     reducers: {
         addOrderSelected: (state, action) => {
-            const { packagesQuantity } = action.payload;
-            const { orderSelected } = action.payload;
+            const orderSelected: IOrderSelected = action.payload;
 
-            console.log(orderSelected);
-            if (state.totalPackages + packagesQuantity <= 10) {
+            if (state.totalPackages + orderSelected.packagesQuantity <= 10) {
                 state.ordersSelected.push(orderSelected);
-                state.totalPackages += packagesQuantity;
+                state.totalPackages += orderSelected.packagesQuantity;
             }
         },
         removeOrderSelected: (state, action) => {
-            const { packagesQuantity } = action.payload;
-            const { orderSelected } = action.payload;
+            const orderSelected: IOrderSelected = action.payload;
 
             state.ordersSelected = state.ordersSelected.filter(
                 (order) => order.orderId !== orderSelected.orderId
             );
 
-            state.totalPackages -= packagesQuantity;
+            state.totalPackages -= orderSelected.packagesQuantity;
         },
     },
 });

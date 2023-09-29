@@ -60,11 +60,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
     };
 
     const handleCloseModal = () => {
-        if (isModalSuccess) {
-            router.push('/auth');
-        } else {
-            setShowModal(false);
-        }
+        router.push('/auth');
     };
 
     const password = useRef({});
@@ -185,7 +181,8 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
                 isSuccess={isModalSuccess}
                 message={modalMessage}
                 onSuccess={handleCloseModal}
-                onClose={() => setShowModal(false)}
+                onNotSuccess={() => setShowModal(false)}
+                onCloseModal={() => setShowModal(false)}
                 buttonText={isModalSuccess ? 'Login' : 'Retry'}
                 singleButton={true}
             />

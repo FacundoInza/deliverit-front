@@ -153,7 +153,7 @@ const SwornStatement: FC = () => {
                 isSuccess={isModalSuccess}
                 message={modalMessage}
                 onSuccess={handleCloseModal}
-                onClose={() => setShowModal(false)}
+                onNotSuccess={handleCloseModal}
                 buttonText={isModalSuccess ? 'Continue' : 'Close'}
                 singleButton={true}
             />
