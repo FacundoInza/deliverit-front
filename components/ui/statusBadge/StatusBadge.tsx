@@ -17,7 +17,7 @@ const colorMap: ColorMap = {
         text: 'text-green-700',
         ring: 'ring-green-600',
     },
-    'in progress': {
+    'on-course': {
         bg: 'bg-inProgress',
         text: 'text-yellow-700',
         ring: 'ring-yellow-600',

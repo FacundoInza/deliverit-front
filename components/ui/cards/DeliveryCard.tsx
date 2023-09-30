@@ -62,7 +62,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 </div>
                 <div className='flex flex-col align-bottom absolute top-4 right-1'>
                     <StatusBadge status={status} />
-                    {status !== 'delivered' && (
+                    {status === 'pending' && (
                         <div className='mt-2 flex flex-col justify-end'>
                             <button
                                 className='flex items-center justify-end text-red-500 hover:text-red-700'
