@@ -52,7 +52,7 @@ const LocationMap: FC<LocationMapProps> = ({
     console.log('Map created', map);
 
     useEffect(() => {
-        if (navigator.geolocation) {
+        if (isLoaded && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const origin = {
                     lat: position.coords.latitude,
@@ -78,7 +78,7 @@ const LocationMap: FC<LocationMapProps> = ({
                 );
             });
         }
-    }, [coords]);
+    }, [coords, isLoaded]);
 
     return isLoaded ? (
         <GoogleMap
