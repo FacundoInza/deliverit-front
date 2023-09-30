@@ -22,16 +22,16 @@ export const GeneralCard: React.FC<GeneralCardProps> = ({
     };
     return (
         <>
-            <div className='mt-6 ml-4 mr-4 lg:ml-80 lg:mr-80 bg-white rounded-xl relative'>
+            <div className='mt-6 ml-4 mr-4 md:mx-32 bg-white rounded-xl relative'>
                 <div className='bg-info py-4 px-4 rounded-t-xl h-20 flex items-center'>
                     <button className='absolute' onClick={handleClick}>
-                        <div className='h-14 w-12 mr-2 text-primary'>
+                        <div className='h-12 w-10 md:h-14 md:w-12 mr-2 text-primary'>
                             <ArrowLeftCircleIcon />
                         </div>
                     </button>
 
-                    <p className='text-2xl font-semibold text-primary flex-grow text-center'>
-                        {title}{' '}
+                    <p className='text-xl md:text-2xl font-semibold text-primary flex-grow text-center'>
+                        {title}
                     </p>
                 </div>
 

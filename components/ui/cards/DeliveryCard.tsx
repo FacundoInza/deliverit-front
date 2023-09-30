@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/hooks';
 
 import Notification from '../modal/Notification';
 import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+import Link from 'next/link';
 
 interface CardProps {
     deliveryID: string;
@@ -44,11 +45,13 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2
          text-primary relative h-[90px] mb-2'
             >
-                <div className='ml-1 w-1/8'>
-                    <span className={colorMap[status]}>
-                        <MdOutlineDeliveryDining size={40} />
-                    </span>
-                </div>
+                <Link href={`detailed-view/${deliveryID}`}>
+                    <div className='ml-1 w-1/8'>
+                        <span className={colorMap[status]}>
+                            <MdOutlineDeliveryDining size={40} />
+                        </span>
+                    </div>
+                </Link>
                 <div className='flex-grow flex-col just space-y-1 border-l border-dashed border-gray-400 mx-1 px-2'>
                     <h3 className='text-lg font-semibold'>
                         {deliveryIdFriendly}

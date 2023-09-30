@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-
-import MainButton from '../../commons/buttons/MainButton';
 import { GeneralCard } from './GeneralCard';
 import { axiosInstance } from '@/interceptors';
 import LocationMap from '../locationMap/LocationMap';
+import dynamic from 'next/dynamic';
 
 const fetchDelivery = async (id: string) => {
     const deliveryDetails = await axiosInstance.get(`/api/delivery/${id}`);
@@ -11,7 +10,6 @@ const fetchDelivery = async (id: string) => {
 };
 
 const DeliveryInProgressCard: FC<{ id: string }> = async ({ id }) => {
-
     const delivery = await fetchDelivery(id);
     console.log('THIS IS delivery---->', delivery);
     const coords = {
@@ -19,11 +17,26 @@ const DeliveryInProgressCard: FC<{ id: string }> = async ({ id }) => {
         lng: delivery.data.orderId.coords.lng,
     };
 
+    const StartInteractiveButtons = dynamic(
+        () => import('../../commons/buttons/StartInteractiveButtons'),
+        { ssr: false }
+    );
+
+    const CancelInteractiveButtons = dynamic(
+        () => import('../../commons/buttons/CancelInteractiveButtons'),
+        { ssr: false }
+    );
 
     return (
         <>
-            <GeneralCard title='Delivery In Progress'>
-                <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8 '>
+            <GeneralCard
+                title={
+                    delivery.data.status === 'on-course'
+                        ? 'Delivery in Progress'
+                        : 'Delivery Details'
+                }
+            >
+                <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-2 lg:px-8 '>
                     <div className=' mt-0 sm:mx-auto sm:w-full sm:max-w-sm '>
                         <div className='border-primary border'>
                             <div className='w-full h-64 sm:h-80'>
@@ -58,14 +71,21 @@ const DeliveryInProgressCard: FC<{ id: string }> = async ({ id }) => {
                                 </span>
                             </p>
                             <div className='mt-8 '>
-                                <MainButton text='Finish' btnGreen />
+                                <StartInteractiveButtons delivery={delivery} />
                             </div>
                         </div>
                     </div>
                 </div>
             </GeneralCard>
-            <div className='mt-8  mx-auto flex button-container w-72'>
-                <MainButton text='Cancel Delivery' btnBlue />
+
+            <div className=' ml-4 mr-4 md:mx-32 relative'>
+                <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-2 lg:px-8 '>
+                    <div className=' mt-0 sm:mx-auto sm:w-full sm:max-w-sm '>
+                        <div className='px-4 py-6'>
+                            <CancelInteractiveButtons delivery={delivery} />
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
