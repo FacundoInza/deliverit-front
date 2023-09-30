@@ -6,6 +6,7 @@ import { IDelivery, ResponsePaginated } from '@/interfaces';
 
 import DeliveryPendingList from '@/components/ui/lists/DeliveryPendingList';
 import DeliveryCompleteList from '@/components/ui/lists/DeliveryCompleteList';
+import DeliveryOnCourse from '@/components/ui/lists/DeliveryOnCourse';
 
 const Home: FC = async () => {
     const user = await getUserFromServer();
@@ -16,20 +17,32 @@ const Home: FC = async () => {
     });
 
     const pendingTotalItems = res.totalItems;
+
     res = await getDeliveries({ status: 'delivered', userId: user.id });
 
     const deliveredTotalItems = res.totalItems;
 
+    res = await getDeliveries({ status: 'on-course', userId: user.id });
+
+    const deliveriesOnCourse = res.data;
+    const totalItemsOnCourse = res.totalItems;
     return (
         <>
             <nav className='bg-primary'>
                 <div style={{ height: '75vh' }}>
                     <DropdownCard
                         title='Pending deliveries'
-                        subtitle={`${pendingTotalItems} pending`}
+                        subtitle={`${
+                            pendingTotalItems + totalItemsOnCourse
+                        } pending`}
                     >
                         {!user.enabled ? (
-                            <DeliveryPendingList />
+                            <>
+                                <DeliveryOnCourse
+                                    deliveriesOnCourse={deliveriesOnCourse}
+                                />
+                                <DeliveryPendingList />
+                            </>
                         ) : (
                             <div className='text-center text-black'>
                                 You are not enabled to receive packages

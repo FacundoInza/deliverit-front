@@ -11,7 +11,7 @@ const fetchDelivery = async (id: string) => {
 
 const DeliveryInProgressCard: FC<{ id: string }> = async ({ id }) => {
     const delivery = await fetchDelivery(id);
-    console.log('THIS IS delivery---->', delivery);
+
     const coords = {
         lat: delivery.data.orderId.coords.lat,
         lng: delivery.data.orderId.coords.lng,

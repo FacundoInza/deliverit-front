@@ -89,7 +89,10 @@ const StartInteractiveButtons: FC<{ delivery: IDeliveryResponse }> = ({
                     showModal={showModal}
                     buttonText={isModalSuccess ? 'OK' : 'Try again'}
                     onNotSuccess={() => setShowModal(false)}
-                    onSuccess={() => router.push('/dealer/home')}
+                    onSuccess={() => {
+                        router.push('/dealer/home');
+                        router.refresh();
+                    }}
                 />
             )}
         </div>

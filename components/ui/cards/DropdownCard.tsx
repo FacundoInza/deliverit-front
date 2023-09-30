@@ -14,7 +14,7 @@ export const DropdownCard: React.FC<DropdownCardProps> = ({
     subtitle,
     children,
 }) => {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(true);
 
     const onExpand = () => {
         setExpanded(!expanded);
