@@ -3,17 +3,24 @@
 import React, { useState } from 'react';
 import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
+import { FaMapLocationDot } from 'react-icons/fa6';
+
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useAppDispatch } from '@/hooks';
 
 import Notification from '../modal/Notification';
 import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
 import Link from 'next/link';
+import MapModal from '../modal/MapModal';
 
 interface CardProps {
     deliveryID: string;
     deliveryAddress: string;
     status: string;
+    coords: {
+        lat: number;
+        lng: number;
+    };
 }
 
 const colorMap: { [key: string]: string } = {
@@ -27,8 +34,10 @@ export const DeliveryCard: React.FC<CardProps> = ({
     deliveryID,
     deliveryAddress,
     status,
+    coords,
 }) => {
     const [showModal, setShowModal] = useState(false);
+    const [showMapModal, setShowMapModal] = useState(false);
     const dispatch = useAppDispatch();
 
     const handleDelete = () => {
@@ -39,12 +48,14 @@ export const DeliveryCard: React.FC<CardProps> = ({
         .slice(20, 24)
         .toLocaleUpperCase()}`;
 
+    const truncatedAddress =
+        deliveryAddress.length > 30
+            ? `${deliveryAddress.substring(0, 30)}...`
+            : deliveryAddress;
+
     return (
         <>
-            <div
-                className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2
-         text-primary relative h-[90px] mb-2'
-            >
+            <div className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2 text-primary relative h-[90px] mb-2'>
                 <Link href={`detailed-view/${deliveryID}`}>
                     <div className='ml-1 w-1/8'>
                         <span className={colorMap[status]}>
@@ -52,12 +63,29 @@ export const DeliveryCard: React.FC<CardProps> = ({
                         </span>
                     </div>
                 </Link>
-                <div className='flex-grow flex-col just space-y-1 border-l border-dashed border-gray-400 mx-1 px-2'>
-                    <h3 className='text-lg font-semibold'>
-                        {deliveryIdFriendly}
-                    </h3>
-                    <div className='mr-[40px]'>
-                        <p>{deliveryAddress}</p>
+                <div className='flex-grow flex-col space-y-1 border-l border-dashed border-gray-400 mx-1 px-2 relative group'>
+                    <div className='flex justify-between items-start'>
+                        <h3 className='text-sm md:text-lg font-semibold'>
+                            {deliveryIdFriendly}
+                        </h3>
+                        <span className={colorMap[status]}>
+                            <FaMapLocationDot
+                                size={20}
+                                color='#22577A'
+                                className='ml-2 mr-32 md:mr-60 text-gray-500 cursor-pointer'
+                                onClick={() => setShowMapModal(true)}
+                            />
+                        </span>
+                    </div>
+
+                    <div className='text-sm md:text-lg mr-[80px]'>
+                        <p className='md:hidden inline-block'>
+                            {truncatedAddress}
+                        </p>
+                        <p className='hidden md:inline'>{deliveryAddress}</p>
+                        <div className='absolute top-0 left-0 mt-8 w-48 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
+                            {deliveryAddress}
+                        </div>
                     </div>
                 </div>
                 <div className='flex flex-col align-bottom absolute top-4 right-1'>
@@ -65,7 +93,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
                     {status !== 'delivered' && (
                         <div className='mt-2 flex flex-col justify-end'>
                             <button
-                                className='flex items-center justify-end text-red-500 hover:text-red-700'
+                                className='flex items-center justify-end text-sm md:text-lg text-red-500 hover:text-red-700'
                                 onClick={() => setShowModal(true)}
                             >
                                 Cancel
@@ -83,6 +111,12 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 isSuccess={false}
                 onNotSuccess={handleDelete}
                 onCloseModal={() => setShowModal(false)}
+            />
+            <MapModal
+                showModal={showMapModal}
+                onClose={() => setShowMapModal(false)}
+                coords={coords}
+                address={deliveryAddress}
             />
         </>
     );

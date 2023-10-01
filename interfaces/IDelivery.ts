@@ -26,6 +26,10 @@ export type ValidStatus = 'pending' | 'in progress' | 'delivered';
 export interface OrderID {
     _id: string;
     address: string;
+    coords: {
+        lat: number;
+        lng: number;
+    };
 }
 
 export interface FilterDelivery {
