@@ -1,13 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useAppSelector } from '@/hooks';
+import React, { FC, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import Notification from '@/components/ui/modal/Notification';
 import MainButton from './MainButton';
 import { postDeliveries } from '@/adapters';
 import { useRouter } from 'next/navigation';
+import { deletePackagesSelected } from '@/redux/features/packages/packagesSlice';
 
-const ButtonStartDay = () => {
+interface Props {
+    enabled: boolean;
+}
+
+const ButtonStartDay: FC<Props> = ({ enabled }) => {
+    const dispatch = useAppDispatch();
+
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
@@ -24,9 +31,11 @@ const ButtonStartDay = () => {
     const handleStartDay = async () => {
         try {
             await postDeliveries(ordersSelected);
+            dispatch(deletePackagesSelected());
             setShowModal(false);
             router.push('/dealer/home');
         } catch (error: any) {
+            console.log(error);
             const { message } = error.response.data.error.data;
             setIsSuccess(false);
             setButtonText('Ok');
@@ -53,6 +62,7 @@ const ButtonStartDay = () => {
                 }}
             >
                 <MainButton
+                    disabled={!enabled}
                     btnGreen
                     text='Start day'
                     onClick={handleOpenModal}

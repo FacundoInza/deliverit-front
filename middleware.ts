@@ -1,18 +1,17 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { validateToken } from './utils';
+import { getUserFromServer } from './adapters';
 
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
 
     if (token) {
-        const payload = await validateToken(token.value);
+        const user = await getUserFromServer();
 
-        if (request.nextUrl.pathname.startsWith('/auth') && payload) {
+        if (request.nextUrl.pathname.startsWith('/auth') && user) {
             return NextResponse.redirect(new URL('/dealer/home', request.url));
         }
-
-        if (request.nextUrl.pathname.startsWith('/dealer') && !payload) {
+        if (request.nextUrl.pathname.startsWith('/dealer') && !user) {
             return NextResponse.redirect(new URL('/auth', request.url));
         }
     } else {

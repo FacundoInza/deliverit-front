@@ -10,6 +10,7 @@ interface IPackages {
     totalPackages: number;
 }
 
+// Obtener el estado guardado en localStorage
 const initialState: IPackages = {
     ordersSelected: [],
     totalPackages: 0,
@@ -25,6 +26,8 @@ const packagesSlice = createSlice({
             if (state.totalPackages + orderSelected.packagesQuantity <= 10) {
                 state.ordersSelected.push(orderSelected);
                 state.totalPackages += orderSelected.packagesQuantity;
+                // Guardar el estado en localStorage después de cada cambio
+                localStorage.setItem('packagesState', JSON.stringify(state));
             }
         },
         removeOrderSelected: (state, action) => {
@@ -35,9 +38,30 @@ const packagesSlice = createSlice({
             );
 
             state.totalPackages -= orderSelected.packagesQuantity;
+            // Guardar el estado en localStorage después de cada cambio
+            localStorage.setItem('packagesState', JSON.stringify(state));
+        },
+        refreshPackagesSelected: (state) => {
+            const packages = localStorage.getItem('packagesState');
+            if (packages) {
+                const packagesState = JSON.parse(packages);
+                state.ordersSelected = packagesState.ordersSelected;
+                state.totalPackages = packagesState.totalPackages;
+            }
+        },
+        deletePackagesSelected: (state) => {
+            state.ordersSelected = [];
+            state.totalPackages = 0;
+            // Guardar el estado en localStorage después de cada cambio
+            localStorage.setItem('packagesState', JSON.stringify(state));
         },
     },
 });
 
-export const { addOrderSelected, removeOrderSelected } = packagesSlice.actions;
+export const {
+    addOrderSelected,
+    removeOrderSelected,
+    refreshPackagesSelected,
+    deletePackagesSelected,
+} = packagesSlice.actions;
 export default packagesSlice.reducer;

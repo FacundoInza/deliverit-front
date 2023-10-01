@@ -36,7 +36,7 @@ const Home: FC = async () => {
                             pendingTotalItems + totalItemsOnCourse
                         } pending`}
                     >
-                        {!user.enabled ? (
+                        {user.enabled ? (
                             <>
                                 <DeliveryOnCourse
                                     deliveriesOnCourse={deliveriesOnCourse}
@@ -44,7 +44,7 @@ const Home: FC = async () => {
                                 <DeliveryPendingList />
                             </>
                         ) : (
-                            <div className='text-center text-black'>
+                            <div className='text-center text-red-500'>
                                 You are not enabled to receive packages
                             </div>
                         )}
