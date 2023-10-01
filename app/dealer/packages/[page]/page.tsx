@@ -3,12 +3,12 @@ import { GeneralCard } from '@/components/ui/cards/GeneralCard';
 
 import { getOrders } from '@/adapters/orderAdapters';
 import { IOrder, ResponsePaginated } from '@/interfaces';
-import { SelectPackages } from '@/components/ui/select-packages';
 import Pagination from '@/components/commons/pagination/Pagination';
 
 import ButtonStartDay from '@/components/commons/buttons/ButtonStartDay';
 import { getUserFromServer } from '@/adapters';
 import NoAvailableCard from '@/components/ui/cards/NoAvailableCard';
+import PackagesList from '@/components/ui/lists/PackagesList';
 
 interface Props {
     params: {
@@ -41,9 +41,7 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                 {user.enabled ? (
                     <>
                         {data.length > 0 ? (
-                            data.map((pack, i) => (
-                                <SelectPackages key={i} pack={pack} />
-                            ))
+                            <PackagesList packages={data} />
                         ) : (
                             <div className='text-center text-red-500'>
                                 There are no packages available for today

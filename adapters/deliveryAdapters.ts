@@ -26,6 +26,5 @@ export async function postDeliveries(
     deliveries: IOrderSelected[]
 ): Promise<void> {
     const response = await api.post('/api/delivery', deliveries);
-    console.log(response);
     return response.data;
 }
