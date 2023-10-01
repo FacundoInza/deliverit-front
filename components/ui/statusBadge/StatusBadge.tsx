@@ -42,7 +42,7 @@ export const StatusBadge: React.FC<BadgeProps> = ({ status }) => {
     }
     return (
         <span
-            className={`text-lg font-bold inline-flex items-center rounded-full ${color.bg} px-5 py-1 text-xs font-medium ${color.text} ring-1 ring-inset ${color.ring}/20`}
+            className={`text-sm md:text-lg font-extrabold inline-flex items-center rounded-full ${color.bg} px-5 py-1 text-xs font-medium ${color.text} ring-1 ring-inset ${color.ring}/20`}
         >
             {status.toLocaleUpperCase()}
         </span>

@@ -15,6 +15,7 @@ export const DeliveryList: FC<Props> = ({ deliveries }) => {
                 <DeliveryCard
                     key={delivery._id}
                     deliveryID={delivery._id}
+                    coords={delivery.orderId.coords}
                     deliveryAddress={delivery.orderId.address}
                     status={delivery.status}
                 />
