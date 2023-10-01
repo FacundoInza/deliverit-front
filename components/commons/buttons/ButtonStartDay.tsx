@@ -1,13 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useAppSelector } from '@/hooks';
 import Notification from '@/components/ui/modal/Notification';
 import MainButton from './MainButton';
 import { postDeliveries } from '@/adapters';
 import { useRouter } from 'next/navigation';
 
-const ButtonStartDay = () => {
+interface Props {
+    enabled: boolean;
+}
+
+const ButtonStartDay: FC<Props> = ({ enabled }) => {
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
@@ -53,6 +57,7 @@ const ButtonStartDay = () => {
                 }}
             >
                 <MainButton
+                    disabled={!enabled}
                     btnGreen
                     text='Start day'
                     onClick={handleOpenModal}

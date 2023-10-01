@@ -7,6 +7,8 @@ import { SelectPackages } from '@/components/ui/select-packages';
 import Pagination from '@/components/commons/pagination/Pagination';
 
 import ButtonStartDay from '@/components/commons/buttons/ButtonStartDay';
+import { getUserFromServer } from '@/adapters';
+import NoAvailableCard from '@/components/ui/cards/NoAvailableCard';
 
 interface Props {
     params: {
@@ -15,6 +17,8 @@ interface Props {
 }
 
 const InitWorkDay: FC<Props> = async ({ params }) => {
+    const user = await getUserFromServer();
+
     const { data, totalPages }: ResponsePaginated<IOrder> = await getOrders({
         status: 'unassigned',
         page: Number(params.page),
@@ -34,10 +38,22 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                         margin: 10,
                     }}
                 ></div>
-                {data &&
-                    data.map((pack, i) => (
-                        <SelectPackages key={i} pack={pack} />
-                    ))}
+                {user.enabled ? (
+                    <>
+                        {data.length > 0 ? (
+                            data.map((pack, i) => (
+                                <SelectPackages key={i} pack={pack} />
+                            ))
+                        ) : (
+                            <div className='text-center text-red-500'>
+                                There are no packages available for today
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <NoAvailableCard />
+                )}
+
                 {totalPages > 1 && (
                     <div className='flex justify-center mt-4'>
                         <Pagination
@@ -47,7 +63,7 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                     </div>
                 )}
             </GeneralCard>
-            <ButtonStartDay />
+            <ButtonStartDay enabled={user.enabled} />
         </>
     );
 };
