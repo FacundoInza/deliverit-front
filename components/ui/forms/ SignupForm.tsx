@@ -289,10 +289,14 @@ export const SignupForm: FC = () => {
 
             <Notification
                 showModal={showModal}
+                onCloseModal={() => setShowModal(false)}
                 isSuccess={isModalSuccess}
                 message={modalMessage}
                 onSuccess={() => router.push('/auth')}
-                onNotSuccess={() => router.push('/auth/signup')}
+                onNotSuccess={() => {
+                    setShowModal(false);
+                    router.push('/auth/signup');
+                }}
                 buttonText={isModalSuccess ? 'Sign In' : 'Retry'}
                 singleButton={true}
             />
