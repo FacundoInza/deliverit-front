@@ -6,6 +6,7 @@ export interface IUser {
     role: string;
     enabled: boolean;
     blockUntil: Date | null;
+    numberOfPacakagesPerDay: number;
     lastSeenAt: Date;
     urlImage: string;
 }

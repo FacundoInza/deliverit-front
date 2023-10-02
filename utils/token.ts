@@ -1,4 +1,5 @@
 import currentEnv from '@/config';
+import { deleteCookie } from 'cookies-next';
 
 import { jwtVerify } from 'jose';
 
@@ -12,6 +13,7 @@ export const validateToken = async (token: string) => {
 
         return payload;
     } catch (error) {
-        throw new Error();
+        deleteCookie('token');
+        return null;
     }
 };
