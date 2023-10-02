@@ -1,6 +1,5 @@
 'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react';
 import React from 'react';
 import Link from 'next/link';
 import logo from '../assets/deliverit-full.png';
@@ -8,17 +7,11 @@ import Image from 'next/image';
 import { Navbar } from '../components/ui/navbar';
 
 export default function Error({
-    error,
     reset,
 }: {
     error: Error & { digest?: string };
     reset: () => void;
 }) {
-    useEffect(() => {
-        // Log the error to an error reporting service
-        console.error(error);
-    }, [error]);
-
     return (
         <>
             <div className='min-h-screen bg-primary'>

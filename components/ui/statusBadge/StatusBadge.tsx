@@ -37,7 +37,6 @@ const colorMap: ColorMap = {
 export const StatusBadge: React.FC<BadgeProps> = ({ status }) => {
     const color = colorMap[status];
     if (!color) {
-        console.error(`Status desconocido: ${status}`);
         return null;
     }
     return (

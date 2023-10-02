@@ -33,7 +33,7 @@ const SimpleLocationMap: FC<LocationMapProps> = ({
         id: 'google-map-script',
         googleMapsApiKey: apikey,
     });
-
+    //eslint-disable-next-line
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [showInfoWindow, setShowInfoWindow] = useState(true);
 
@@ -47,8 +47,6 @@ const SimpleLocationMap: FC<LocationMapProps> = ({
     const onUnmount = useCallback(function callback() {
         setMap(null);
     }, []);
-
-    console.log('Map created', map);
 
     return isLoaded ? (
         <GoogleMap

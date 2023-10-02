@@ -27,17 +27,15 @@ const CancelInteractiveButtons: FC<{ delivery: IDeliveryResponse }> = ({
     const id = delivery.data._id;
 
     const postponeDelivery = async () => {
-        console.log('postpone delivery called');
         try {
-            const result = await api.put(`/api/delivery/${id}`, {
+            await api.put(`/api/delivery/${id}`, {
                 status: 'pending',
             });
-            console.log('Postpone Result', result);
+
             setModalMessage('Delivery postponed!');
             setIsModalSuccess(true);
             setShowModal(true);
         } catch (error) {
-            console.log('Postpone Delivery error', error);
             const axiosError = error as AxiosError<ErrorResponse>;
             const errorMessage =
                 axiosError?.response?.data?.error?.data?.message ??
@@ -49,17 +47,14 @@ const CancelInteractiveButtons: FC<{ delivery: IDeliveryResponse }> = ({
         }
     };
     const cancelDelivery = async () => {
-        console.log('cancel delivery called');
         try {
-            const result = await api.put(`/api/delivery/${id}`, {
+            await api.put(`/api/delivery/${id}`, {
                 status: 'cancelled',
             });
-            console.log('Cancel Result', result);
             setModalMessage('Delivery cancelled!');
             setIsModalSuccess(true);
             setShowModal(true);
         } catch (error) {
-            console.log('Cancel Delivery error', error);
             setModalMessage((error as Error).message);
             setIsModalSuccess(false);
             setShowModal(true);

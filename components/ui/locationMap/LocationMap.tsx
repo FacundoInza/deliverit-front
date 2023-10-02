@@ -33,8 +33,9 @@ const LocationMap: FC<LocationMapProps> = ({
         id: 'google-map-script',
         googleMapsApiKey: apikey,
     });
-
+    //eslint-disable-next-line
     const [map, setMap] = useState<google.maps.Map | null>(null);
+
     const [directions, setDirections] =
         useState<google.maps.DirectionsResult | null>(null);
 
@@ -48,8 +49,6 @@ const LocationMap: FC<LocationMapProps> = ({
     const onUnmount = useCallback(function callback() {
         setMap(null);
     }, []);
-
-    console.log('Map created', map);
 
     useEffect(() => {
         if (isLoaded && navigator.geolocation) {
@@ -69,10 +68,6 @@ const LocationMap: FC<LocationMapProps> = ({
                     (result, status) => {
                         if (status === google.maps.DirectionsStatus.OK) {
                             setDirections(result);
-                        } else {
-                            console.error(
-                                `error fetching directions ${result}`
-                            );
                         }
                     }
                 );
