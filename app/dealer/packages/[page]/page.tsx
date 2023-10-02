@@ -24,8 +24,6 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
     const isUserBlocked =
         user.blockUntil && new Date(user.blockUntil) > new Date();
 
-    console.log('THIS IS USER', user);
-
     return (
         <>
             <GeneralCard title='Get packages'>

@@ -103,7 +103,6 @@ const SwornStatement: FC = () => {
                 setShowModal(true);
             }
         } catch (error) {
-            console.log('THIS IS THE ERROR', error);
             const axiosError = error as AxiosError<ErrorResponse>;
             if (axiosError && axiosError.response) {
                 setModalMessage(axiosError.response.data.message);
