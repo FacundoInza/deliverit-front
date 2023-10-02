@@ -9,7 +9,8 @@ const initialState: IUser = {
     role: '',
     enabled: false,
     lastSeenAt: new Date(),
-    blockUntil: new Date(),
+    blockUntil: null,
+    numberOfPacakagesPerDay: 0,
     urlImage: '',
 };
 
