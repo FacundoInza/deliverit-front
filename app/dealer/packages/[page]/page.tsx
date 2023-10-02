@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
 import { GeneralCard } from '@/components/ui/cards/GeneralCard';
-
 import { getOrders } from '@/adapters/orderAdapters';
 import { IOrder, ResponsePaginated } from '@/interfaces';
 import Pagination from '@/components/commons/pagination/Pagination';
-
 import ButtonStartDay from '@/components/commons/buttons/ButtonStartDay';
 import { getUserFromServer } from '@/adapters';
-import NoAvailableCard from '@/components/ui/cards/NoAvailableCard';
 import PackagesList from '@/components/ui/lists/PackagesList';
 
 interface Props {
@@ -24,6 +21,11 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
         page: Number(params.page),
     });
 
+    const isUserBlocked =
+        user.blockUntil && new Date(user.blockUntil) > new Date();
+
+    console.log('THIS IS USER', user);
+
     return (
         <>
             <GeneralCard title='Get packages'>
@@ -38,18 +40,12 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                         margin: 10,
                     }}
                 ></div>
-                {user.enabled ? (
-                    <>
-                        {data.length > 0 ? (
-                            <PackagesList packages={data} />
-                        ) : (
-                            <div className='text-center text-red-500'>
-                                There are no packages available for today
-                            </div>
-                        )}
-                    </>
+                {data.length > 0 ? (
+                    <PackagesList packages={data} />
                 ) : (
-                    <NoAvailableCard />
+                    <div className='text-center text-red-500'>
+                        There are no packages available for today
+                    </div>
                 )}
 
                 {totalPages > 1 && (
@@ -61,7 +57,12 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                     </div>
                 )}
             </GeneralCard>
-            <ButtonStartDay enabled={user.enabled} />
+
+            <ButtonStartDay
+                blockUntil={user.blockUntil}
+                isBlocked={isUserBlocked}
+                enabled={user.enabled}
+            />
         </>
     );
 };

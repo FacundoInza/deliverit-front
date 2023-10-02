@@ -11,6 +11,9 @@ import { AxiosError } from 'axios';
 import Notification from '@/components/ui/modal/Notification';
 import { useRouter } from 'next/navigation';
 import { setCookie } from 'cookies-next';
+import { useAppSelector } from '@/hooks';
+import { startJourney } from '@/utils/startJourney';
+import { postDeliveries } from '@/adapters';
 
 type SelectedAnswers = {
     alcoholicBeverages?: boolean;
@@ -37,6 +40,7 @@ const SwornStatement: FC = () => {
 
     const dispatch = useDispatch();
     const router = useRouter();
+    const { ordersSelected } = useAppSelector((state) => state.packages);
 
     const questionKeyMapping: Record<number, keyof SelectedAnswers> = {
         0: 'alcoholicBeverages',
@@ -78,8 +82,14 @@ const SwornStatement: FC = () => {
             dispatch(setUser(response.data.user));
 
             if (response.data.success) {
+                if (ordersSelected.length > 0) {
+                    await postDeliveries(ordersSelected);
+                    startJourney(dispatch, router);
+                } else {
+                    router.push('/dealer/packages/1');
+                }
                 setModalMessage(
-                    'You are allowed to start your journey. Remember you need to complete the form again at the end of the day.'
+                    'You are allowed to start your journey. Remember you need to complete the form again on your next journey.'
                 );
                 setIsModalSuccess(true);
                 setShowModal(true);
@@ -108,11 +118,7 @@ const SwornStatement: FC = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        if (isModalSuccess) {
-            router.push('/dealer/home');
-        } else {
-            router.push('/dealer/sworn-statement');
-        }
+        router.push('/dealer/home');
     };
 
     return (
