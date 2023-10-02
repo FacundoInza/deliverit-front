@@ -3,7 +3,6 @@ import { DropdownCard } from '@/components/ui/cards/DropdownCard';
 import MainButton from '@/components/commons/buttons/MainButton';
 import { getDeliveries, getUserFromServer } from '@/adapters';
 import { IDelivery, ResponsePaginated } from '@/interfaces';
-
 import DeliveryPendingList from '@/components/ui/lists/DeliveryPendingList';
 import DeliveryCompleteList from '@/components/ui/lists/DeliveryCompleteList';
 import DeliveryOnCourse from '@/components/ui/lists/DeliveryOnCourse';
@@ -36,17 +35,19 @@ const Home: FC = async () => {
                             pendingTotalItems + totalItemsOnCourse
                         } pending`}
                     >
-                        {user.enabled ? (
+                        {user.blockUntil &&
+                        new Date(user.blockUntil).getTime() > Date.now() ? (
+                            <div className='text-center text-red-500'>
+                                You are not allowed to work until{' '}
+                                {`${new Date(user.blockUntil)}`}
+                            </div>
+                        ) : (
                             <>
                                 <DeliveryOnCourse
                                     deliveriesOnCourse={deliveriesOnCourse}
                                 />
                                 <DeliveryPendingList />
                             </>
-                        ) : (
-                            <div className='text-center text-red-500'>
-                                You are not enabled to receive packages
-                            </div>
                         )}
                     </DropdownCard>
 
