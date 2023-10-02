@@ -4,6 +4,10 @@ export interface IOrder {
     address: string;
     packagesQuantity: number;
     weight: number;
+    coords: {
+        lat: number;
+        lng: number;
+    };
 }
 
 export interface FilterOrder {

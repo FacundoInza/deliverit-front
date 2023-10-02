@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import SimpleLocationMap from '../locationMap/SimpleLocationMap';
+import LocationMap from '../locationMap/LocationMap';
 
 interface MapModalProps {
     showModal: boolean;
@@ -9,6 +10,7 @@ interface MapModalProps {
         lng: number;
     };
     address: string;
+    directions?: boolean;
 }
 
 const MapModal: FC<MapModalProps> = ({
@@ -16,6 +18,7 @@ const MapModal: FC<MapModalProps> = ({
     onClose,
     coords,
     address,
+    directions = false,
 }) => {
     return (
         <>
@@ -29,10 +32,14 @@ const MapModal: FC<MapModalProps> = ({
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className='w-full h-64 sm:h-80'>
-                            <SimpleLocationMap
-                                coords={coords}
-                                address={address}
-                            />
+                            {directions ? (
+                                <LocationMap coords={coords} />
+                            ) : (
+                                <SimpleLocationMap
+                                    coords={coords}
+                                    address={address}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ export const SelectPackages: FC<Props> = ({ pack }) => {
                 packagesQuantity={pack.packagesQuantity}
                 orderId={pack._id}
                 address={pack.address}
-                city={'CABA'}
+                coords={pack.coords}
             />
             <ItemTotal quantity={pack.packagesQuantity} />
         </div>
