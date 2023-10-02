@@ -16,7 +16,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:prettier/recommended" // Agrega esta línea para utilizar las reglas de Prettier
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -26,7 +26,7 @@
         "sourceType": "module",
         "requireConfigFile": false
     },
-    "plugins": ["react", "cypress", "prettier"], // Agrega "prettier" a la lista de plugins
+    "plugins": ["react", "cypress", "prettier"],
     "rules": {
         "indent": ["warn", "tab"],
         "linebreak-style": ["warn", "unix"],
@@ -36,7 +36,7 @@
         "react/display-name": "off",
         "react-hooks/exhaustive-deps": "off",
         "react-hooks/rules-of-hooks": "error",
-        "prettier/prettier": "warn" // Asegúrate de activar la verificación de Prettier en ESLint
+        "prettier/prettier": "warn"
     },
     "overrides": [
         {
@@ -46,7 +46,7 @@
             "extends": [
                 "eslint:recommended",
                 "plugin:@typescript-eslint/recommended",
-                "plugin:prettier/recommended" // Agrega esta línea para utilizar las reglas de Prettier en TypeScript
+                "plugin:prettier/recommended"
             ],
             "rules": {
                 "indent": ["warn", 4],
@@ -56,7 +56,8 @@
                 "@typescript-eslint/no-explicit-any": "off",
                 "jsdoc/require-param-type": "off",
                 "jsdoc/require-returns-type": "off",
-                "prettier/prettier": "warn" // Asegúrate de activar la verificación de Prettier en ESLint para TypeScript
+                "prettier/prettier": "warn",
+                "no-console": "error" // Agrega la regla para prohibir console.log en archivos JS
             }
         }
     ]

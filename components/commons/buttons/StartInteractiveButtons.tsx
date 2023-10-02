@@ -27,17 +27,15 @@ const StartInteractiveButtons: FC<{ delivery: IDeliveryResponse }> = ({
     const id = delivery.data._id;
 
     const startDelivery = async () => {
-        console.log('start delivery called');
         try {
-            const result = await api.put(`/api/delivery/${id}`, {
+            await api.put(`/api/delivery/${id}`, {
                 status: 'on-course',
             });
-            console.log('Start Result', result);
+
             setModalMessage('Delivery started!');
             setIsModalSuccess(true);
             setShowModal(true);
         } catch (error) {
-            console.log('Start Delivery error', error);
             const axiosError = error as AxiosError<ErrorResponse>;
             const errorMessage =
                 axiosError?.response?.data?.error?.data?.message ??
@@ -49,17 +47,14 @@ const StartInteractiveButtons: FC<{ delivery: IDeliveryResponse }> = ({
         }
     };
     const completeDelivery = async () => {
-        console.log('complete delivery called');
         try {
-            const result = await api.put(`/api/delivery/${id}`, {
+            await api.put(`/api/delivery/${id}`, {
                 status: 'delivered',
             });
-            console.log('Complete Result', result);
             setModalMessage('Delivery completed!');
             setIsModalSuccess(true);
             setShowModal(true);
         } catch (error) {
-            console.log('Complete Delivery error', error);
             setModalMessage((error as Error).message);
             setIsModalSuccess(false);
             setShowModal(true);

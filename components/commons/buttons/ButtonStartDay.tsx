@@ -40,7 +40,6 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
             setShowModal(false);
             router.push('/dealer/home');
         } catch (error: any) {
-            console.log(error);
             const { message } = error.response.data.error.data;
             setIsSuccess(false);
             setButtonText('Ok');
