@@ -39,6 +39,7 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
             dispatch(deletePackagesSelected());
             setShowModal(false);
             router.push('/dealer/home');
+            router.refresh();
         } catch (error: any) {
             const { message } = error.response.data.error.data;
             setIsSuccess(false);
@@ -58,6 +59,7 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
 
     const handleNavigateToSworn = () => {
         router.push('/dealer/sworn-statement');
+        router.refresh();
     };
 
     return (
@@ -74,7 +76,7 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
                     <MainButton
                         disabled={!enabled}
                         btnGreen
-                        text='Start day'
+                        text='Start Journey'
                         onClick={handleOpenModal}
                     />
                 ) : isBlocked ? (
@@ -82,7 +84,11 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
                         onMouseEnter={() => setShowPopover(true)}
                         onMouseLeave={() => setShowPopover(false)}
                     >
-                        <MainButton disabled={true} btnGreen text='Start day' />
+                        <MainButton
+                            disabled={true}
+                            btnGreen
+                            text='Start Journey'
+                        />
                         {showPopover && (
                             <BlockPopover blockUntil={blockUntil} />
                         )}
@@ -90,7 +96,7 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
                 ) : (
                     <MainButton
                         btnGreen
-                        text='Fill Sworn Statement'
+                        text='Start Journey'
                         onClick={handleNavigateToSworn}
                     />
                 )}

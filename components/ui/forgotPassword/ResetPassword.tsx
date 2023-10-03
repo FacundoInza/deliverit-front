@@ -83,7 +83,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
                             <input
                                 id='newPassword'
                                 type={showNewPassword ? 'text' : 'password'}
-                                placeholder='Your Password'
+                                placeholder='Your Password Here...'
                                 autoComplete='current-password'
                                 {...register('newPassword', {
                                     required: 'New Password is required',
@@ -126,7 +126,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({ email, token }) => {
                                 type={
                                     showRepeatNewPassword ? 'text' : 'password'
                                 }
-                                placeholder='RepeatYourPassword'
+                                placeholder='Repeat Your Password Here...'
                                 autoComplete='current-password'
                                 {...register('repeatNewPassword', {
                                     required: 'Please confirm password.',
