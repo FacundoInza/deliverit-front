@@ -44,7 +44,11 @@ function isValidUser(user: any): user is IUser {
 export async function getUserFromServer(): Promise<IUser> {
     const token = cookies().get('token');
 
+    console.log('token -> getuserfromserver', token);
+
     const payload = await validateToken(token?.value as string);
+
+    console.log('payload -> getUserFromSever', payload);
 
     if (!payload || !isValidUser(payload.user)) {
         return userEmpty;

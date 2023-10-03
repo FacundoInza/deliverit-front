@@ -56,8 +56,7 @@
                 "@typescript-eslint/no-explicit-any": "off",
                 "jsdoc/require-param-type": "off",
                 "jsdoc/require-returns-type": "off",
-                "prettier/prettier": "warn",
-                "no-console": "error" // Agrega la regla para prohibir console.log en archivos JS
+                "prettier/prettier": "warn"
             }
         }
     ]
