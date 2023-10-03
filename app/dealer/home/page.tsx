@@ -28,7 +28,14 @@ const Home: FC = async () => {
     return (
         <>
             <nav className='bg-primary'>
-                <div style={{ height: '75vh' }}>
+                <div
+                    className='content-container'
+                    style={{
+                        height: '90vh',
+                        overflowY: 'auto',
+                        paddingBottom: '4rem',
+                    }}
+                >
                     <DropdownCard
                         title='Pending deliveries'
                         subtitle={`${
@@ -57,13 +64,14 @@ const Home: FC = async () => {
                     >
                         <DeliveryCompleteList />
                     </DropdownCard>
-                </div>
-                <div className='flex justify-center mt-4 w-72 m-auto'>
-                    <MainButton
-                        text={'Get packages'}
-                        btnGreen={true}
-                        redirect='/dealer/packages/1'
-                    />
+
+                    <div className='flex justify-center mt-4 w-72 m-auto'>
+                        <MainButton
+                            text={'Get packages'}
+                            btnGreen={true}
+                            redirect='/dealer/packages/1'
+                        />
+                    </div>
                 </div>
             </nav>
         </>

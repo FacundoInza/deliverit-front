@@ -113,7 +113,30 @@ export const ItemCheckbox: FC<Props> = ({
                             />
                         </svg>
                     </div>
-                    <div className='ml-2 flex items-center'>
+                    <div className='ml-2 flex items-center relative'>
+                        <p className='text-sm text-primary md:hidden'>
+                            {truncatedAddress}
+                        </p>
+                        <p className='hidden md:inline text-sm text-primary'>
+                            {address}
+                        </p>
+                        <div className='absolute -top-10 left-0 text-primary text-sm z-50 mt-8 w-64 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
+                            {address}
+                            <button
+                                onClick={handleMapIconClick}
+                                className='ml-2 mr-2 text-primary align-text-bottom md:hidden'
+                            >
+                                <FaMapLocationDot size={20} />
+                            </button>
+                        </div>
+                        <button
+                            onClick={handleMapIconClick}
+                            className='ml-2 mr-2 text-primary hidden md:inline-block' // hidden on small screens
+                        >
+                            <FaMapLocationDot size={20} />
+                        </button>
+                    </div>
+                    {/* <div className='ml-2 flex items-center relative'>
                         <p className='text-sm text-primary md:hidden'>
                             {truncatedAddress}
                         </p>
@@ -126,10 +149,10 @@ export const ItemCheckbox: FC<Props> = ({
                         >
                             <FaMapLocationDot size={20} />
                         </button>
-                        <div className='absolute top-0 left-0 text-primary text-sm z-50 mt-8 w-48 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
+                        <div className='absolute -top-10 left-0 text-primary text-sm z-50 mt-8 w-64 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
                             {address}
                         </div>
-                    </div>
+                    </div> */}
                 </label>
             )}
 

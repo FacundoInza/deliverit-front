@@ -87,6 +87,7 @@ const SwornStatement: FC = () => {
                     startJourney(dispatch, router);
                 } else {
                     router.push('/dealer/packages/1');
+                    router.refresh();
                 }
                 setModalMessage(
                     'You are allowed to start your journey. Remember you need to complete the form again on your next journey.'
@@ -118,6 +119,7 @@ const SwornStatement: FC = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         router.push('/dealer/home');
+        router.refresh();
     };
 
     return (
