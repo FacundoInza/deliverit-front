@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/interceptors';
 import { IUser } from '@/interfaces/IUser';
 import { validateToken } from '@/utils';
+import { getCookie } from 'cookies-next';
 import { cookies } from 'next/dist/client/components/headers';
 
 const userEmpty: IUser = {
@@ -73,7 +74,7 @@ export async function getUserFromServer(): Promise<IUser> {
 }
 
 export async function getUserFromClient(): Promise<IUser> {
-    const token = localStorage.getItem('token');
+    const token = getCookie('token');
 
     if (!token) {
         return userEmpty;
@@ -82,7 +83,6 @@ export async function getUserFromClient(): Promise<IUser> {
     const payload = await validateToken(token);
 
     if (!payload || !isValidUser(payload.user)) {
-        localStorage.removeItem('token');
         return userEmpty;
     }
 
