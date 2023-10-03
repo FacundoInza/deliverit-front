@@ -27,6 +27,8 @@ export async function userAuth() {
 }
 
 function isValidUser(user: any): user is IUser {
+    console.log('user -> isValidUser', user);
+
     return (
         typeof user === 'object' &&
         'id' in user &&

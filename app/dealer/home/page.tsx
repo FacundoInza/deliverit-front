@@ -10,7 +10,7 @@ import DeliveryOnCourse from '@/components/ui/lists/DeliveryOnCourse';
 const Home: FC = async () => {
     const user = await getUserFromServer();
 
-    console.log(user);
+    console.log('user ==> ', user);
 
     let res: ResponsePaginated<IDelivery> = await getDeliveries({
         status: 'pending',

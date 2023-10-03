@@ -8,6 +8,7 @@ export async function getDeliveries({
     userId,
 }: FilterDelivery): Promise<ResponsePaginated<IDelivery>> {
     console.log('userId -> getDeliveries', userId);
+
     const response = await axiosInstance.get(
         `/api/delivery/all?status=${status}&userId=${userId}`
     );
