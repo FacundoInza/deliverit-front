@@ -16,7 +16,6 @@ COPY . .
 # Build the Next.js app
 RUN npm run build
 
-
 # Stage 2: Serve the app using a lightweight production image
 FROM node:18-alpine
 
