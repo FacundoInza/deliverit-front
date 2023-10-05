@@ -53,8 +53,11 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
     return (
         <>
             <div
-                className='flex justify-between py-4 px-6 md:px-40 '
-                style={{ boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}
+                className='flex justify-between py-4 px-6 md:px-40'
+                style={{
+                    boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                    zIndex: 999,
+                }}
             >
                 <Link href='/dealer/home' className='text-2xl font-bold'>
                     <LogoSvg />

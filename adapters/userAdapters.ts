@@ -1,7 +1,6 @@
 import { axiosInstance } from '@/interceptors';
 import { IUser } from '@/interfaces/IUser';
 import { validateToken } from '@/utils';
-import { getCookie } from 'cookies-next';
 import { cookies } from 'next/dist/client/components/headers';
 
 const userEmpty: IUser = {
@@ -28,8 +27,6 @@ export async function userAuth() {
 }
 
 function isValidUser(user: any): user is IUser {
-    console.log('user -> isValidUser', user);
-
     return (
         typeof user === 'object' &&
         'id' in user &&
@@ -47,12 +44,8 @@ function isValidUser(user: any): user is IUser {
 export async function getUserFromServer(): Promise<IUser> {
     const token = cookies().get('token');
 
-    console.log('token -> getuserfromserver', token);
-
     const payload = await validateToken(token?.value as string);
 
-    console.log('payload -> getUserFromSever', payload);
-
     if (!payload || !isValidUser(payload.user)) {
         return userEmpty;
     }
@@ -68,35 +61,6 @@ export async function getUserFromServer(): Promise<IUser> {
         blockUntil: payload.user.blockUntil,
         numberOfPacakagesPerDay: payload.user.numberOfPacakagesPerDay,
         urlImage: payload.user.urlImage,
-    };
-
-    return user;
-}
-
-export async function getUserFromClient(): Promise<IUser> {
-    const token = getCookie('token');
-
-    if (!token) {
-        return userEmpty;
-    }
-
-    const payload = await validateToken(token);
-
-    if (!payload || !isValidUser(payload.user)) {
-        return userEmpty;
-    }
-
-    const user: IUser = {
-        id: payload.user.id,
-        email: payload.user.email,
-        name: payload.user.name,
-        lastName: payload.user.lastName,
-        role: payload.user.role,
-        enabled: payload.user.enabled,
-        lastSeenAt: payload.user.lastSeenAt,
-        numberOfPacakagesPerDay: payload.user.numberOfPacakagesPerDay,
-        urlImage: payload.user.urlImage,
-        blockUntil: payload.user.blockUntil,
     };
 
     return user;
