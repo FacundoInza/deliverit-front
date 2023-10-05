@@ -15,14 +15,10 @@ const DeliveryOnCourse = () => {
 
     return (
         <>
-            {!onCourseDeliveries ? (
-                <div className='flex justify-center'>
-                    <div className='text-center text-red-500'>
-                        You have no deliveries on course
-                    </div>
-                </div>
-            ) : (
-                <DeliveryList deliveries={onCourseDeliveries} />
+
+            {deliveriesOnCourse && (
+                <DeliveryList deliveries={deliveriesOnCourse} />
+
             )}
         </>
     );

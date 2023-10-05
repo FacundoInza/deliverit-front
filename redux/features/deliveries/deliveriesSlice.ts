@@ -82,17 +82,21 @@ const deliveriesSlice = createSlice({
             state.loading = true;
         });
 
+
         builder.addCase(getDeliveriesOnCourse.fulfilled, (state, action) => {
             state.loading = false;
             state.onCourseDeliveries = action.payload.data;
         });
 
         builder.addCase(getDeliveriesOnCourse.rejected, (state, action) => {
+
             state.loading = false;
             state.error = action.error;
         });
 
+
         builder.addCase(getDeliveriesOnCourse.pending, (state) => {
+
             state.loading = true;
         });
     },

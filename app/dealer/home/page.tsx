@@ -23,6 +23,7 @@ const Home: FC = async () => {
     res = await getDeliveries({ status: 'on-course' });
 
     const totalItemsOnCourse = res.totalItems;
+
     return (
         <>
             <nav className='bg-primary'>

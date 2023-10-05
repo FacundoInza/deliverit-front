@@ -11,15 +11,17 @@ interface Props {
 export const DeliveryList: FC<Props> = ({ deliveries }) => {
     return (
         <>
-            {deliveries.map((delivery) => (
-                <DeliveryCard
-                    key={delivery._id}
-                    deliveryID={delivery._id}
-                    coords={delivery.orderId.coords}
-                    deliveryAddress={delivery.orderId.address}
-                    status={delivery.status}
-                />
-            ))}
+            {deliveries.map((delivery) => {
+                return (
+                    <DeliveryCard
+                        key={delivery._id}
+                        deliveryID={delivery._id}
+                        coords={delivery.orderId?.coords}
+                        deliveryAddress={delivery.orderId?.address}
+                        status={delivery.status}
+                    />
+                );
+            })}
         </>
     );
 };

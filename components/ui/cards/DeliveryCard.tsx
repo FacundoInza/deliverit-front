@@ -4,15 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { FaMapLocationDot } from 'react-icons/fa6';
-
+import { motion } from 'framer-motion';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useAppDispatch } from '@/hooks';
-
 import Notification from '../modal/Notification';
-
 import Link from 'next/link';
 import MapModal from '../modal/MapModal';
 import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+
 
 interface CardProps {
     deliveryID: string;
@@ -56,6 +55,8 @@ export const DeliveryCard: React.FC<CardProps> = ({
     }, []);
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
+
 
     const handleDelete = () => {
         if (status === 'pending') {
@@ -80,9 +81,11 @@ export const DeliveryCard: React.FC<CardProps> = ({
             <div className='bg-white border border-primary rounded-2xl p-1 flex justify-center items-center space-x-2 text-primary relative h-[90px] mb-2'>
                 <Link href={`detailed-view/${deliveryID}`}>
                     <div className='ml-1 w-1/8'>
-                        <span className={colorMap[status]}>
-                            <MdOutlineDeliveryDining size={40} />
-                        </span>
+                        <motion.div whileHover={{ scale: 1.1 }}>
+                            <span className={colorMap[status]}>
+                                <MdOutlineDeliveryDining size={40} />
+                            </span>
+                        </motion.div>
                     </div>
                 </Link>
                 <div className='flex-grow flex-col space-y-1 border-l border-dashed border-gray-400 mx-1 px-2 relative group'>
@@ -90,14 +93,16 @@ export const DeliveryCard: React.FC<CardProps> = ({
                         <h3 className='text-sm md:text-lg font-semibold'>
                             {deliveryIdFriendly}
                         </h3>
-                        <span className={colorMap[status]}>
-                            <FaMapLocationDot
-                                size={20}
-                                color='#22577A'
-                                className='ml-2 mr-32 md:mr-60 text-gray-500 cursor-pointer'
-                                onClick={() => setShowMapModal(true)}
-                            />
-                        </span>
+                        <motion.div whileHover={{ scale: 1.1 }}>
+                            <span className={colorMap[status]}>
+                                <FaMapLocationDot
+                                    size={20}
+                                    color='#22577A'
+                                    className='ml-2 mr-32 md:mr-60 text-gray-500 cursor-pointer'
+                                    onClick={() => setShowMapModal(true)}
+                                />
+                            </span>
+                        </motion.div>
                     </div>
 
                     <div className='text-sm md:text-lg mr-[80px]'>
@@ -110,17 +115,26 @@ export const DeliveryCard: React.FC<CardProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col align-bottom absolute top-4 right-1'>
+                <div className='flex flex-col align-bottom absolute top-4 z-10 right-1'>
                     <StatusBadge status={status} />
+
+                    {(status === 'pending' || status === 'on-course') && (
+
                     {status === 'pending' || status === 'on-course' ? (
+
                         <div className='mt-2 flex flex-col justify-end'>
-                            <button
-                                className='flex items-center justify-end text-sm md:text-lg text-red-500 hover:text-red-700'
-                                onClick={() => setShowModal(true)}
-                            >
-                                Cancel
-                                <TiDeleteOutline color='red' size={30} />
-                            </button>
+                            <motion.div whileHover={{ scale: 1.1 }}>
+                                <button
+                                    className='flex items-center justify-end text-sm md:text-lg text-red-500 hover:text-red-700'
+                                    onClick={() => setShowModal(true)}
+                                >
+                                    {status === 'pending'
+                                        ? 'Cancel'
+                                        : 'Postpone'}
+
+                                    <TiDeleteOutline color='red' size={30} />
+                                </button>
+                            </motion.div>
                         </div>
                     ) : (
                         <></>
@@ -130,10 +144,11 @@ export const DeliveryCard: React.FC<CardProps> = ({
 
             <Notification
                 showModal={showModal}
+
                 buttonText={buttonText}
                 message={message}
                 isSuccess={false}
-                onNotSuccess={handleDelete}
+                onNotSuccess={handleAction}
                 onCloseModal={() => setShowModal(false)}
             />
             <MapModal
