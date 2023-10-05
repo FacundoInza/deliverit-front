@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { FaMapLocationDot } from 'react-icons/fa6';
@@ -9,9 +9,10 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { useAppDispatch } from '@/hooks';
 
 import Notification from '../modal/Notification';
-import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+
 import Link from 'next/link';
 import MapModal from '../modal/MapModal';
+import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
 
 interface CardProps {
     deliveryID: string;
@@ -38,10 +39,31 @@ export const DeliveryCard: React.FC<CardProps> = ({
 }) => {
     const [showModal, setShowModal] = useState(false);
     const [showMapModal, setShowMapModal] = useState(false);
+    const [buttonText, setButtonText] = useState('Cancel Delivery');
+    const [message, setMessage] = useState(
+        'Are you sure you want to cancel this delivery?'
+    );
+
+    useEffect(() => {
+        if (status === 'pending') {
+            setButtonText('Cancel Delivery');
+            setMessage('Are you sure you want to cancel this delivery?');
+        }
+        if (status === 'on-course') {
+            setButtonText('Return to pending');
+            setMessage('Are you sure you want to return this delivery?');
+        }
+    }, []);
+
     const dispatch = useAppDispatch();
 
     const handleDelete = () => {
-        dispatch(updateDelivery(deliveryID));
+        if (status === 'pending') {
+            dispatch(updateDelivery({ id: deliveryID, status: 'cancelled' }));
+        }
+        if (status === 'on-course') {
+            dispatch(updateDelivery({ id: deliveryID, status: 'pending' }));
+        }
     };
 
     const deliveryIdFriendly = `#${deliveryID
@@ -90,7 +112,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 </div>
                 <div className='flex flex-col align-bottom absolute top-4 right-1'>
                     <StatusBadge status={status} />
-                    {status === 'pending' && (
+                    {status === 'pending' || status === 'on-course' ? (
                         <div className='mt-2 flex flex-col justify-end'>
                             <button
                                 className='flex items-center justify-end text-sm md:text-lg text-red-500 hover:text-red-700'
@@ -100,14 +122,16 @@ export const DeliveryCard: React.FC<CardProps> = ({
                                 <TiDeleteOutline color='red' size={30} />
                             </button>
                         </div>
+                    ) : (
+                        <></>
                     )}
                 </div>
             </div>
 
             <Notification
                 showModal={showModal}
-                buttonText='Cancel Delivery'
-                message='Are you sure you want to cancel the delivery?'
+                buttonText={buttonText}
+                message={message}
                 isSuccess={false}
                 onNotSuccess={handleDelete}
                 onCloseModal={() => setShowModal(false)}

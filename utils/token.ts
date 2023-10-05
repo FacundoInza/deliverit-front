@@ -10,8 +10,6 @@ export const validateToken = async (token: string) => {
             algorithms: ['HS256'], // Specify the algorithm you are using
         });
 
-        console.log('payload -> validateToken', payload);
-
         return payload;
     } catch (error) {
         console.error('Error al validar el token:', error);

@@ -5,12 +5,9 @@ import { IOrderSelected } from '@/redux/features/packages/packagesSlice';
 
 export async function getDeliveries({
     status,
-    userId,
 }: FilterDelivery): Promise<ResponsePaginated<IDelivery>> {
-    console.log('userId -> getDeliveries', userId);
-
     const response = await axiosInstance.get(
-        `/api/delivery/all?status=${status}&userId=${userId}`
+        `/api/delivery/all?status=${status}`
     );
 
     return response.data;
