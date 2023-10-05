@@ -1,15 +1,16 @@
 import { SerializedError, createSlice } from '@reduxjs/toolkit';
 import { IDelivery } from '../../../interfaces';
 import {
-    updateDelivery,
     getDeliveredCompleted,
     getPendingDeliveries,
-    postponeDelivery,
+    getDeliveriesOnCourse,
+    updateDelivery,
 } from './deliveriesThunk';
 
 interface IDeliveries {
     pendingsDeliveries: IDelivery[];
     finishedDeliveries: IDelivery[];
+    onCourseDeliveries: IDelivery[];
     loading: boolean;
     error: SerializedError | null;
 }
@@ -17,6 +18,7 @@ interface IDeliveries {
 const initialState: IDeliveries = {
     pendingsDeliveries: [],
     finishedDeliveries: [],
+    onCourseDeliveries: [],
     loading: false,
     error: null,
 };
@@ -24,14 +26,7 @@ const initialState: IDeliveries = {
 const deliveriesSlice = createSlice({
     name: 'deliveries',
     initialState,
-    reducers: {
-        deleteFinishedDelivery: (state, action) => {
-            const { id } = action.payload;
-            state.finishedDeliveries = state.finishedDeliveries.filter(
-                (delivery) => delivery._id !== id
-            );
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getPendingDeliveries.fulfilled, (state, action) => {
             state.loading = false;
@@ -63,10 +58,19 @@ const deliveriesSlice = createSlice({
 
         builder.addCase(updateDelivery.fulfilled, (state, action) => {
             state.loading = false;
-            const { id } = action.payload;
-            state.pendingsDeliveries = state.pendingsDeliveries.filter(
-                (delivery) => delivery._id !== id
-            );
+            const { id, data } = action.payload;
+
+            if (data.status === 'on-course' || data.status === 'cancelled') {
+                state.pendingsDeliveries = state.pendingsDeliveries.filter(
+                    (delivery) => delivery._id !== id
+                );
+            }
+            if (data.status === 'delivered' || data.status === 'pending') {
+                state.onCourseDeliveries = state.onCourseDeliveries.filter(
+                    (delivery) => delivery._id !== id
+                );
+                state.pendingsDeliveries.push(data);
+            }
         });
 
         builder.addCase(updateDelivery.rejected, (state, action) => {
@@ -77,26 +81,22 @@ const deliveriesSlice = createSlice({
         builder.addCase(updateDelivery.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(postponeDelivery.fulfilled, (state, action) => {
+
+
+        builder.addCase(getDeliveriesOnCourse.fulfilled, (state, action) => {
             state.loading = false;
-            const { id } = action.payload;
-            const index = state.pendingsDeliveries.findIndex(
-                (delivery) => delivery._id === id
-            );
-            if (index !== -1) {
-                state.pendingsDeliveries[index] = action.payload.data; // assuming data is the updated delivery object
-            } else {
-                // If the delivery was not already in the pending deliveries list, add it
-                state.pendingsDeliveries.push(action.payload.data);
-            }
+            state.onCourseDeliveries = action.payload.data;
         });
 
-        builder.addCase(postponeDelivery.rejected, (state, action) => {
+        builder.addCase(getDeliveriesOnCourse.rejected, (state, action) => {
+
             state.loading = false;
             state.error = action.error;
         });
 
-        builder.addCase(postponeDelivery.pending, (state) => {
+
+        builder.addCase(getDeliveriesOnCourse.pending, (state) => {
+
             state.loading = true;
         });
     },

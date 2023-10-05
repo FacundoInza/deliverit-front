@@ -1,19 +1,12 @@
-import { getUserFromClient } from '@/adapters';
 import { api } from '@/api/axiosInstance';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getPendingDeliveries = createAsyncThunk(
     'getPendingDeliveries',
     async () => {
-        const user = await getUserFromClient();
 
-        const { data } = await api.get(
-            `/api/delivery/all?status=pending&userId=${user.id}`
-        );
+        const { data } = await api.get('/api/delivery/all?status=pending');
 
-        if (!data) {
-            throw new Error('Error getting pending deliveries');
-        }
 
         return data;
     }
@@ -22,15 +15,18 @@ export const getPendingDeliveries = createAsyncThunk(
 export const getDeliveredCompleted = createAsyncThunk(
     'getDeliveriesCompleted',
     async () => {
-        const user = await getUserFromClient();
+        const { data } = await api.get('/api/delivery/all?status=delivered');
 
-        const { data } = await api.get(
-            `/api/delivery/all?status=delivered&userId=${user.id}`
-        );
+        return data;
+    }
+);
 
-        if (!data) {
-            throw new Error('Error getting delivered deliveries');
-        }
+
+export const getDeliveriesOnCourse = createAsyncThunk(
+    'getDeliveriesOnCourse',
+    async () => {
+        const { data } = await api.get('/api/delivery/all?status=on-course');
+
 
         return data;
     }
@@ -38,16 +34,14 @@ export const getDeliveredCompleted = createAsyncThunk(
 
 export const updateDelivery = createAsyncThunk(
     'updateStatusDelivery',
-    async (id: string) => {
+    async ({ id, status }: { id: string; status: string }) => {
         const { data } = await api.put(`/api/delivery/${id}`, {
-            status: 'cancelled',
+            status: status,
         });
 
-        if (!data) {
-            throw new Error('Error updating delivery status');
-        }
 
-        return { id: id, data: data };
+        return { id: id, data: data.data };
+
     }
 );
 

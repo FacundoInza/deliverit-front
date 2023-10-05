@@ -1,16 +1,24 @@
-import { IDelivery } from '@/interfaces';
-import React, { FC } from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import { DeliveryList } from '.';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { getDeliveriesOnCourse } from '@/redux/features/deliveries/deliveriesThunk';
 
-interface Props {
-    deliveriesOnCourse: IDelivery[];
-}
+const DeliveryOnCourse = () => {
+    const dispatch = useAppDispatch();
+    const { onCourseDeliveries } = useAppSelector((state) => state.deliveries);
 
-const DeliveryOnCourse: FC<Props> = ({ deliveriesOnCourse }) => {
+    useEffect(() => {
+        dispatch(getDeliveriesOnCourse());
+    }, []);
+
     return (
         <>
+
             {deliveriesOnCourse && (
                 <DeliveryList deliveries={deliveriesOnCourse} />
+
             )}
         </>
     );

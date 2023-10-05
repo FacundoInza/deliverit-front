@@ -1,21 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBadge } from '../statusBadge/StatusBadge';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { FaMapLocationDot } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useAppDispatch } from '@/hooks';
-
 import Notification from '../modal/Notification';
-import {
-    postponeDelivery,
-    updateDelivery,
-} from '@/redux/features/deliveries/deliveriesThunk';
 import Link from 'next/link';
 import MapModal from '../modal/MapModal';
-import { useRouter } from 'next/navigation';
+import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+
 
 interface CardProps {
     deliveryID: string;
@@ -42,17 +38,33 @@ export const DeliveryCard: React.FC<CardProps> = ({
 }) => {
     const [showModal, setShowModal] = useState(false);
     const [showMapModal, setShowMapModal] = useState(false);
+    const [buttonText, setButtonText] = useState('Cancel Delivery');
+    const [message, setMessage] = useState(
+        'Are you sure you want to cancel this delivery?'
+    );
+
+    useEffect(() => {
+        if (status === 'pending') {
+            setButtonText('Cancel Delivery');
+            setMessage('Are you sure you want to cancel this delivery?');
+        }
+        if (status === 'on-course') {
+            setButtonText('Return to pending');
+            setMessage('Are you sure you want to return this delivery?');
+        }
+    }, []);
+
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const handleAction = () => {
+
+    const handleDelete = () => {
         if (status === 'pending') {
-            dispatch(updateDelivery(deliveryID));
-        } else {
-            dispatch(postponeDelivery(deliveryID));
+            dispatch(updateDelivery({ id: deliveryID, status: 'cancelled' }));
         }
-        setShowModal(false);
-        router.refresh();
+        if (status === 'on-course') {
+            dispatch(updateDelivery({ id: deliveryID, status: 'pending' }));
+        }
     };
 
     const deliveryIdFriendly = `#${deliveryID
@@ -105,7 +117,11 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 </div>
                 <div className='flex flex-col align-bottom absolute top-4 z-10 right-1'>
                     <StatusBadge status={status} />
+
                     {(status === 'pending' || status === 'on-course') && (
+
+                    {status === 'pending' || status === 'on-course' ? (
+
                         <div className='mt-2 flex flex-col justify-end'>
                             <motion.div whileHover={{ scale: 1.1 }}>
                                 <button
@@ -120,22 +136,17 @@ export const DeliveryCard: React.FC<CardProps> = ({
                                 </button>
                             </motion.div>
                         </div>
+                    ) : (
+                        <></>
                     )}
                 </div>
             </div>
 
             <Notification
                 showModal={showModal}
-                buttonText={
-                    status === 'pending'
-                        ? 'Cancel Delivery'
-                        : 'Postpone Delivery'
-                }
-                message={
-                    status === 'pending'
-                        ? 'Are you sure you want to cancel the delivery?'
-                        : 'Are you sure you want to do this delivery later?'
-                }
+
+                buttonText={buttonText}
+                message={message}
                 isSuccess={false}
                 onNotSuccess={handleAction}
                 onCloseModal={() => setShowModal(false)}

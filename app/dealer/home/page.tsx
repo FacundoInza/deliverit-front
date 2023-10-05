@@ -12,18 +12,16 @@ const Home: FC = async () => {
 
     let res: ResponsePaginated<IDelivery> = await getDeliveries({
         status: 'pending',
-        userId: user.id,
     });
 
     const pendingTotalItems = res.totalItems;
 
-    res = await getDeliveries({ status: 'delivered', userId: user.id });
+    res = await getDeliveries({ status: 'delivered' });
 
     const deliveredTotalItems = res.totalItems;
 
-    res = await getDeliveries({ status: 'on-course', userId: user.id });
+    res = await getDeliveries({ status: 'on-course' });
 
-    const deliveriesOnCourse = res.data;
     const totalItemsOnCourse = res.totalItems;
 
     return (
@@ -51,9 +49,7 @@ const Home: FC = async () => {
                             </div>
                         ) : (
                             <>
-                                <DeliveryOnCourse
-                                    deliveriesOnCourse={deliveriesOnCourse}
-                                />
+                                <DeliveryOnCourse />
                                 <DeliveryPendingList />
                             </>
                         )}

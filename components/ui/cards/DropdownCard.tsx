@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react';
 
 interface DropdownCardProps {
     title: string;
-    subtitle: string;
+    subtitle?: string;
     children: ReactNode;
 }
 

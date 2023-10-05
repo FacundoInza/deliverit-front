@@ -65,33 +65,3 @@ export async function getUserFromServer(): Promise<IUser> {
 
     return user;
 }
-
-export async function getUserFromClient(): Promise<IUser> {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-        return userEmpty;
-    }
-
-    const payload = await validateToken(token);
-
-    if (!payload || !isValidUser(payload.user)) {
-        localStorage.removeItem('token');
-        return userEmpty;
-    }
-
-    const user: IUser = {
-        id: payload.user.id,
-        email: payload.user.email,
-        name: payload.user.name,
-        lastName: payload.user.lastName,
-        role: payload.user.role,
-        enabled: payload.user.enabled,
-        lastSeenAt: payload.user.lastSeenAt,
-        numberOfPacakagesPerDay: payload.user.numberOfPacakagesPerDay,
-        urlImage: payload.user.urlImage,
-        blockUntil: payload.user.blockUntil,
-    };
-
-    return user;
-}
