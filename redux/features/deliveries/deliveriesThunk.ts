@@ -12,7 +12,7 @@ export const getPendingDeliveries = createAsyncThunk(
         );
 
         if (!data) {
-            throw new Error('No se pudo obtener las entregas pendientes');
+            throw new Error('Error getting pending deliveries');
         }
 
         return data;
@@ -29,7 +29,7 @@ export const getDeliveredCompleted = createAsyncThunk(
         );
 
         if (!data) {
-            throw new Error('No se pudo obtener las entregas pendientes');
+            throw new Error('Error getting delivered deliveries');
         }
 
         return data;
@@ -44,9 +44,23 @@ export const updateDelivery = createAsyncThunk(
         });
 
         if (!data) {
-            throw new Error('No se pudo cancelar la entrega');
+            throw new Error('Error updating delivery status');
         }
 
         return { id: id, data: data };
+    }
+);
+
+export const postponeDelivery = createAsyncThunk(
+    'postponeDelivery',
+    async (id: string) => {
+        const { data } = await api.put(`/api/delivery/${id}`, {
+            status: 'pending',
+        });
+        if (!data) {
+            throw new Error('Error updating delivery status');
+        }
+
+        return { id: id, data: data.data };
     }
 );

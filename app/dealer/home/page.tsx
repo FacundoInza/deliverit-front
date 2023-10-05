@@ -25,6 +25,7 @@ const Home: FC = async () => {
 
     const deliveriesOnCourse = res.data;
     const totalItemsOnCourse = res.totalItems;
+
     return (
         <>
             <nav className='bg-primary'>

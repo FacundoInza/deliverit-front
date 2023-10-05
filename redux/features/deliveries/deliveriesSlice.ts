@@ -4,6 +4,7 @@ import {
     updateDelivery,
     getDeliveredCompleted,
     getPendingDeliveries,
+    postponeDelivery,
 } from './deliveriesThunk';
 
 interface IDeliveries {
@@ -74,6 +75,28 @@ const deliveriesSlice = createSlice({
         });
 
         builder.addCase(updateDelivery.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(postponeDelivery.fulfilled, (state, action) => {
+            state.loading = false;
+            const { id } = action.payload;
+            const index = state.pendingsDeliveries.findIndex(
+                (delivery) => delivery._id === id
+            );
+            if (index !== -1) {
+                state.pendingsDeliveries[index] = action.payload.data; // assuming data is the updated delivery object
+            } else {
+                // If the delivery was not already in the pending deliveries list, add it
+                state.pendingsDeliveries.push(action.payload.data);
+            }
+        });
+
+        builder.addCase(postponeDelivery.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error;
+        });
+
+        builder.addCase(postponeDelivery.pending, (state) => {
             state.loading = true;
         });
     },

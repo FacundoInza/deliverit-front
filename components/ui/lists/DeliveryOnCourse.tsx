@@ -9,13 +9,7 @@ interface Props {
 const DeliveryOnCourse: FC<Props> = ({ deliveriesOnCourse }) => {
     return (
         <>
-            {!deliveriesOnCourse ? (
-                <div className='flex justify-center'>
-                    <div className='text-center text-red-500'>
-                        You have no deliveries on course
-                    </div>
-                </div>
-            ) : (
+            {deliveriesOnCourse && (
                 <DeliveryList deliveries={deliveriesOnCourse} />
             )}
         </>
