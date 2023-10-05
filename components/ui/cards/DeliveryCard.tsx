@@ -12,7 +12,6 @@ import Link from 'next/link';
 import MapModal from '../modal/MapModal';
 import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
 
-
 interface CardProps {
     deliveryID: string;
     deliveryAddress: string;
@@ -55,8 +54,6 @@ export const DeliveryCard: React.FC<CardProps> = ({
     }, []);
 
     const dispatch = useAppDispatch();
-    const router = useRouter();
-
 
     const handleDelete = () => {
         if (status === 'pending') {
@@ -118,10 +115,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
                 <div className='flex flex-col align-bottom absolute top-4 z-10 right-1'>
                     <StatusBadge status={status} />
 
-                    {(status === 'pending' || status === 'on-course') && (
-
                     {status === 'pending' || status === 'on-course' ? (
-
                         <div className='mt-2 flex flex-col justify-end'>
                             <motion.div whileHover={{ scale: 1.1 }}>
                                 <button
@@ -144,11 +138,10 @@ export const DeliveryCard: React.FC<CardProps> = ({
 
             <Notification
                 showModal={showModal}
-
                 buttonText={buttonText}
                 message={message}
                 isSuccess={false}
-                onNotSuccess={handleAction}
+                onNotSuccess={handleDelete}
                 onCloseModal={() => setShowModal(false)}
             />
             <MapModal

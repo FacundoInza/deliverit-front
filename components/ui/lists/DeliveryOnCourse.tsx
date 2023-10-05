@@ -15,10 +15,8 @@ const DeliveryOnCourse = () => {
 
     return (
         <>
-
-            {deliveriesOnCourse && (
-                <DeliveryList deliveries={deliveriesOnCourse} />
-
+            {onCourseDeliveries && (
+                <DeliveryList deliveries={onCourseDeliveries} />
             )}
         </>
     );
