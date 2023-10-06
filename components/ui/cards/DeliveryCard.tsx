@@ -48,8 +48,8 @@ export const DeliveryCard: React.FC<CardProps> = ({
             setMessage('Are you sure you want to cancel this delivery?');
         }
         if (status === 'on-course') {
-            setButtonText('Return to pending');
-            setMessage('Are you sure you want to return this delivery?');
+            setButtonText('Postpone Delivery');
+            setMessage('Are you sure you want to postpone this delivery?');
         }
     }, []);
 
@@ -107,12 +107,12 @@ export const DeliveryCard: React.FC<CardProps> = ({
                             {truncatedAddress}
                         </p>
                         <p className='hidden md:inline'>{deliveryAddress}</p>
-                        <div className='absolute top-0 left-0 mt-8 w-48 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
+                        <div className='absolute top-0 left-0 mt-8 w-48 z-50 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
                             {deliveryAddress}
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col align-bottom absolute top-4 z-10 right-1'>
+                <div className='flex flex-col align-bottom absolute top-4 right-1'>
                     <StatusBadge status={status} />
 
                     {status === 'pending' || status === 'on-course' ? (
