@@ -85,58 +85,60 @@ export const ItemCheckbox: FC<Props> = ({
                     </div>
                 </label>
             ) : (
-                <label className='flex items-center cursor-pointer select-none w-full group'>
-                    <input
-                        type='checkbox'
-                        checked={isSelected}
-                        onChange={handleCheckboxChange}
-                        className='opacity-0 absolute h-0 w-0'
-                    />
-                    <div
-                        className={`relative h-4 w-4 border border-blue-500 rounded checkmark ${
-                            isSelected ? 'bg-green-200' : ''
-                        }`}
-                    >
-                        <svg
-                            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
-                                isSelected ? '' : 'hidden'
+                <>
+                    <label className='flex items-center cursor-pointer select-none w-full group'>
+                        <input
+                            type='checkbox'
+                            checked={isSelected}
+                            onChange={handleCheckboxChange}
+                            className='opacity-0 absolute h-0 w-0'
+                        />
+                        <div
+                            className={`relative h-4 w-4 border border-blue-500 rounded checkmark ${
+                                isSelected ? 'bg-green-200' : ''
                             }`}
-                            width='10'
-                            height='8'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
                         >
-                            <path
-                                d='M1 4L3.5 6L9 1'
-                                stroke='#22577A'
-                                strokeWidth='2'
-                            />
-                        </svg>
-                    </div>
-                    <div className='ml-2 flex items-center relative'>
-                        <p className='text-sm text-primary md:hidden'>
-                            {truncatedAddress}
-                        </p>
-                        <p className='hidden md:inline text-sm text-primary'>
-                            {address}
-                        </p>
-                        <div className='absolute -top-10 left-0 text-primary text-sm z-50 mt-8 w-64 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
-                            {address}
-                            <button
-                                onClick={handleMapIconClick}
-                                className='ml-2 mr-2 text-primary align-text-bottom md:hidden'
+                            <svg
+                                className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+                                    isSelected ? '' : 'hidden'
+                                }`}
+                                width='10'
+                                height='8'
+                                fill='none'
+                                xmlns='http://www.w3.org/2000/svg'
                             >
-                                <FaMapLocationDot size={20} />
-                            </button>
+                                <path
+                                    d='M1 4L3.5 6L9 1'
+                                    stroke='#22577A'
+                                    strokeWidth='2'
+                                />
+                            </svg>
                         </div>
-                        <button
-                            onClick={handleMapIconClick}
-                            className='ml-2 mr-2 text-primary hidden md:inline-block' // hidden on small screens
-                        >
-                            <FaMapLocationDot size={20} />
-                        </button>
-                    </div>
-                </label>
+                        <div className='ml-2 flex items-center relative'>
+                            <p className='text-sm text-primary md:hidden'>
+                                {truncatedAddress}
+                            </p>
+                            <p className='hidden md:inline text-sm text-primary'>
+                                {address}
+                            </p>
+                            <div className='absolute -top-10 left-0 text-primary text-sm z-50 mt-8 w-64 bg-white border border-gray-300 rounded-md shadow-lg p-2 opacity-0 group-hover:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200'>
+                                {address}
+                                <button
+                                    onClick={handleMapIconClick}
+                                    className='ml-2 mr-2 text-primary align-text-bottom md:hidden'
+                                >
+                                    <FaMapLocationDot size={20} />
+                                </button>
+                            </div>
+                        </div>
+                    </label>
+                    <button
+                        onClick={handleMapIconClick}
+                        className='ml-2 mr-2 text-primary hidden md:inline-block' // hidden on small screens
+                    >
+                        <FaMapLocationDot size={20} />
+                    </button>
+                </>
             )}
 
             <Notification
