@@ -13,10 +13,16 @@ interface Props {
     enabled: boolean;
     isBlocked: boolean | null;
     blockUntil: Date | null;
+    emptyData: boolean;
     onShowSwornModal?: () => void;
 }
 
-const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
+const ButtonStartDay: FC<Props> = ({
+    enabled,
+    isBlocked,
+    blockUntil,
+    emptyData,
+}) => {
     const dispatch = useAppDispatch();
 
     const [showModal, setShowModal] = useState(false);
@@ -95,6 +101,7 @@ const ButtonStartDay: FC<Props> = ({ enabled, isBlocked, blockUntil }) => {
                     </div>
                 ) : (
                     <MainButton
+                        disabled={emptyData}
                         btnGreen
                         text='Start Journey'
                         onClick={handleNavigateToSworn}
