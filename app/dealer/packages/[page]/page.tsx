@@ -60,6 +60,7 @@ const InitWorkDay: FC<Props> = async ({ params }) => {
                 blockUntil={user.blockUntil}
                 isBlocked={isUserBlocked}
                 enabled={user.enabled}
+                emptyData={data.length === 0}
             />
         </>
     );

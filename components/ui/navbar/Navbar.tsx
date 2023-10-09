@@ -43,11 +43,8 @@ export const Navbar: FC<Props> = ({ isAuthenticated }) => {
     };
 
     const handleCloseModal = () => {
-        if (isModalSuccess) {
-            router.push('/auth');
-        } else {
-            setShowModal(false);
-        }
+        setShowModal(false);
+        router.push('/auth');
     };
 
     return (
