@@ -11,6 +11,7 @@ import Notification from '../modal/Notification';
 import Link from 'next/link';
 import MapModal from '../modal/MapModal';
 import { updateDelivery } from '@/redux/features/deliveries/deliveriesThunk';
+import { useRouter } from 'next/navigation';
 
 interface CardProps {
     deliveryID: string;
@@ -54,6 +55,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
     }, []);
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const handleDelete = () => {
         if (status === 'pending') {
@@ -62,6 +64,7 @@ export const DeliveryCard: React.FC<CardProps> = ({
         if (status === 'on-course') {
             dispatch(updateDelivery({ id: deliveryID, status: 'pending' }));
         }
+        router.refresh();
     };
 
     const deliveryIdFriendly = `#${deliveryID
